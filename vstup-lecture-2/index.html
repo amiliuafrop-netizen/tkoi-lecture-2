@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Лекція №2 — Інформація, повідомлення, сигнал</title>
+<style>
+  :root{
+    --bg:#eef8ff; --paper:#fbfdff; --ice:#e3f3ff; --ice2:#d3ebff;
+    --blue:#5b9bd5; --blue2:#7db7e8; --blue3:#b9ddf8; --deep:#274b6d;
+    --ink:#18364f; --muted:#5e7890; --line:#cfe5f6; --white:#fff;
+    --green:#5fae9d; --violet:#8f86c9; --amber:#d6a85a; --red:#d87d85;
+    --shadow:0 18px 60px rgba(47,103,148,.16); --r:24px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:linear-gradient(145deg,#dff1ff,#f8fcff);font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);overflow:hidden}
+  body:before,body:after{content:"";position:fixed;border-radius:50%;filter:blur(2px);opacity:.55;pointer-events:none}
+  body:before{width:420px;height:420px;background:#cfe9ff;left:-130px;top:-110px}
+  body:after{width:520px;height:520px;background:#e3f4ff;right:-170px;bottom:-210px}
+  .deck{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .slide{
+    position:absolute;width:min(96vw,1600px);aspect-ratio:16/9;max-height:94vh;
+    background:linear-gradient(150deg,#fcfeff 0%,#f3faff 100%);border:1px solid rgba(127,183,232,.35);
+    border-radius:30px;box-shadow:var(--shadow);overflow:hidden;opacity:0;pointer-events:none;transform:translateX(36px) scale(.985);transition:.38s ease;
+  }
+  .slide.active{opacity:1;pointer-events:auto;transform:translateX(0) scale(1)}
+  .slide.prev{transform:translateX(-36px) scale(.985)}
+  .slide:before{content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at 90% 6%,rgba(177,220,250,.42),transparent 26%),
+    radial-gradient(circle at 4% 88%,rgba(205,235,255,.55),transparent 28%);pointer-events:none}
+  .inner{position:relative;z-index:1;padding:54px 64px 48px;height:100%;display:flex;flex-direction:column;gap:22px}
+  .topline{display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.82);border:1px solid var(--line);padding:9px 15px;border-radius:999px;font-size:15px;font-weight:700;color:#4d7da6;box-shadow:0 6px 18px rgba(68,132,183,.08)}
+  .badge .dot{width:9px;height:9px;border-radius:50%;background:var(--blue2);box-shadow:0 0 0 5px rgba(125,183,232,.15)}
+  .slideNo{font-size:15px;color:#7594ad;font-weight:700}
+  h1,h2,h3,p{margin:0}
+  h1{font-size:56px;line-height:1.08;letter-spacing:-1.8px;color:var(--deep)}
+  h2{font-size:40px;line-height:1.1;letter-spacing:-1.1px;color:var(--deep)}
+  h3{font-size:22px;line-height:1.2;color:#315f85}
+  .subtitle{font-size:22px;line-height:1.42;color:var(--muted);max-width:1170px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;min-height:0;flex:1}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;min-height:0;flex:1}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;min-height:0;flex:1}
+  .card{background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 10px 26px rgba(63,124,168,.08);min-width:0}
+  .card.soft{background:linear-gradient(145deg,#fafdff,#eaf7ff)}
+  .card h3{margin-bottom:10px}
+  .term{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:10px;background:#e5f3ff;color:#3a79a9;font-weight:800;font-size:14px;margin-bottom:10px}
+  .term.v{background:#eeecff;color:#7067b2}.term.g{background:#e6f7f2;color:#478c7e}.term.a{background:#fff4df;color:#a97c32}.term.r{background:#fff0f2;color:#b65d66}
+  .card p,.card li{font-size:17px;line-height:1.43;color:#36566f}
+  ul{margin:8px 0 0 22px;padding:0} li{margin:5px 0}
+  .example{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:18px;background:#e8f6ff;border:1px solid #cbe7fa;color:#355c7a;font-size:16px;line-height:1.4}
+  .example b{color:#2d6997}.emoji{font-size:25px;line-height:1}
+  .footer{display:flex;align-items:center;justify-content:space-between;color:#7894aa;font-size:13px;margin-top:auto;padding-top:4px}
+  .footer strong{color:#5386b0}
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;flex:1;min-height:0}
+  .heroArt{height:100%;min-height:420px;border-radius:32px;background:linear-gradient(145deg,#e1f2ff,#f8fcff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 70px rgba(129,192,237,.14)}
+  .heroArt svg{width:92%;height:92%}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-size:14px;color:#4a7597;font-weight:700}
+  .flow{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:center;margin-top:4px}
+  .flowBox{padding:14px 8px;border-radius:16px;border:1px solid var(--line);background:#fff;text-align:center;font-size:14px;font-weight:800;color:#3e6d92;min-height:70px;display:flex;align-items:center;justify-content:center}
+  .arrow{font-size:28px;color:#85b9df;text-align:center;font-weight:300}
+  .iconCircle{width:54px;height:54px;border-radius:16px;background:#e5f4ff;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:14px;border:1px solid #d3eafb}
+  .forms{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;flex:1}.formCard{padding:18px 16px}.formCard p{font-size:15px}.formCard h3{font-size:20px}
+  .waveWrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px}.waveWrap svg{width:100%;height:205px;display:block}
+  .labelRow{display:flex;justify-content:space-between;gap:10px;margin-top:8px;font-size:13px;color:#67869f}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;min-height:0}.compare .card{display:flex;flex-direction:column;gap:12px}
+  .miniGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.mini{padding:14px;border-radius:17px;background:#f9fdff;border:1px solid var(--line)}.mini b{display:block;color:#3d6f96;margin-bottom:5px}.mini span{font-size:14px;color:#5a7488;line-height:1.35}
+  .formula{font-family:Cambria,Georgia,serif;font-size:34px;color:#3478ae;font-weight:700;letter-spacing:.3px;padding:18px 20px;border-radius:18px;background:#e6f4ff;border:1px solid #cbe6f9;text-align:center}
+  .table{display:grid;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}.tr{display:grid;grid-template-columns:1.05fr 1.4fr 1.7fr;border-bottom:1px solid var(--line)}.tr:last-child{border-bottom:0}.tr>div{padding:11px 13px;border-right:1px solid var(--line);font-size:14px;line-height:1.28;color:#405f77}.tr>div:last-child{border-right:0}.tr.head{background:#e7f4ff}.tr.head>div{font-weight:800;color:#386a91}
+  .spectrum{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;flex:1}.specCard{display:flex;flex-direction:column;gap:12px}.specSvg{height:255px;width:100%;background:#fff;border:1px solid var(--line);border-radius:20px;padding:8px}
+  .quality{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;flex:1}.metricGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.metric{padding:15px;border-radius:17px;background:#fff;border:1px solid var(--line)}.metric b{display:block;color:#376c96;margin-bottom:4px;font-size:16px}.metric span{font-size:14px;color:#5b758a;line-height:1.3}
+  .case{background:linear-gradient(145deg,#e5f4ff,#f9fdff);border:1px solid var(--line);border-radius:22px;padding:20px}.case h3{margin-bottom:8px}.case p{font-size:16px;color:#46657d;line-height:1.4}.case svg{width:100%;height:200px;margin-top:10px}
+  .summaryStrip{display:grid;grid-template-columns:repeat(6,1fr);gap:11px}.summaryStrip .s{padding:13px 10px;border:1px solid var(--line);background:#fff;border-radius:15px;text-align:center;color:#4b7393;font-size:13px;font-weight:800}
+  .nav{position:fixed;z-index:20;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.86);border:1px solid rgba(144,190,225,.5);backdrop-filter:blur(10px);padding:8px 10px;border-radius:999px;box-shadow:0 10px 28px rgba(55,106,146,.14)}
+  .nav button{border:0;background:#e4f3ff;color:#3e749f;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}.nav button:hover{background:#d5ebfb}.nav .count{font-weight:800;color:#5a7e99;font-size:13px;min-width:56px;text-align:center}
+  .progress{position:fixed;left:0;bottom:0;height:4px;background:#6aa8d8;z-index:25;transition:.25s}
+  .hint{position:fixed;right:18px;top:14px;z-index:30;color:#7190a7;font-size:12px;background:rgba(255,255,255,.65);padding:6px 9px;border-radius:9px;border:1px solid #d5e8f6}
+  .twoColsText{columns:2;column-gap:24px}.twoColsText li{break-inside:avoid}
+  .tiny{font-size:13px;color:#6e879a}
+
+  /* Інтерактивні навчальні віджети */
+  .interactiveCard{position:relative}
+  .clickBadge{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;background:#edf8ff;border:1px solid #c8e5f8;color:#4d80a7;font-size:12px;font-weight:800;white-space:nowrap}
+  .clickBadge:before{content:"✦";font-size:12px;color:#72add8}
+  .widgetBar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .widgetBtn{border:1px solid #c7e2f5;background:linear-gradient(180deg,#fff,#eaf7ff);color:#3d7098;padding:8px 11px;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(66,126,169,.08);transition:.18s ease}
+  .widgetBtn:hover{transform:translateY(-1px);background:#e1f2ff}.widgetBtn:active{transform:translateY(0)}
+  .widgetBtn.active{background:#cfeaff;border-color:#9fcdeb;color:#245f8d;box-shadow:inset 0 0 0 1px rgba(84,149,197,.08)}
+  .widgetStatus{font-size:12px;color:#66849b;font-weight:700;padding:6px 9px;background:#f8fcff;border:1px dashed #c7dfef;border-radius:10px}
+  .sliderWidget{display:grid;grid-template-columns:auto minmax(95px,1fr) auto;gap:8px;align-items:center;padding:7px 10px;border-radius:12px;background:#f8fcff;border:1px solid #d4e9f7;font-size:12px;color:#55758e;font-weight:700}
+  .sliderWidget input[type=range]{accent-color:#6faedc;width:100%;cursor:pointer}
+  .sliderValue{min-width:42px;text-align:right;color:#2e6f9e;font-weight:900}
+  .interactiveSvg{cursor:crosshair}
+  .animatedDot{filter:drop-shadow(0 2px 3px rgba(57,117,160,.25))}
+  .harmonicBtn{min-width:88px}
+  .spectrumBar{cursor:pointer;transition:.18s ease}.spectrumBar:hover{opacity:.72}
+  .noteBubble{display:none;margin-top:8px;padding:9px 11px;border-radius:12px;background:#f0f9ff;border:1px solid #c9e6f7;color:#4f7088;font-size:12px;line-height:1.35}
+  .noteBubble.show{display:block}
+  @media(max-width:1100px){.inner{padding:38px 42px 38px;gap:16px}h1{font-size:45px}h2{font-size:34px}.card p,.card li{font-size:15px}.subtitle{font-size:19px}.flowBox{font-size:12px}.forms{grid-template-columns:repeat(5,1fr)} }
+  @media print{
+    html,body{overflow:visible;background:#fff}.deck{display:block;padding:0;height:auto}.slide{position:relative;opacity:1!important;transform:none!important;pointer-events:auto;width:100vw;height:56.25vw;max-height:none;border-radius:0;box-shadow:none;page-break-after:always}.slide:not(.active){display:block}.nav,.progress,.hint{display:none}.inner{padding:48px 60px}
+  }
+</style>
+</head>
+<body>
+<div class="hint">← → / Space — навігація · F — повний екран</div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Вступ до спеціальності · Лекція №2</div><div class="slideNo">01</div></div>
+    <div class="hero">
+      <div>
+        <div class="term">Тема 1.2</div>
+        <h1>Інформація, повідомлення, сигнал</h1>
+        <p class="subtitle" style="margin-top:18px">Основні поняття, класифікація інформації та сигналів електрозв’язку, параметри сигналу та їхній вплив на якість передавання.</p>
+        <div class="chips">
+          <span class="chip">інформація → сигнал</span><span class="chip">аналогове / цифрове</span><span class="chip">амплітуда · f · φ · T</span><span class="chip">спектр і смуга</span><span class="chip">SNR · BER · якість</span>
+        </div>
+        <div class="example" style="margin-top:24px"><span class="emoji">🎯</span><div><b>Мета лекції:</b> зрозуміти, як голос, текст, фото або відео перетворюються на фізичний сигнал, проходять канал зв’язку та відновлюються на приймальній стороні.</div></div>
+      </div>
+      <div class="heroArt">
+        <svg viewBox="0 0 720 520" aria-label="Ілюстрація системи зв’язку">
+          <defs><linearGradient id="g1" x1="0" x2="1"><stop stop-color="#b9ddf8"/><stop offset="1" stop-color="#eaf7ff"/></linearGradient></defs>
+          <rect x="35" y="70" rx="34" ry="34" width="210" height="365" fill="#ffffff" stroke="#b7d9f2" stroke-width="5"/>
+          <rect x="62" y="112" rx="18" width="156" height="235" fill="url(#g1)"/>
+          <circle cx="140" cy="388" r="18" fill="#d8ecfb"/>
+          <path d="M95 250 C118 195,145 300,169 228 S212 240,212 240" fill="none" stroke="#4d91c8" stroke-width="9" stroke-linecap="round"/>
+          <g transform="translate(365 80)">
+            <path d="M72 305 L134 92 L196 305" fill="none" stroke="#4f88b3" stroke-width="12" stroke-linecap="round"/>
+            <path d="M100 205 H169 M91 238 H179 M82 270 H188" stroke="#7eb6df" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="134" cy="82" r="16" fill="#5b9bd5"/>
+            <path d="M134 82 C204 73 250 113 270 166" fill="none" stroke="#7fb9e3" stroke-width="10" stroke-linecap="round"/>
+            <path d="M134 82 C225 52 302 115 326 194" fill="none" stroke="#b2d8f4" stroke-width="10" stroke-linecap="round"/>
+          </g>
+          <g transform="translate(498 310)">
+            <path d="M25 72 C22 33 60 9 96 24 C110 -8 168 -7 181 28 C216 20 241 44 237 76 C266 78 284 99 278 126 H12 C0 99 6 80 25 72Z" fill="#fff" stroke="#b8d9f2" stroke-width="5"/>
+            <path d="M68 102 H218" stroke="#76afd9" stroke-width="7" stroke-linecap="round" stroke-dasharray="16 16"/>
+          </g>
+          <path d="M252 226 C302 212 319 179 344 142" fill="none" stroke="#8dbfe4" stroke-width="8" stroke-linecap="round" stroke-dasharray="10 14"/>
+          <circle cx="286" cy="212" r="8" fill="#5b9bd5"/><circle cx="315" cy="185" r="8" fill="#5b9bd5"/>
+          <text x="40" y="482" font-size="22" fill="#66839a" font-family="Arial">дані → сигнал → канал → приймання</text>
+        </svg>
+      </div>
+    </div>
+    <div class="footer"><span>Предмет: <strong>Вступ до спеціальності</strong></span><span>Інформація · повідомлення · сигнал</span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Базові поняття</div><div class="slideNo">02</div></div>
+    <h2>Інформація, повідомлення, сигнал: що є чим?</h2>
+    <p class="subtitle">У системі електрозв’язку це три різні рівні: <b>смисл</b> → <b>форма подання</b> → <b>фізичний процес</b>, який реально проходить канал.</p>
+    <div class="grid3">
+      <div class="card soft"><div class="iconCircle">💡</div><div class="term">ІНФОРМАЦІЯ</div><h3>Зміст або відомості</h3><p>Те, що зменшує невизначеність для людини чи технічної системи. Інформація не є «хвилею» чи «дротом» — це <b>смисл</b>, який треба представити та передати.</p><div class="example" style="margin-top:14px"><span class="emoji">📍</span><div><b>Приклад:</b> «зустрічаємось о 15:00» — сама домовленість є інформацією.</div></div></div>
+      <div class="card soft"><div class="iconCircle">💬</div><div class="term v">ПОВІДОМЛЕННЯ</div><h3>Матеріалізована форма</h3><p>Текст, звук, фото, команда, файл, пакет даних — конкретне представлення інформації, яке можна закодувати, зберегти та передати.</p><div class="example" style="margin-top:14px"><span class="emoji">📱</span><div><b>Приклад:</b> SMS «Буду о 15:00» або голосове повідомлення з тим самим змістом.</div></div></div>
+      <div class="card soft"><div class="iconCircle">〰️</div><div class="term g">СИГНАЛ</div><h3>Фізичний носій повідомлення</h3><p>Змінна напруга/струм, світлові імпульси у волокні, радіохвиля в ефірі. Один або кілька параметрів сигналу змінюються відповідно до повідомлення.</p><div class="example" style="margin-top:14px"><span class="emoji">📡</span><div><b>Приклад:</b> біти месенджера перетворюються на модульовану радіохвилю Wi‑Fi/4G/5G.</div></div></div>
+    </div>
+    <div class="flow">
+      <div class="flowBox">Ідея / дані</div><div class="arrow">→</div><div class="flowBox">Повідомлення</div><div class="arrow">→</div><div class="flowBox">Кодування</div><div class="arrow">→</div><div class="flowBox">Сигнал</div>
+    </div>
+    <div class="footer"><span><strong>Запам’ятати:</strong> одна інформація може мати різні повідомлення, а одне повідомлення — передаватися різними фізичними сигналами.</span><span>02 / 10</span></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Форми подання інформації</div><div class="slideNo">03</div></div>
+    <h2>Текст, числа, графіка, звук і відео</h2>
+    <p class="subtitle">У цифровій системі всі ці форми зрештою стають <b>послідовностями бітів</b>, але перед перетворенням мають різні природні параметри.</p>
+    <div class="forms">
+      <div class="card formCard"><div class="iconCircle">Aa</div><h3>Текстова</h3><p><b>Кодується:</b> символи, пробіли, службові знаки.</p><p><b>Типові параметри:</b> Unicode/UTF‑8, кількість байтів.</p><div class="example" style="margin-top:12px"><div><b>Життя:</b> SMS, e‑mail, чат.</div></div></div>
+      <div class="card formCard"><div class="iconCircle">123</div><h3>Числова</h3><p><b>Кодується:</b> числа, вимірювання, координати.</p><p><b>Параметри:</b> точність, розрядність, формат.</p><div class="example" style="margin-top:12px"><div><b>Життя:</b> GPS, датчик температури.</div></div></div>
+      <div class="card formCard"><div class="iconCircle">🖼️</div><h3>Графічна</h3><p><b>Кодується:</b> пікселі або векторні об’єкти.</p><p><b>Параметри:</b> роздільність, глибина кольору, формат.</p><div class="example" style="margin-top:12px"><div><b>Життя:</b> фото, QR‑код, карта.</div></div></div>
+      <div class="card formCard"><div class="iconCircle">🎙️</div><h3>Звукова</h3><p><b>Природа:</b> зміна звукового тиску у часі.</p><p><b>Параметри:</b> частота дискретизації, бітність, бітрейт.</p><div class="example" style="margin-top:12px"><div><b>Життя:</b> дзвінок, музика, подкаст.</div></div></div>
+      <div class="card formCard"><div class="iconCircle">🎥</div><h3>Відео</h3><p><b>Кодується:</b> кадри + звук.</p><p><b>Параметри:</b> fps, роздільність, кодек, бітрейт.</p><div class="example" style="margin-top:12px"><div><b>Життя:</b> стрім, відеодзвінок.</div></div></div>
+    </div>
+    <div class="case" style="padding:15px 20px">
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center"><p><b>Що відбувається з фото у смартфоні?</b> Матриця камери вимірює світло → процесор формує мільйони числових значень пікселів → файл стискається → біти упаковуються у пакети → мережевий інтерфейс перетворює їх на електричні, оптичні або радіосигнали.</p><div class="summaryStrip"><div class="s">світло</div><div class="s">пікселі</div><div class="s">файл</div><div class="s">біти</div><div class="s">пакети</div><div class="s">сигнал</div></div></div>
+    </div>
+    <div class="footer"><span>Різні типи контенту → різні вимоги до швидкості, смуги частот, затримки та захисту від помилок.</span><span>03 / 10</span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide" id="slide4">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Класифікація сигналів</div><div style="display:flex;align-items:center;gap:10px"><span class="clickBadge">інтерактивний слайд</span><div class="slideNo">04</div></div></div>
+    <h2>Аналоговий і цифровий сигнал — наочно</h2>
+    <div class="compare">
+      <div class="card interactiveCard">
+        <div><span class="term">АНАЛОГОВИЙ</span><h3>Плавна, безперервна зміна рівня</h3></div>
+        <div class="waveWrap">
+          <svg class="interactiveSvg" id="analogSvg4" viewBox="0 0 600 220" aria-label="Анімований аналоговий сигнал">
+            <g stroke="#d9eaf7" stroke-width="1"><path d="M40 20V190M120 20V190M200 20V190M280 20V190M360 20V190M440 20V190M520 20V190"/><path d="M30 50H570M30 110H570M30 170H570"/></g>
+            <path id="analogWave4" fill="none" stroke="#5b9bd5" stroke-width="7" stroke-linecap="round"/>
+            <circle id="analogDot4" class="animatedDot" cx="570" cy="110" r="8" fill="#fff" stroke="#5b9bd5" stroke-width="5"/>
+            <text id="analogValue4" x="390" y="34" fill="#4d7da6" font-size="14" font-weight="700">A(t)=0.00</text>
+            <text x="35" y="210" fill="#6b879d" font-size="15">час t →</text><text x="8" y="28" fill="#6b879d" font-size="15">A</text>
+          </svg>
+        </div>
+        <div class="widgetBar">
+          <button class="widgetBtn active" id="play4" type="button">⏸ Пауза</button>
+          <button class="widgetBtn" id="speed4" type="button">⚡ Швидкість ×1</button>
+          <button class="widgetBtn" id="noise4" type="button">🌫 Додати шум</button>
+          <span class="widgetStatus" id="status4">сигнал змінюється неперервно</span>
+        </div>
+        <ul><li>може набувати будь‑якого значення у певному діапазоні;</li><li>природно описує звук, температуру, освітленість;</li><li>шум безпосередньо змінює форму сигналу.</li></ul>
+        <div class="example"><span class="emoji">🎤</span><div><b>Приклад:</b> напруга на виході аналогового мікрофона повторює зміни звукового тиску.</div></div>
+      </div>
+      <div class="card interactiveCard">
+        <div><span class="term g">ЦИФРОВИЙ</span><h3>Обмежений набір рівнів / символів</h3></div>
+        <div class="waveWrap">
+          <svg class="interactiveSvg" id="digitalSvg4" viewBox="0 0 600 220" aria-label="Анімований цифровий сигнал">
+            <g stroke="#d9eaf7" stroke-width="1"><path d="M40 20V190M120 20V190M200 20V190M280 20V190M360 20V190M440 20V190M520 20V190"/><path d="M30 50H570M30 110H570M30 170H570"/></g>
+            <path id="digitalWave4" fill="none" stroke="#5fae9d" stroke-width="7" stroke-linejoin="round"/>
+            <circle id="digitalDot4" class="animatedDot" cx="570" cy="160" r="8" fill="#fff" stroke="#5fae9d" stroke-width="5"/>
+            <text x="57" y="50" fill="#488c7e" font-size="16">1</text><text x="57" y="184" fill="#488c7e" font-size="16">0</text>
+            <text id="bitValue4" x="412" y="34" fill="#478c7e" font-size="14" font-weight="700">поточний біт: 1</text>
+            <text x="35" y="210" fill="#6b879d" font-size="15">час t →</text>
+          </svg>
+        </div>
+        <div class="widgetBar">
+          <button class="widgetBtn" id="regenerate4" type="button">↻ Нова послідовність</button>
+          <button class="widgetBtn" id="explain4" type="button">💡 Що відбувається?</button>
+        </div>
+        <div class="noteBubble" id="note4"><b>Дивіться на рівні:</b> цифровий сигнал не проходить через усі проміжні значення — він перемикається між дозволеними станами. Біти можуть змінюватися, але рівні залишаються дискретними.</div>
+        <ul><li>інформація подається дискретними станами: 0/1 або символами модуляції;</li><li>можна застосовувати коди виявлення й виправлення помилок;</li><li>сигнал можна регенерувати, якщо приймач правильно розпізнав рівень.</li></ul>
+        <div class="example"><span class="emoji">📶</span><div><b>Приклад:</b> у Wi‑Fi біти перетворюються на цифрові символи, що модулюють радіонесучу.</div></div>
+      </div>
+    </div>
+    <div class="footer"><span><strong>Спробуйте:</strong> увімкніть шум і порівняйте, як він спотворює аналогову форму та як цифровий приймач усе одно орієнтується на рівні 0/1.</span><span>04 / 10</span></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" id="slide5">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Дискретність і випадковість</div><div style="display:flex;align-items:center;gap:10px"><span class="clickBadge">керуйте параметрами</span><div class="slideNo">05</div></div></div>
+    <h2>Неперервні, дискретні, детерміновані та випадкові сигнали</h2>
+    <div class="grid2">
+      <div class="card soft interactiveCard">
+        <h3>1. Дискретизація та квантування</h3>
+        <div class="miniGrid" style="margin-top:10px">
+          <div class="mini"><b>Неперервний</b><span>x(t) існує для кожного моменту часу.</span></div>
+          <div class="mini"><b>Дискретний</b><span>x[n] — окремі відліки через Δt.</span></div>
+          <div class="mini"><b>Квантований</b><span>Відліки округлюються до дозволених рівнів.</span></div>
+        </div>
+        <div class="waveWrap" style="margin-top:10px">
+          <svg class="interactiveSvg" id="sampleSvg5" viewBox="0 0 620 190" aria-label="Анімація дискретизації сигналу">
+            <g id="quantLines5" stroke="#e5edf4" stroke-width="1" stroke-dasharray="4 5"></g>
+            <path id="continuous5" fill="none" stroke="#5b9bd5" stroke-width="5"/>
+            <g id="stems5" stroke="#b6afd9" stroke-width="2"></g>
+            <g id="samples5"></g>
+            <g id="quant5dots"></g>
+            <text x="35" y="181" fill="#607d94" font-size="14">синя крива — x(t) · фіолетові точки — x[n] · квадрати — квантування</text>
+          </svg>
+        </div>
+        <div class="sliderWidget"><span>Частота дискретизації</span><input id="sampleRate5" type="range" min="6" max="24" step="2" value="12"><span class="sliderValue" id="sampleRateValue5">12</span></div>
+        <div class="widgetBar">
+          <button class="widgetBtn active" id="quantToggle5" type="button">▦ Квантування: ON</button>
+          <button class="widgetBtn" id="samplePlay5" type="button">⏸ Зупинити рух</button>
+          <span class="widgetStatus" id="sampleHint5">більше відліків → точніше відтворення</span>
+        </div>
+        <div class="example"><span class="emoji">🎧</span><div><b>АЦП у смартфоні:</b> дискретизація → квантування → двійкове кодування.</div></div>
+      </div>
+      <div class="card soft interactiveCard">
+        <h3>2. Детермінований сигнал і випадковий шум</h3>
+        <div class="miniGrid" style="grid-template-columns:1fr 1fr;margin-top:10px">
+          <div class="mini"><b>Детермінований</b><span>Форма задається законом — її можна передбачити.</span></div>
+          <div class="mini"><b>Випадковий</b><span>Точне значення наперед невідоме; описують статистично.</span></div>
+        </div>
+        <div class="waveWrap" style="margin-top:10px">
+          <svg class="interactiveSvg" id="noiseSvg5" viewBox="0 0 620 190" aria-label="Анімація корисного сигналу та шуму">
+            <path id="clean5" fill="none" stroke="#5b9bd5" stroke-width="4" opacity=".65"/>
+            <path id="noisy5" fill="none" stroke="#d87d85" stroke-width="4"/>
+            <text x="35" y="181" fill="#607d94" font-size="14">синій — корисний сигнал · рожевий — сигнал + випадкова завада</text>
+          </svg>
+        </div>
+        <div class="sliderWidget"><span>Рівень шуму</span><input id="noiseLevel5" type="range" min="0" max="100" step="5" value="35"><span class="sliderValue" id="noiseValue5">35%</span></div>
+        <div class="widgetBar">
+          <button class="widgetBtn" id="noisePreset5" type="button">📡 Імітувати поганий канал</button>
+          <button class="widgetBtn" id="cleanPreset5" type="button">✨ Очистити канал</button>
+          <span class="widgetStatus" id="snrHint5">SNR: умовно середній</span>
+        </div>
+        <div class="example"><span class="emoji">📡</span><div><b>У реальній мережі:</b> корисний сигнал приходить разом із шумом, перешкодами та спотвореннями каналу.</div></div>
+      </div>
+    </div>
+    <div class="footer"><span><strong>Експеримент:</strong> зменште кількість відліків і збільште шум — побачите, чому цифрова обробка потребує достатньої частоти дискретизації та доброго SNR.</span><span>05 / 10</span></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Параметри сигналу</div><div class="slideNo">06</div></div>
+    <h2>Амплітуда, частота, період, фаза й тривалість</h2>
+    <div class="grid2" style="grid-template-columns:1.08fr .92fr">
+      <div class="card soft">
+        <div class="waveWrap"><svg viewBox="0 0 690 330">
+          <g stroke="#dcecf8" stroke-width="1"><path d="M55 35V280M155 35V280M255 35V280M355 35V280M455 35V280M555 35V280M655 35V280"/><path d="M35 90H665M35 160H665M35 230H665"/></g>
+          <path d="M45 160 C95 50 145 50 195 160 S295 270 345 160 S445 50 495 160 S595 270 655 160" fill="none" stroke="#5b9bd5" stroke-width="7" stroke-linecap="round"/>
+          <path d="M90 160 V70" stroke="#8f86c9" stroke-width="3" marker-end="url(#a)"/><text x="60" y="62" fill="#7168aa" font-size="17" font-weight="700">A</text>
+          <path d="M195 292 H345" stroke="#5fae9d" stroke-width="3"/><path d="M195 284V300M345 284V300" stroke="#5fae9d" stroke-width="3"/><text x="255" y="318" fill="#4f8f81" font-size="17" font-weight="700">T</text>
+          <path d="M45 160 H665" stroke="#9eb8ca" stroke-width="2"/>
+          <text x="560" y="44" fill="#708da4" font-size="16">s(t)=A·sin(2πft+φ)</text>
+          <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,8 L4,0 L8,8" fill="#8f86c9"/></marker></defs>
+        </svg></div>
+        <div class="formula">s(t) = A · sin(2πft + φ)</div>
+        <div class="example" style="margin-top:12px"><span class="emoji">🎼</span><div><b>Аудіоприклад:</b> більша амплітуда сприймається як вищий рівень сигналу; більша частота — як вищий тон.</div></div>
+      </div>
+      <div class="card">
+        <div class="miniGrid" style="grid-template-columns:1fr 1fr">
+          <div class="mini"><b>Амплітуда A</b><span>Максимальне відхилення. Пов’язана з рівнем, дальністю приймання і стійкістю до шуму.</span></div>
+          <div class="mini"><b>Частота f</b><span>Кількість циклів за секунду; одиниця — герц. f = 1/T.</span></div>
+          <div class="mini"><b>Період T</b><span>Час одного циклу. Чим більша частота, тим коротший період.</span></div>
+          <div class="mini"><b>Фаза φ</b><span>Початковий зсув коливання. Важлива для PSK/QAM, синхронізації та антенних систем.</span></div>
+          <div class="mini"><b>Тривалість τ</b><span>Час існування імпульсу/пакета. Впливає на швидкість і часову роздільну здатність.</span></div>
+          <div class="mini"><b>Форма</b><span>Синус, імпульс, прямокутник, складна форма — визначає спектральний склад.</span></div>
+        </div>
+        <div class="example" style="margin-top:14px"><span class="emoji">📲</span><div><b>У мобільному зв’язку</b> приймач оцінює не лише рівень сигналу, а й фазу та частоту, щоб правильно відновити цифрові символи.</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>Часова область показує, <strong>як сигнал змінюється у часі</strong>.</span><span>06 / 10</span></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Енергія та потужність</div><div class="slideNo">07</div></div>
+    <h2>Енергія, потужність і рівень сигналу</h2>
+    <div class="grid2" style="grid-template-columns:.9fr 1.1fr">
+      <div class="card soft">
+        <div class="term">ЕНЕРГІЯ E</div><h3>Скільки «сигнальної дії» накопичено</h3>
+        <p>У нормованому поданні теорії сигналів: <b>E = ∫ |s(t)|² dt</b>. Для електричної напруги на опорі R фізична енергія пропорційна <b>∫u²(t)/R dt</b>.</p>
+        <div class="formula" style="font-size:27px;margin:18px 0">E = ∫ |s(t)|² dt</div>
+        <div class="term g">ПОТУЖНІСТЬ P</div><h3>Енергія за одиницю часу</h3>
+        <p>Середня потужність характеризує, наскільки «сильним» є тривалий сигнал: <b>P = E/τ</b> для інтервалу τ або середнє значення |s(t)|².</p>
+        <div class="example" style="margin-top:14px"><span class="emoji">🔋</span><div><b>Приклад:</b> короткий радарний імпульс може мати велику пікову потужність, але невелику середню.</div></div>
+      </div>
+      <div class="card">
+        <h3>Рівень сигналу в децибелах</h3>
+        <p>Децибел — логарифмічна міра відношення. Зручна, бо підсилення та втрати каскадів у dB <b>додаються</b>.</p>
+        <div class="formula" style="font-size:26px;margin:16px 0">L<sub>P</sub> = 10·log₁₀(P₂/P₁)</div>
+        <div class="formula" style="font-size:25px;margin:0 0 16px">L<sub>U</sub> = 20·log₁₀(U₂/U₁) <span style="font-size:15px;color:#6f8799">(за однакового опору)</span></div>
+        <div class="table">
+          <div class="tr head"><div>Величина</div><div>Що показує</div><div>Де зустрічається</div></div>
+          <div class="tr"><div>dBm</div><div>абсолютний рівень відносно 1 мВт</div><div>потужність передавачів, прийнятий рівень у радіомережах</div></div>
+          <div class="tr"><div>dB</div><div>відношення двох рівнів</div><div>підсилення антени/підсилювача, втрати кабелю</div></div>
+          <div class="tr"><div>RSSI / RSRP</div><div>оцінка прийнятого радіосигналу</div><div>Wi‑Fi, LTE/5G — індикатори покриття</div></div>
+        </div>
+        <div class="example" style="margin-top:14px"><span class="emoji">📶</span><div><b>Чому «палички» не все?</b> Сильний рівень не гарантує високої швидкості, якщо SNR низьке через шум чи інтерференцію.</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>Потужність визначає енергетичний запас зв’язку, але якість залежить також від шуму, смуги та спотворень.</span><span>07 / 10</span></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide" id="slide8">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Частотна область</div><div style="display:flex;align-items:center;gap:10px"><span class="clickBadge">оберіть гармоніки</span><div class="slideNo">08</div></div></div>
+    <h2>Спектральне представлення та смуга частот</h2>
+    <p class="subtitle">Складний сигнал можна розглядати як суму гармонік різних частот. <b>Спектр</b> показує, які частоти присутні та наскільки сильно.</p>
+    <div class="spectrum">
+      <div class="card specCard interactiveCard">
+        <h3>Часова область: сума вибраних гармонік</h3>
+        <svg class="specSvg interactiveSvg" id="timeSvg8" viewBox="0 0 650 250" aria-label="Анімований сигнал у часовій області">
+          <g stroke="#dcecf8" stroke-width="1"><path d="M40 45H620M40 125H620M40 205H620"/><path d="M90 20V225M180 20V225M270 20V225M360 20V225M450 20V225M540 20V225"/></g>
+          <path id="timeWave8" fill="none" stroke="#5b9bd5" stroke-width="6" stroke-linecap="round"/>
+          <circle id="timeDot8" class="animatedDot" cx="610" cy="125" r="7" fill="#fff" stroke="#5b9bd5" stroke-width="4"/>
+          <text x="45" y="240" fill="#68859b" font-size="15">час t →</text>
+        </svg>
+        <div class="widgetBar">
+          <button class="widgetBtn harmonicBtn" data-harmonics="1" type="button">1 гармоніка</button>
+          <button class="widgetBtn harmonicBtn active" data-harmonics="3" type="button">3 гармоніки</button>
+          <button class="widgetBtn harmonicBtn" data-harmonics="5" type="button">5 гармонік</button>
+          <button class="widgetBtn" id="play8" type="button">⏸ Пауза</button>
+        </div>
+        <div class="example"><div><b>Натискайте 1 / 3 / 5:</b> що більше гармонік додаємо, то складнішою стає форма сигналу у часі.</div></div>
+      </div>
+      <div class="card specCard interactiveCard">
+        <h3>Частотна область: ті самі складові</h3>
+        <svg class="specSvg interactiveSvg" id="specSvg8" viewBox="0 0 650 250" aria-label="Інтерактивний спектр сигналу">
+          <g stroke="#dcecf8" stroke-width="1"><path d="M45 45H615M45 105H615M45 165H615M45 225H615"/></g>
+          <g id="bars8">
+            <line class="spectrumBar" data-h="1" x1="115" y1="220" x2="115" y2="55" stroke="#7db7e8" stroke-width="28" stroke-linecap="round"/>
+            <line class="spectrumBar" data-h="2" x1="215" y1="220" x2="215" y2="105" stroke="#8f86c9" stroke-width="28" stroke-linecap="round"/>
+            <line class="spectrumBar" data-h="3" x1="315" y1="220" x2="315" y2="135" stroke="#5fae9d" stroke-width="28" stroke-linecap="round"/>
+            <line class="spectrumBar" data-h="4" x1="415" y1="220" x2="415" y2="160" stroke="#d6a85a" stroke-width="28" stroke-linecap="round"/>
+            <line class="spectrumBar" data-h="5" x1="515" y1="220" x2="515" y2="175" stroke="#d87d85" stroke-width="28" stroke-linecap="round"/>
+          </g>
+          <g fill="#68859b" font-size="13" text-anchor="middle"><text x="115" y="244">f₁</text><text x="215" y="244">2f₁</text><text x="315" y="244">3f₁</text><text x="415" y="244">4f₁</text><text x="515" y="244">5f₁</text></g>
+          <text x="48" y="20" fill="#68859b" font-size="15">амплітуда</text>
+        </svg>
+        <div class="widgetBar"><span class="widgetStatus" id="band8">Активна смуга: від f₁ до 3f₁</span><button class="widgetBtn" id="explain8" type="button">💡 Чому спектр важливий?</button></div>
+        <div class="noteBubble" id="note8"><b>Смуга частот визначає ресурс каналу.</b> Якщо канал не пропускає частину потрібних гармонік, форма сигналу спотворюється. Саме тому фільтри, модуляція та ширина каналу критичні для зв’язку.</div>
+        <div class="example"><div><b>Частотна область відповідає:</b> «з яких частот складається сигнал і яку смугу він займає?»</div></div>
+      </div>
+    </div>
+    <div class="grid3" style="flex:0 0 auto">
+      <div class="card" style="padding:14px"><h3>Смуга B</h3><p>Інтервал частот, необхідний для передавання сигналу з допустимими спотвореннями.</p></div>
+      <div class="card" style="padding:14px"><h3>Фільтрація</h3><p>Пропускає потрібні частоти й пригнічує шум, сусідні канали та позасмугові складові.</p></div>
+      <div class="card" style="padding:14px"><h3>Модуляція</h3><p>Переносить інформацію у виділену смугу на несучій частоті — радіо, Wi‑Fi, LTE/5G.</p></div>
+    </div>
+    <div class="footer"><span><strong>Клікніть на стовпчики спектра:</strong> можна окремо вмикати та вимикати гармоніки й одразу бачити, як змінюється часова форма.</span><span>08 / 10</span></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Якість електрозв’язку</div><div class="slideNo">09</div></div>
+    <h2>Чому параметри сигналу визначають якість зв’язку</h2>
+    <div class="quality">
+      <div class="card">
+        <h3>Ключові метрики на приймальній стороні</h3>
+        <div class="metricGrid" style="margin-top:14px">
+          <div class="metric"><b>SNR — Signal-to-Noise Ratio</b><span>Відношення потужності корисного сигналу до шуму. Вище SNR → надійніше розпізнавання символів.</span></div>
+          <div class="metric"><b>BER — Bit Error Rate</b><span>Частка помилкових бітів. Для цифрової мережі одна з головних оцінок якості каналу.</span></div>
+          <div class="metric"><b>Загасання</b><span>Зменшення амплітуди/потужності під час поширення через кабель, повітря, волокно, стіни.</span></div>
+          <div class="metric"><b>Спотворення</b><span>Зміна форми, фази або спектра сигналу каналом; може спричиняти міжсимвольну інтерференцію.</span></div>
+          <div class="metric"><b>Затримка</b><span>Час проходження та обробки. Критично для голосу, відеоконференцій, керування в реальному часі.</span></div>
+          <div class="metric"><b>Джитер</b><span>Коливання затримки пакетів. При великому джитері голос/відео стають «рваними».</span></div>
+        </div>
+        <div class="example" style="margin-top:14px"><span class="emoji">📞</span><div><b>Відеодзвінок:</b> сильний сигнал + низький SNR може давати «квадрати» та втрати кадрів; хороший SNR, але висока затримка — незручну розмову з паузами.</div></div>
+      </div>
+      <div class="case">
+        <h3>Ланцюжок «від абонента до абонента»</h3>
+        <svg viewBox="0 0 560 240">
+          <g font-family="Arial" font-size="13" text-anchor="middle" fill="#4b6d87">
+            <rect x="20" y="80" width="90" height="70" rx="18" fill="#fff" stroke="#bfdcf1" stroke-width="3"/><text x="65" y="108">мікрофон</text><text x="65" y="130">камера</text>
+            <rect x="145" y="80" width="90" height="70" rx="18" fill="#fff" stroke="#bfdcf1" stroke-width="3"/><text x="190" y="108">кодер</text><text x="190" y="130">модем</text>
+            <rect x="270" y="80" width="90" height="70" rx="18" fill="#fff" stroke="#bfdcf1" stroke-width="3"/><text x="315" y="108">канал</text><text x="315" y="130">зв’язку</text>
+            <rect x="395" y="80" width="90" height="70" rx="18" fill="#fff" stroke="#bfdcf1" stroke-width="3"/><text x="440" y="108">декодер</text><text x="440" y="130">приймач</text>
+            <path d="M112 115H142M237 115H267M362 115H392" stroke="#7eb5dc" stroke-width="5" marker-end="url(#arr)"/>
+            <path d="M300 55 C320 25 345 28 365 55" fill="none" stroke="#d87d85" stroke-width="4" stroke-dasharray="8 8"/><text x="335" y="24" fill="#b55f68">шум / завади</text>
+          </g>
+          <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#7eb5dc"/></marker></defs>
+        </svg>
+        <p><b>Передавання:</b> достатня амплітуда й коректна смуга забезпечують проходження сигналу каналом.</p>
+        <p style="margin-top:8px"><b>Приймання:</b> синхронізація по частоті та фазі потрібна для правильного детектування.</p>
+        <p style="margin-top:8px"><b>Оцінювання якості:</b> SNR, BER, затримка та джитер показують, наскільки точно і швидко відновлено повідомлення.</p>
+      </div>
+    </div>
+    <div class="footer"><span>Мета системи зв’язку — не просто «доставити хвилю», а <strong>відновити повідомлення з допустимою помилкою та затримкою</strong>.</span><span>09 / 10</span></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="inner">
+    <div class="topline"><div class="badge"><span class="dot"></span>Підсумок лекції</div><div class="slideNo">10</div></div>
+    <h2>Від інформації до якісного зв’язку — вся логіка теми</h2>
+    <div class="grid2" style="grid-template-columns:1.05fr .95fr">
+      <div class="card soft">
+        <h3>Коротка карта понять</h3>
+        <div class="summaryStrip" style="margin-top:16px;grid-template-columns:repeat(3,1fr)">
+          <div class="s">Інформація<br><span class="tiny">смисл</span></div><div class="s">Повідомлення<br><span class="tiny">форма</span></div><div class="s">Сигнал<br><span class="tiny">фізичний носій</span></div>
+          <div class="s">Часові параметри<br><span class="tiny">A, f, T, φ, τ</span></div><div class="s">Енергетика<br><span class="tiny">E, P, dB</span></div><div class="s">Спектр<br><span class="tiny">частоти, B</span></div>
+        </div>
+        <div class="flow" style="grid-template-columns:1fr auto 1fr auto 1fr;margin-top:18px">
+          <div class="flowBox">Джерело інформації</div><div class="arrow">→</div><div class="flowBox">Перетворення + канал</div><div class="arrow">→</div><div class="flowBox">Приймач + відновлення</div>
+        </div>
+        <div class="example" style="margin-top:16px"><span class="emoji">🌐</span><div><b>Головна ідея:</b> параметри сигналу — це «мова», якою інженер описує, чи зможе система передати інформацію потрібної якості, дальності та швидкості.</div></div>
+      </div>
+      <div class="card">
+        <h3>Контрольні питання</h3>
+        <ul class="twoColsText">
+          <li>Чим інформація відрізняється від повідомлення і сигналу?</li>
+          <li>Які форми подання інформації ви знаєте?</li>
+          <li>Чим аналоговий сигнал відрізняється від цифрового?</li>
+          <li>Що таке дискретизація та квантування?</li>
+          <li>Чим детермінований сигнал відрізняється від випадкового?</li>
+          <li>Що фізично характеризують A, f, T, φ та τ?</li>
+          <li>Що таке енергія та середня потужність сигналу?</li>
+          <li>Навіщо використовують децибели?</li>
+          <li>Що показує спектр сигналу?</li>
+          <li>Що таке смуга частот B?</li>
+          <li>Чому високий рівень сигналу не завжди означає високу якість?</li>
+          <li>Що показують SNR і BER?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer"><span><strong>Лекція №2 · Тема 1.2</strong> — Інформація, повідомлення, сигнал</span><span>10 / 10</span></div>
+  </div>
+</section>
+
+</div>
+<div class="nav"><button id="prev" aria-label="Попередній слайд">‹</button><span class="count" id="count">1 / 10</span><button id="next" aria-label="Наступний слайд">›</button></div>
+<div class="progress" id="progress"></div>
+<script>
+(() => {
+  const slides=[...document.querySelectorAll('.slide')], count=document.getElementById('count'), prog=document.getElementById('progress');
+  let i=0;
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>{s.classList.toggle('active',k===i);s.classList.toggle('prev',k<i)});
+    count.textContent=`${i+1} / ${slides.length}`;prog.style.width=`${((i+1)/slides.length)*100}%`;
+    history.replaceState(null,'',`#${i+1}`);
+  }
+  document.getElementById('next').onclick=()=>show(i+1); document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(e.target.closest('button,input,select,textarea')) return;
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+    if(e.key.toLowerCase()==='f'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+  });
+  let sx=0;document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});document.addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx;if(dx<-60)show(i+1);if(dx>60)show(i-1)},{passive:true});
+
+  // ---------- Слайд 4: аналоговий та цифровий сигнал ----------
+  const s4={running:true,speed:1,noise:false,phase:0,bits:[1,0,1,1,0,1,0,0,1,1,0,1]};
+  const aw4=document.getElementById('analogWave4'), ad4=document.getElementById('analogDot4'), av4=document.getElementById('analogValue4');
+  const dw4=document.getElementById('digitalWave4'), dd4=document.getElementById('digitalDot4'), bv4=document.getElementById('bitValue4');
+  const play4=document.getElementById('play4'), speed4=document.getElementById('speed4'), noise4=document.getElementById('noise4');
+  function analogY4(x){
+    const base=110-69*Math.sin((x/105)+s4.phase);
+    const noise=s4.noise ? 9*Math.sin(x*.31+s4.phase*3.7)+5*Math.sin(x*.77+s4.phase*1.6) : 0;
+    return Math.max(28,Math.min(188,base+noise));
+  }
+  function draw4(){
+    if(!aw4||!dw4) return;
+    let pts=[]; for(let x=30;x<=570;x+=5) pts.push(`${x===30?'M':'L'}${x.toFixed(1)} ${analogY4(x).toFixed(1)}`); aw4.setAttribute('d',pts.join(' '));
+    const ay=analogY4(570); ad4.setAttribute('cy',ay); av4.textContent=`A(t)=${((110-ay)/70).toFixed(2)}`;
+    const seg=65, off=(s4.phase*24)%(seg*s4.bits.length); let d='', lastY=null, currentBit=0;
+    for(let x=30;x<=570;x+=2){ const idx=Math.floor((x-30+off)/seg)%s4.bits.length; const bit=s4.bits[idx]; const y=bit?60:160; currentBit=bit; if(x===30){d=`M${x} ${y}`;lastY=y;} else { if(y!==lastY)d+=` V${y}`; d+=` H${x}`; lastY=y; } }
+    dw4.setAttribute('d',d); const idx=Math.floor((570-30+off)/seg)%s4.bits.length, bit=s4.bits[idx]; dd4.setAttribute('cy',bit?60:160); bv4.textContent=`поточний біт: ${bit}`;
+  }
+  play4?.addEventListener('click',()=>{s4.running=!s4.running;play4.textContent=s4.running?'⏸ Пауза':'▶ Пуск';play4.classList.toggle('active',s4.running)});
+  speed4?.addEventListener('click',()=>{s4.speed=s4.speed===1?2:s4.speed===2?.5:1; speed4.textContent=`⚡ Швидкість ×${s4.speed}`;});
+  noise4?.addEventListener('click',()=>{s4.noise=!s4.noise;noise4.textContent=s4.noise?'✨ Прибрати шум':'🌫 Додати шум';noise4.classList.toggle('active',s4.noise);document.getElementById('status4').textContent=s4.noise?'видно вплив перешкод на форму':'сигнал змінюється неперервно';});
+  document.getElementById('regenerate4')?.addEventListener('click',()=>{s4.bits=Array.from({length:12},()=>Math.random()>.5?1:0);draw4();});
+  document.getElementById('explain4')?.addEventListener('click',()=>document.getElementById('note4')?.classList.toggle('show'));
+
+  // ---------- Слайд 5: дискретизація, квантування, шум ----------
+  const s5={running:true,phase:0,quant:true};
+  const sampleRate=document.getElementById('sampleRate5'), sampleRateValue=document.getElementById('sampleRateValue5');
+  const noiseLevel=document.getElementById('noiseLevel5'), noiseValue=document.getElementById('noiseValue5');
+  function sig5(x){return 92-58*Math.sin((x/72)+s5.phase)-17*Math.sin((x/31)+s5.phase*.55)}
+  function pathFrom(fn,x0=30,x1=600,step=4){let d='';for(let x=x0;x<=x1;x+=step){const y=fn(x);d+=`${x===x0?'M':'L'}${x.toFixed(1)} ${y.toFixed(1)} `}return d}
+  function drawSamples5(){
+    const cont=document.getElementById('continuous5'); if(!cont) return; cont.setAttribute('d',pathFrom(sig5));
+    const n=+sampleRate.value, gap=540/(n-1), stems=document.getElementById('stems5'), dots=document.getElementById('samples5'), qdots=document.getElementById('quant5dots'), qlines=document.getElementById('quantLines5');
+    stems.innerHTML='';dots.innerHTML='';qdots.innerHTML='';qlines.innerHTML='';
+    const levels=[35,58,81,104,127,150]; if(s5.quant){levels.forEach(y=>qlines.insertAdjacentHTML('beforeend',`<line x1="30" y1="${y}" x2="600" y2="${y}"/>`));}
+    for(let k=0;k<n;k++){const x=40+k*gap, y=sig5(x); stems.insertAdjacentHTML('beforeend',`<line x1="${x}" y1="160" x2="${x}" y2="${y}"/>`); dots.insertAdjacentHTML('beforeend',`<circle cx="${x}" cy="${y}" r="5.5" fill="#8f86c9" stroke="#fff" stroke-width="2"/>`); if(s5.quant){const q=levels.reduce((a,b)=>Math.abs(b-y)<Math.abs(a-y)?b:a,levels[0]);qdots.insertAdjacentHTML('beforeend',`<rect x="${x-4.5}" y="${q-4.5}" width="9" height="9" rx="2" fill="#5fae9d" stroke="#fff" stroke-width="1.5"/>`);}}
+    sampleRateValue.textContent=n; document.getElementById('sampleHint5').textContent=n<10?'мало відліків → форма відтворюється грубо':n>18?'багато відліків → форма відтворюється точніше':'більше відліків → точніше відтворення';
+  }
+  function drawNoise5(){
+    const clean=document.getElementById('clean5'), noisy=document.getElementById('noisy5'); if(!clean||!noisy)return;
+    const base=x=>95-52*Math.sin((x/76)+s5.phase*.65); const level=+noiseLevel.value/100;
+    clean.setAttribute('d',pathFrom(base,25,605,4));
+    noisy.setAttribute('d',pathFrom(x=>base(x)+level*(22*Math.sin(x*.39+s5.phase*5)+13*Math.sin(x*.83+s5.phase*2.2)+7*Math.sin(x*1.37)),25,605,3));
+    noiseValue.textContent=`${noiseLevel.value}%`; const hint=document.getElementById('snrHint5'); hint.textContent=level<.2?'SNR: умовно високий':level<.55?'SNR: умовно середній':'SNR: умовно низький';
+  }
+  sampleRate?.addEventListener('input',drawSamples5); noiseLevel?.addEventListener('input',drawNoise5);
+  document.getElementById('quantToggle5')?.addEventListener('click',e=>{s5.quant=!s5.quant;e.currentTarget.textContent=s5.quant?'▦ Квантування: ON':'▦ Квантування: OFF';e.currentTarget.classList.toggle('active',s5.quant);drawSamples5();});
+  document.getElementById('samplePlay5')?.addEventListener('click',e=>{s5.running=!s5.running;e.currentTarget.textContent=s5.running?'⏸ Зупинити рух':'▶ Запустити рух';e.currentTarget.classList.toggle('active',s5.running);});
+  document.getElementById('noisePreset5')?.addEventListener('click',()=>{noiseLevel.value=85;drawNoise5();}); document.getElementById('cleanPreset5')?.addEventListener('click',()=>{noiseLevel.value=5;drawNoise5();});
+
+  // ---------- Слайд 8: спектр і гармоніки ----------
+  const s8={running:true,phase:0,active:new Set([1,2,3])};
+  const coeff={1:1,2:.58,3:.39,4:.28,5:.21};
+  function wave8y(x){let v=0,sum=0;[...s8.active].forEach(h=>{v+=coeff[h]*Math.sin(h*(x/61)+s8.phase*(.8+.09*h));sum+=coeff[h]}); return 125-(sum?58*v/Math.max(1,sum*.68):0)}
+  function draw8(){
+    const p=document.getElementById('timeWave8'); if(!p)return; p.setAttribute('d',pathFrom(wave8y,35,630,3)); const y=wave8y(610);document.getElementById('timeDot8').setAttribute('cy',y);
+    document.querySelectorAll('.spectrumBar').forEach(bar=>{const h=+bar.dataset.h,on=s8.active.has(h);bar.style.opacity=on?'1':'.16';bar.setAttribute('stroke-width',on?'28':'16')});
+    const max=s8.active.size?Math.max(...s8.active):0; document.getElementById('band8').textContent=max?`Активна смуга: від f₁ до ${max===1?'f₁':max+'f₁'}`:'Гармоніки вимкнені';
+    document.querySelectorAll('.harmonicBtn').forEach(b=>b.classList.toggle('active',s8.active.size===+b.dataset.h && [...Array(+b.dataset.h)].every((_,k)=>s8.active.has(k+1))));
+  }
+  document.querySelectorAll('.harmonicBtn').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.h;s8.active=new Set(Array.from({length:n},(_,k)=>k+1));draw8();}));
+  document.querySelectorAll('.spectrumBar').forEach(b=>b.addEventListener('click',()=>{const h=+b.dataset.h;s8.active.has(h)?s8.active.delete(h):s8.active.add(h);draw8();}));
+  document.getElementById('play8')?.addEventListener('click',e=>{s8.running=!s8.running;e.currentTarget.textContent=s8.running?'⏸ Пауза':'▶ Пуск';e.currentTarget.classList.toggle('active',s8.running);});
+  document.getElementById('explain8')?.addEventListener('click',()=>document.getElementById('note8')?.classList.toggle('show'));
+
+  // Спільний цикл анімації
+  let last=performance.now();
+  function animate(now){const dt=Math.min(40,now-last)/1000;last=now;if(s4.running)s4.phase+=dt*2.0*s4.speed;if(s5.running)s5.phase+=dt*.8;if(s8.running)s8.phase+=dt*.9;draw4();drawSamples5();drawNoise5();draw8();requestAnimationFrame(animate)}
+  draw4();drawSamples5();drawNoise5();draw8();requestAnimationFrame(animate);
+
+  const hash=parseInt(location.hash.slice(1)); show(Number.isFinite(hash)?hash-1:0);
+})();
+</script>
+</body>
+</html>
