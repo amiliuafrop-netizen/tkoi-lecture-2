@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="lunches-complete-v8"></head>
+<meta name="meal-planner-build" content="treats-part1-v9"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -235,7 +235,18 @@
       lunchChickenCutletsPearlBarleyVegetables:'lunches-part2/lunch-13-chicken-cutlets-pearl-barley-vegetables.png?v=8',
       lunchTurkeyQuinoaRoastedVegetables:'lunches-part2/lunch-14-turkey-quinoa-roasted-zucchini-pepper-carrot.png?v=8',
       lunchTunaBasmatiSaladCorn:'lunches-part2/lunch-15-tuna-basmati-cucumber-tomato-greens-corn.png?v=8',
-      lunchChickenTurkeyMashCabbageSalad:'lunches-part2/lunch-16-chicken-turkey-mashed-potatoes-cabbage-salad.png?v=8'
+      lunchChickenTurkeyMashCabbageSalad:'lunches-part2/lunch-16-chicken-turkey-mashed-potatoes-cabbage-salad.png?v=9',
+
+      treatDarkChocolate:'treats-part1/treat-01-dark-chocolate.png?v=9',
+      treatOatWholegrainCookies:'treats-part1/treat-02-oat-wholegrain-cookies.png?v=9',
+      treatMilkChocolate:'treats-part1/treat-03-milk-chocolate.png?v=9',
+      treatMarshmallowPastila:'treats-part1/treat-04-marshmallow-pastila.png?v=9',
+      treatCocoaBananaBrownie:'treats-part1/treat-05-cocoa-banana-brownie.png?v=9',
+      treatBananaOatMuffins:'treats-part1/treat-06-banana-oat-muffins.png?v=9',
+      treatLemonOatCake:'treats-part1/treat-07-lemon-oat-cake.png?v=9',
+      treatBakedAppleCinnamonWalnuts:'treats-part1/treat-08-baked-apple-cinnamon-walnuts.png?v=9',
+      treatHomemadeOatBananaCookies:'treats-part1/treat-09-homemade-oat-banana-cookies.png?v=9',
+      treatYogurtBerriesChia:'treats-part1/treat-10-yogurt-berries-chia-dessert.png?v=9'
     };
 
     function chooseCatalogImage(text,mealKey){
@@ -300,6 +311,19 @@
         if(t.includes('індичка') && t.includes('кіноа') && t.includes('кабач') && t.includes('перець') && t.includes('морк')) return catalogPhotos.lunchTurkeyQuinoaRoastedVegetables;
         if(t.includes('тунець') && t.includes('рис басматі') && t.includes('огір') && t.includes('томат') && t.includes('кукурудз')) return catalogPhotos.lunchTunaBasmatiSaladCorn;
         if((t.includes('курка / індичка') || (t.includes('курка') && t.includes('індич'))) && t.includes('картопляне пюре') && t.includes('капуст')) return catalogPhotos.lunchChickenTurkeyMashCabbageSalad;
+      }
+
+      if(mealKey==='treat'){
+        if(t.includes('темний шоколад')) return catalogPhotos.treatDarkChocolate;
+        if((t.includes('вівсяне') || t.includes('цільнозернове')) && t.includes('печиво') && t.includes('без крему')) return catalogPhotos.treatOatWholegrainCookies;
+        if(t.includes('молочний шоколад')) return catalogPhotos.treatMilkChocolate;
+        if(t.includes('пастила') || t.includes('зефір')) return catalogPhotos.treatMarshmallowPastila;
+        if(t.includes('какао-банановий брауні')) return catalogPhotos.treatCocoaBananaBrownie;
+        if(t.includes('бананово-вівсяні мафіни')) return catalogPhotos.treatBananaOatMuffins;
+        if(t.includes('лимонний кекс')) return catalogPhotos.treatLemonOatCake;
+        if(t.includes('запечене яблуко') && t.includes('кориц') && t.includes('горіх')) return catalogPhotos.treatBakedAppleCinnamonWalnuts;
+        if(t.includes('домашнє вівсяне печиво') && t.includes('банан')) return catalogPhotos.treatHomemadeOatBananaCookies;
+        if(t.includes('йогуртовий десерт') && t.includes('ягод') && t.includes('чіа')) return catalogPhotos.treatYogurtBerriesChia;
       }
 
       if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
