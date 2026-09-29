@@ -25,6 +25,11 @@ html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
 .ptable th,.ptable td{border:.25mm solid #cfd5cf;padding:.75mm .85mm;vertical-align:top;overflow-wrap:anywhere}
 .ptable thead th{height:8mm;background:#eef2ed;font-size:6.1pt;text-align:center;vertical-align:middle}.ptable thead th:first-child{width:17mm}.ptable tbody th{width:17mm;background:#f5f6f4;text-transform:uppercase;font-size:4.9pt;vertical-align:middle}.ptable tbody tr{height:36.4mm}.ptable td{font-weight:600}
 }
+
+.catalog-wrap{margin:16px 0 22px}.catalog-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px 17px;font-weight:850;cursor:pointer;box-shadow:var(--shadow)}.catalog-toggle span:last-child{font-size:20px;transition:transform .2s ease}.catalog-toggle.open span:last-child{transform:rotate(180deg)}.catalog{display:none;margin-top:12px}.catalog.open{display:block}.catalog details{background:#fff;border:1px solid var(--line);border-radius:18px;margin:10px 0;overflow:hidden}.catalog summary{list-style:none;cursor:pointer;padding:15px 17px;font-weight:900;display:flex;align-items:center;justify-content:space-between}.catalog summary::-webkit-details-marker{display:none}.catalog summary:after{content:'＋';font-size:20px;color:var(--muted)}.catalog details[open] summary:after{content:'–'}.dish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 14px 14px}.dish-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fbfcfa}.dish-art{aspect-ratio:16/10;background:linear-gradient(145deg,#f2ede3,#e9efe9);display:flex;align-items:center;justify-content:center}.dish-art svg{width:100%;height:100%;display:block}.dish-name{padding:10px 11px;font-size:13px;font-weight:750;line-height:1.35}.catalog-note{padding:0 2px 6px;color:var(--muted);font-size:13px}
+@media(max-width:760px){.dish-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0 10px 10px}.dish-name{font-size:12px;padding:9px}.catalog-toggle{padding:14px}.catalog summary{padding:14px}}
+@media(max-width:430px){.dish-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -41,6 +46,13 @@ html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
 </div>
 </section>
 <div class="info"><b>🥗 Основа меню:</b> без яловичини, субпродуктів і чорносливу. Курка, індичка, риба, яйця, крупи, овочі, бобові та звичні смаколики.<br><br><b>👩 Для Катерини:</b> молоко — безлактозне 1,5–2,5% або рослинне без доданого цукру; натуральний безлактозний йогурт 1,5–3%; безлактозний кефір 1–2,5%; безлактозний кисломолочний сир 2–5%; твердий сир — порція 20–30 г.<br><b>👨 Для Олексія:</b> молоко 1,5–2,5%; натуральний йогурт без добавок 1,5–3%; кефір 1–2,5%; ряжанка близько 2,5%; кисломолочний сир 2–5%; твердий сир — порція 20–30 г.</div>
+<div class="catalog-wrap">
+  <button class="catalog-toggle" id="catalogToggle" type="button"><span>Усі страви та варіанти</span><span>⌄</span></button>
+  <section class="catalog" id="catalog">
+    <div class="catalog-note">Усі варіанти з меню зібрані за категоріями. Натисни на категорію, щоб розгорнути список.</div>
+    <div id="catalogBody"></div>
+  </section>
+</div>
 <nav class="tabs" id="tabs"></nav>
 <section id="panels"></section>
 <section class="summary" id="summary"><div class="eyebrow">Підсумок</div><h2>Готовий раціон на 7 днів</h2><div class="sumgrid" id="sumgrid"></div></section>
@@ -144,6 +156,54 @@ function openPick(d,m){active={d:d,m:m};var dn=days.find(function(x){return x[0]
 function choose(v){plan[active.d][active.m]=v;save();closePick();renderPanels();renderSummary()}
 function closePick(){document.getElementById('backdrop').classList.remove('open');active=null}
 document.getElementById('close').onclick=closePick;document.getElementById('backdrop').onclick=function(e){if(e.target.id==='backdrop')closePick()};document.getElementById('saveCustom').onclick=function(){var v=document.getElementById('custom').value.trim();if(v&&active)choose(v)};document.getElementById('custom').onkeydown=function(e){if(e.key==='Enter')document.getElementById('saveCustom').click()};document.getElementById('goSummary').onclick=function(){document.getElementById('summary').scrollIntoView({behavior:'smooth'})};document.getElementById('printBtn').onclick=function(){renderPrint();window.print()};document.getElementById('resetBtn').onclick=function(){if(confirm('Скинути всі зміни та повернути початковий варіант?')){plan=defaults();save();renderPanels();renderSummary()}};
+
+function dishVisual(text,cat){
+  var t=text.toLowerCase(),kind='plate';
+  if(/сирник|панкейк|млинец/.test(t)) kind='pancakes';
+  else if(/вівсян|каша|гречк|пшон|кіноа|булгур|перлов|рисов/.test(t)) kind='bowl';
+  else if(/омлет|яйц|шакшук/.test(t)) kind='eggs';
+  else if(/лосос|скумбр|хек|минтай|форел|тунец|рибн/.test(t)) kind='fish';
+  else if(/суп|мінестрон|крем-суп|сочевиц/.test(t)) kind='soup';
+  else if(/салат|авокадо|овоч/.test(t)) kind='salad';
+  else if(/макарон|паста|фунчоз/.test(t)) kind='pasta';
+  else if(/йогурт|кефір|ряжанк|сир 2|кисломолоч/.test(t)) kind='yogurt';
+  else if(/шоколад|брауні|кекс|мафін|зефір|пастил|мармелад|морозив|желе|печиво/.test(t)) kind='dessert';
+  else if(/яблук|банан|ківі|виноград|ягод|груш|мандарин|апельсин|полуниц/.test(t)) kind='fruit';
+  else if(/курк|індич|тефтел|фрикадель|котлет/.test(t)) kind='protein';
+
+  var bg='<rect width="320" height="200" fill="#f3f0e8"/><circle cx="270" cy="35" r="46" fill="#e3eadf"/><circle cx="45" cy="170" r="52" fill="#eadfd7"/>';
+  var plate='<ellipse cx="160" cy="126" rx="92" ry="48" fill="#ffffff"/><ellipse cx="160" cy="126" rx="78" ry="37" fill="#eef1ed"/>';
+  var art='';
+  if(kind==='pancakes') art='<ellipse cx="160" cy="142" rx="75" ry="30" fill="#fff"/><ellipse cx="160" cy="128" rx="52" ry="17" fill="#d8a45a"/><ellipse cx="160" cy="113" rx="50" ry="16" fill="#e2b66e"/><ellipse cx="160" cy="98" rx="46" ry="15" fill="#e7c07e"/><circle cx="132" cy="87" r="7" fill="#b94e59"/><circle cx="177" cy="84" r="8" fill="#6c536f"/><path d="M153 79 q14-14 29 0 q-14 8-29 0" fill="#f5f3ed"/>';
+  else if(kind==='bowl') art='<ellipse cx="160" cy="120" rx="72" ry="33" fill="#fff"/><path d="M88 120 Q96 171 160 174 Q224 171 232 120Z" fill="#d8e4dc"/><ellipse cx="160" cy="119" rx="63" ry="25" fill="#c6a56d"/><circle cx="132" cy="111" r="6" fill="#a64e54"/><circle cx="182" cy="112" r="5" fill="#5b6c8f"/><circle cx="151" cy="101" r="4" fill="#e8d8b0"/>';
+  else if(kind==='eggs') art=plate+'<circle cx="133" cy="123" r="26" fill="#f9f7ef"/><circle cx="133" cy="123" r="10" fill="#eabf43"/><circle cx="181" cy="118" r="25" fill="#f9f7ef"/><circle cx="181" cy="118" r="10" fill="#eabf43"/><path d="M105 149 Q160 162 218 145" stroke="#76996f" stroke-width="7" fill="none"/>';
+  else if(kind==='fish') art=plate+'<path d="M104 124 Q145 84 202 116 Q173 155 112 144Z" fill="#e9a47c"/><path d="M202 116 l30-20 -5 34z" fill="#db8d68"/><circle cx="129" cy="120" r="3" fill="#544"/><path d="M111 153 q50 17 95-4" stroke="#7b9b6d" stroke-width="8" fill="none"/>';
+  else if(kind==='soup') art='<ellipse cx="160" cy="120" rx="76" ry="35" fill="#fff"/><path d="M84 120 Q94 176 160 179 Q226 176 236 120Z" fill="#d7e2dd"/><ellipse cx="160" cy="119" rx="65" ry="26" fill="#d77b4f"/><circle cx="132" cy="114" r="6" fill="#e8c65f"/><circle cx="182" cy="121" r="7" fill="#78955f"/><path d="M120 71 q-10-18 1-33 M158 69 q-8-18 3-31 M194 72 q-8-16 2-29" stroke="#c5b7a5" stroke-width="3" fill="none"/>';
+  else if(kind==='salad') art='<ellipse cx="160" cy="132" rx="86" ry="35" fill="#fff"/><path d="M96 125 q20-33 43-5 q17-38 41-5 q22-31 44 2 q-22 38-65 40 q-42-1-63-32" fill="#7ca66c"/><circle cx="130" cy="126" r="10" fill="#d96759"/><circle cx="184" cy="132" r="9" fill="#d96759"/><circle cx="159" cy="112" r="11" fill="#b7cf7a"/>';
+  else if(kind==='pasta') art=plate+'<path d="M108 122 q52-45 104 0 M111 132 q50-42 98 0 M121 142 q42-33 80 0" stroke="#d7b261" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="147" cy="115" r="7" fill="#cc6255"/><circle cx="188" cy="133" r="7" fill="#cc6255"/>';
+  else if(kind==='yogurt') art='<rect x="104" y="73" width="112" height="96" rx="18" fill="#fff"/><ellipse cx="160" cy="76" rx="55" ry="18" fill="#f5f5f1"/><circle cx="132" cy="81" r="8" fill="#bd5662"/><circle cx="159" cy="72" r="7" fill="#6b5a85"/><circle cx="185" cy="82" r="8" fill="#c64f5f"/>';
+  else if(kind==='dessert') art='<rect x="105" y="112" width="110" height="42" rx="8" fill="#7a4d3b"/><rect x="112" y="101" width="96" height="18" rx="7" fill="#9b684f"/><circle cx="145" cy="96" r="9" fill="#bb5362"/><circle cx="174" cy="96" r="8" fill="#6d597d"/><rect x="94" y="156" width="132" height="8" rx="4" fill="#fff"/>';
+  else if(kind==='fruit') art='<ellipse cx="160" cy="145" rx="80" ry="25" fill="#fff"/><circle cx="130" cy="125" r="26" fill="#d86655"/><circle cx="166" cy="125" r="24" fill="#e8c34f"/><ellipse cx="195" cy="124" rx="19" ry="28" fill="#8eaf63"/><path d="M126 97 q10-12 18-2" stroke="#6d845c" stroke-width="5" fill="none"/>';
+  else if(kind==='protein') art=plate+'<ellipse cx="138" cy="121" rx="33" ry="19" fill="#c88f6a"/><ellipse cx="182" cy="129" rx="34" ry="20" fill="#d09a72"/><path d="M112 150 q47 13 96-2" stroke="#7d9e6d" stroke-width="8" fill="none"/>';
+  else art=plate+'<circle cx="140" cy="124" r="22" fill="#d6a16a"/><circle cx="181" cy="121" r="19" fill="#7f9e67"/><circle cx="160" cy="145" r="16" fill="#d7675a"/>';
+  return '<svg viewBox="0 0 320 200" role="img" aria-label="Ілюстрація страви">'+bg+art+'</svg>';
+}
+function renderCatalog(){
+  var body=document.getElementById('catalogBody');
+  body.innerHTML=meals.map(function(m,idx){
+    var list=options[m[0]];
+    return '<details '+(idx===0?'open':'')+'><summary>'+m[1]+' <small style="color:var(--muted);font-weight:700">'+list.length+' варіантів</small></summary><div class="dish-grid">'+list.map(function(o){return '<article class="dish-card"><div class="dish-art">'+dishVisual(o,m[0])+'</div><div class="dish-name">'+esc(o)+'</div></article>'}).join('')+'</div></details>';
+  }).join('');
+}
+document.getElementById('catalogToggle').onclick=function(){
+  var catalog=document.getElementById('catalog');
+  var open=!catalog.classList.contains('open');
+  catalog.classList.toggle('open',open);
+  this.classList.toggle('open',open);
+  this.querySelector('span:last-child').textContent=open?'⌃':'⌄';
+  if(open){renderCatalog();setTimeout(function(){catalog.scrollIntoView({behavior:'smooth',block:'start'})},50)}
+};
+
 plan=load();renderTabs();renderPanels();renderSummary();
 </script>
 </body>
