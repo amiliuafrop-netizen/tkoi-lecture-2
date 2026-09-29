@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="dinners-part1-v11"></head>
+<meta name="meal-planner-build" content="dinners-complete-v12"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -261,7 +261,13 @@
       dinnerMinestroneBeansBread:'dinners-part1/dinner-07-minestrone-beans-wholegrain-bread.png?v=11',
       dinnerOmeletVegetablesSaladToast:'dinners-part1/dinner-08-omelet-vegetables-salad-toast.png?v=11',
       dinnerBakedHakeBroccoliPotatoes:'dinners-part1/dinner-09-baked-hake-broccoli-potatoes.png?v=11',
-      dinnerTurkeyStewedVegetablesBulgur:'dinners-part1/dinner-10-turkey-stewed-zucchini-pepper-carrot-bulgur.png?v=11'
+      dinnerTurkeyStewedVegetablesBulgur:'dinners-part1/dinner-10-turkey-stewed-zucchini-pepper-carrot-bulgur.png?v=12',
+      dinnerWarmSaladChickenChickpeas:'dinners-part2/dinner-11-warm-salad-chicken-chickpeas-vegetables-greens.png?v=12',
+      dinnerPumpkinCreamSoupChickenToast:'dinners-part2/dinner-12-pumpkin-cream-soup-chicken-toast.png?v=12',
+      dinnerBuckwheatChickenSalad:'dinners-part2/dinner-13-buckwheat-chicken-cucumber-tomato-greens-salad.png?v=12',
+      dinnerBasmatiShrimpWok:'dinners-part2/dinner-14-basmati-rice-shrimp-wok-vegetables.png?v=12',
+      dinnerBakedTurkeyBroccoliHummus:'dinners-part2/dinner-15-baked-turkey-cauliflower-broccoli-hummus.png?v=12',
+      dinnerSaladEggTunaAvocado:'dinners-part2/dinner-16-salad-egg-tuna-avocado-cucumber-greens.png?v=12'
     };
 
     function chooseCatalogImage(text,mealKey){
@@ -345,6 +351,26 @@
         if(t.includes('сирні кульки') && t.includes('какао')) return catalogPhotos.treatCottageCheeseCocoaBalls;
       }
 
+      if(mealKey==='dinner'){
+        if(t.includes('фрикадельки') && t.includes('запечені овочі') && t.includes('хумус')) return catalogPhotos.dinnerMeatballsRoastedVegetablesHummus;
+        if(t.includes('суп із червоної сочевиці') && t.includes('тост') && t.includes('зелень')) return catalogPhotos.dinnerRedLentilSoupToastGreens;
+        if(t.includes('скумбрія') && t.includes('картопл') && t.includes('стручкова квасоля')) return catalogPhotos.dinnerMackerelPotatoesGreenBeans;
+        if(t.includes('тунець') && t.includes('нут') && t.includes('огір') && t.includes('томат')) return catalogPhotos.dinnerTunaChickpeaSalad;
+        if(t.includes('курка') && t.includes('фунчоз') && t.includes('wok')) return catalogPhotos.dinnerChickenFunchozaWok;
+        if(t.includes('цільнозернові макарони') && (t.includes('курка') || t.includes('індич')) && t.includes('томатний соус')) return catalogPhotos.dinnerWholegrainPastaChickenTomato;
+        if(t.includes('мінестроне') && t.includes('квасол') && (t.includes('хліб') || t.includes('тост'))) return catalogPhotos.dinnerMinestroneBeansBread;
+        if(t.includes('омлет') && t.includes('овоч') && t.includes('салат') && t.includes('тост')) return catalogPhotos.dinnerOmeletVegetablesSaladToast;
+        if((t.includes('хек') || t.includes('минтай')) && t.includes('броколі') && (t.includes('картопл') || t.includes('батат'))) return catalogPhotos.dinnerBakedHakeBroccoliPotatoes;
+        if(t.includes('індичка') && t.includes('кабач') && t.includes('перець') && t.includes('морк') && t.includes('булгур')) return catalogPhotos.dinnerTurkeyStewedVegetablesBulgur;
+        if(t.includes('теплий салат') && t.includes('курк') && t.includes('нут')) return catalogPhotos.dinnerWarmSaladChickenChickpeas;
+        if(t.includes('крем-суп з гарбуза') && (t.includes('курка') || t.includes('індич')) && t.includes('тост')) return catalogPhotos.dinnerPumpkinCreamSoupChickenToast;
+        if(t.includes('гречка') && t.includes('курка') && t.includes('огірка') && t.includes('томата')) return catalogPhotos.dinnerBuckwheatChickenSalad;
+        if(t.includes('рис басматі') && t.includes('креветки') && t.includes('wok')) return catalogPhotos.dinnerBasmatiShrimpWok;
+        if(t.includes('запечена індичка') && (t.includes('цвітна капуста') || t.includes('броколі')) && t.includes('хумус')) return catalogPhotos.dinnerBakedTurkeyBroccoliHummus;
+        if(t.includes('яйцем') && t.includes('тунцем') && t.includes('авокадо') && t.includes('огірком')) return catalogPhotos.dinnerSaladEggTunaAvocado;
+        return catalogPhotos.chicken;
+      }
+
       if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
       if(/вівсян|каша|гречк|пшон|рисова каша|кіноа з яблуком|кукурудзяна каша|перловка|запечена вівсянка/.test(t)) return catalogPhotos.porridge;
       if(/шакшук|омлет|яєчн|яйц|тост з авокадо|лаваш/.test(t)) return catalogPhotos.omelette;
@@ -364,19 +390,6 @@
       if(/курк|індич|котлет|тефтел|фрикадель|боул|плов/.test(t)) return catalogPhotos.chicken;
       if(mealKey==='treat') return catalogPhotos.dessert;
       if(mealKey==='lunch') return catalogPhotos.chicken;
-      if(mealKey==='dinner'){
-        if(t.includes('фрикадельки') && t.includes('запечені овочі') && t.includes('хумус')) return catalogPhotos.dinnerMeatballsRoastedVegetablesHummus;
-        if(t.includes('суп із червоної сочевиці') && t.includes('тост') && t.includes('зелень')) return catalogPhotos.dinnerRedLentilSoupToastGreens;
-        if(t.includes('скумбрія') && t.includes('картопл') && t.includes('стручкова квасоля')) return catalogPhotos.dinnerMackerelPotatoesGreenBeans;
-        if(t.includes('тунець') && t.includes('нут') && t.includes('огір') && t.includes('томат')) return catalogPhotos.dinnerTunaChickpeaSalad;
-        if(t.includes('курка') && t.includes('фунчоз') && t.includes('wok')) return catalogPhotos.dinnerChickenFunchozaWok;
-        if(t.includes('цільнозернові макарони') && (t.includes('курка') || t.includes('індич')) && t.includes('томатний соус')) return catalogPhotos.dinnerWholegrainPastaChickenTomato;
-        if(t.includes('мінестроне') && t.includes('квасол') && t.includes('хліб')) return catalogPhotos.dinnerMinestroneBeansBread;
-        if(t.includes('омлет') && t.includes('овоч') && t.includes('салат') && t.includes('тост')) return catalogPhotos.dinnerOmeletVegetablesSaladToast;
-        if((t.includes('хек') || t.includes('минтай')) && t.includes('броколі') && (t.includes('картопл') || t.includes('батат'))) return catalogPhotos.dinnerBakedHakeBroccoliPotatoes;
-        if(t.includes('індичка') && t.includes('кабач') && t.includes('перець') && t.includes('морк') && t.includes('булгур')) return catalogPhotos.dinnerTurkeyStewedVegetablesBulgur;
-        return catalogPhotos.chicken;
-      }
       return catalogPhotos.porridge;
     }
 
