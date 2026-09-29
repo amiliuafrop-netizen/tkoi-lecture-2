@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="snacks-exact-v2"></head>
+<meta name="meal-planner-build" content="breakfasts-exact-v3"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -181,26 +181,58 @@
 
 
     const catalogPhotos={
-      syrniki:'assets/syrniki.jpg?v=2',
-      porridge:'assets/porridge.jpg?v=2',
-      omelette:'assets/omelette.jpg?v=2',
-      salmon:'assets/salmon-plate.jpg?v=2',
-      chicken:'assets/chicken-plate.jpg?v=2',
-      soup:'assets/soup-toast.jpg?v=2',
-      dessert:'assets/dessert-plate.jpg?v=2',
-      snackAppleCheese:'snacks/apple-cheese.jpg?v=2',
-      snackYogurtBerriesPistachios:'snacks/yogurt-berries-pistachios.jpg?v=2',
-      snackVeggiesHummus:'snacks/veggies-hummus.jpg?v=2',
-      snackKefirKiwi:'snacks/kefir-kiwi.jpg?v=2',
-      snackEggCheeseVegetables:'snacks/egg-cheese-vegetables.jpg?v=2',
-      snackYogurtGrapesHazelnuts:'snacks/yogurt-grapes-hazelnuts.jpg?v=2',
-      snackSmoothieBerriesBananaChia:'snacks/smoothie-berries-banana-chia.jpg?v=2',
-      snackPearWalnuts:'snacks/pear-walnuts.jpg?v=2',
-      snackBananaPeanutButter:'snacks/banana-peanut-butter.jpg?v=2',
-      snackCrackersHummusCucumber:'snacks/crackers-hummus-cucumber.jpg?v=2'
+      syrniki:'assets/syrniki.jpg?v=3',
+      porridge:'assets/porridge.jpg?v=3',
+      omelette:'assets/omelette.jpg?v=3',
+      salmon:'assets/salmon-plate.jpg?v=3',
+      chicken:'assets/chicken-plate.jpg?v=3',
+      soup:'assets/soup-toast.jpg?v=3',
+      dessert:'assets/dessert-plate.jpg?v=3',
+
+      snackAppleCheese:'snacks/apple-cheese.jpg?v=3',
+      snackYogurtBerriesPistachios:'snacks/yogurt-berries-pistachios.jpg?v=3',
+      snackVeggiesHummus:'snacks/veggies-hummus.jpg?v=3',
+      snackKefirKiwi:'snacks/kefir-kiwi.jpg?v=3',
+      snackEggCheeseVegetables:'snacks/egg-cheese-vegetables.jpg?v=3',
+      snackYogurtGrapesHazelnuts:'snacks/yogurt-grapes-hazelnuts.jpg?v=3',
+      snackSmoothieBerriesBananaChia:'snacks/smoothie-berries-banana-chia.jpg?v=3',
+      snackPearWalnuts:'snacks/pear-walnuts.jpg?v=3',
+      snackBananaPeanutButter:'snacks/banana-peanut-butter.jpg?v=3',
+      snackCrackersHummusCucumber:'snacks/crackers-hummus-cucumber.jpg?v=3',
+
+      breakfastOatmealBerriesWalnutsEgg:'breakfasts-ready/breakfast-oatmeal-berries-walnuts-egg.jpg?v=3',
+      breakfastEggsBuckwheatTomatoesCheese:'breakfasts-ready/breakfast-eggs-buckwheat-tomatoes-cheese.jpg?v=3',
+      breakfastMilletPumpkinYogurtAlmonds:'breakfasts-ready/breakfast-millet-pumpkin-yogurt-almonds.jpg?v=3',
+      breakfastShakshukaBread:'breakfasts-ready/breakfast-shakshuka-bread.jpg?v=3',
+      breakfastOvernightOatsBananaChia:'breakfasts-ready/breakfast-overnight-oats-banana-chia.jpg?v=3',
+      breakfastSyrnikiBerries:'breakfasts-ready/breakfast-syrniki-berries.jpg?v=3',
+      breakfastOmeletteMushroomsSpinachToastAvocado:'breakfasts-ready/breakfast-omelette-mushrooms-spinach-toast-avocado.jpg?v=3',
+      breakfastRicePorridgeAppleCinnamon:'breakfasts-ready/breakfast-rice-porridge-apple-cinnamon.jpg?v=3',
+      breakfastBuckwheatPancakesYogurtBerries:'breakfasts-ready/breakfast-buckwheat-pancakes-yogurt-berries.jpg?v=3',
+      breakfastAvocadoToastEggsCucumber:'breakfasts-ready/breakfast-avocado-toast-eggs-cucumber.jpg?v=3'
     };
+
     function chooseCatalogImage(text,mealKey){
       const t=(text||'').toLowerCase();
+
+      if(mealKey==='breakfast'){
+        if(t.includes('вівсянка') && t.includes('ягод') && t.includes('волоськ') && t.includes('яйц')) return catalogPhotos.breakfastOatmealBerriesWalnutsEgg;
+        if(t.includes('гречка') && t.includes('2 яйця') && t.includes('помідор') && t.includes('твердий сир')) return catalogPhotos.breakfastEggsBuckwheatTomatoesCheese;
+        if(t.includes('пшоняна каша') && t.includes('гарбуз') && t.includes('йогурт') && t.includes('мигдаль')) return catalogPhotos.breakfastMilletPumpkinYogurtAlmonds;
+        if(t.includes('шакшука')) return catalogPhotos.breakfastShakshukaBread;
+        if(t.includes('overnight oats') && t.includes('банан') && t.includes('чіа')) return catalogPhotos.breakfastOvernightOatsBananaChia;
+        if(t.includes('сирники') && t.includes('ягод')) return catalogPhotos.breakfastSyrnikiBerries;
+        if(t.includes('омлет') && t.includes('шпинат') && t.includes('гриб') && t.includes('авокадо')) return catalogPhotos.breakfastOmeletteMushroomsSpinachToastAvocado;
+        if(t.includes('рисова каша') && t.includes('яблуко') && t.includes('кориц')) return catalogPhotos.breakfastRicePorridgeAppleCinnamon;
+        if(t.includes('гречані млинці') && t.includes('йогурт') && t.includes('ягод')) return catalogPhotos.breakfastBuckwheatPancakesYogurtBerries;
+        if(t.includes('тост з авокадо') && t.includes('2 яйця') && t.includes('огірок')) return catalogPhotos.breakfastAvocadoToastEggsCucumber;
+
+        if((t.includes('кисломолочний сир') || t.includes('безлактозний сир')) && t.includes('ягод')) return catalogPhotos.breakfastSyrnikiBerries;
+        if(t.includes('лаваш') && t.includes('індич')) return catalogPhotos.breakfastOmeletteMushroomsSpinachToastAvocado;
+        if(t.includes('кукурудзяна каша') && t.includes('банан')) return catalogPhotos.breakfastOvernightOatsBananaChia;
+        if(t.includes('кіноа') && t.includes('яблуко') && t.includes('ягод')) return catalogPhotos.breakfastOatmealBerriesWalnutsEgg;
+        return catalogPhotos.porridge;
+      }
 
       if(mealKey==='snack'){
         if(t.includes('яблук') && t.includes('сир')) return catalogPhotos.snackAppleCheese;
@@ -223,7 +255,6 @@
       if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
       if(/вівсян|каша|гречк|пшон|рисова каша|кіноа з яблуком|кукурудзяна каша|перловка|запечена вівсянка/.test(t)) return catalogPhotos.porridge;
       if(/шакшук|омлет|яєчн|яйц|тост з авокадо|лаваш/.test(t)) return catalogPhotos.omelette;
-      if(/overnight oats|йогурт|кефір|ряжанк|кисломолоч|сир 2–5|сир 2-5|сир 2/.test(t)) return catalogPhotos.omelette;
       if(/шоколад|печиво|кекс|брауні|мафін|зефір|пастил|мармелад|желе|десерт|морозив/.test(t)) return catalogPhotos.dessert;
       if(/суп|мінестрон|крем-суп|сочевиц/.test(t)) return catalogPhotos.soup;
       if(/лосос|скумбр|хек|минтай|форел|тунец|риб|кревет/.test(t)) return catalogPhotos.salmon;
@@ -239,11 +270,11 @@
       }
       if(/курк|індич|котлет|тефтел|фрикадель|боул|плов/.test(t)) return catalogPhotos.chicken;
       if(mealKey==='treat') return catalogPhotos.dessert;
-      if(mealKey==='breakfast') return catalogPhotos.porridge;
       if(mealKey==='lunch') return catalogPhotos.chicken;
       if(mealKey==='dinner') return catalogPhotos.chicken;
       return catalogPhotos.porridge;
     }
+
     function renderCatalog(){
       const groups=document.getElementById('catalogGroups');
       if(!groups || groups.dataset.ready==='1') return;
