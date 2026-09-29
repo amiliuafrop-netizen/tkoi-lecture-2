@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="breakfasts-exact-v3"></head>
+<meta name="meal-planner-build" content="breakfasts-complete-v4"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -200,16 +200,20 @@
       snackBananaPeanutButter:'snacks/banana-peanut-butter.jpg?v=3',
       snackCrackersHummusCucumber:'snacks/crackers-hummus-cucumber.jpg?v=3',
 
-      breakfastOatmealBerriesWalnutsEgg:'breakfasts-ready/breakfast-oatmeal-berries-walnuts-egg.jpg?v=3',
-      breakfastEggsBuckwheatTomatoesCheese:'breakfasts-ready/breakfast-eggs-buckwheat-tomatoes-cheese.jpg?v=3',
-      breakfastMilletPumpkinYogurtAlmonds:'breakfasts-ready/breakfast-millet-pumpkin-yogurt-almonds.jpg?v=3',
-      breakfastShakshukaBread:'breakfasts-ready/breakfast-shakshuka-bread.jpg?v=3',
-      breakfastOvernightOatsBananaChia:'breakfasts-ready/breakfast-overnight-oats-banana-chia.jpg?v=3',
-      breakfastSyrnikiBerries:'breakfasts-ready/breakfast-syrniki-berries.jpg?v=3',
-      breakfastOmeletteMushroomsSpinachToastAvocado:'breakfasts-ready/breakfast-omelette-mushrooms-spinach-toast-avocado.jpg?v=3',
-      breakfastRicePorridgeAppleCinnamon:'breakfasts-ready/breakfast-rice-porridge-apple-cinnamon.jpg?v=3',
-      breakfastBuckwheatPancakesYogurtBerries:'breakfasts-ready/breakfast-buckwheat-pancakes-yogurt-berries.jpg?v=3',
-      breakfastAvocadoToastEggsCucumber:'breakfasts-ready/breakfast-avocado-toast-eggs-cucumber.jpg?v=3'
+      breakfastOatmealBerriesWalnutsEgg:'breakfasts-ready/breakfast-oatmeal-berries-walnuts-egg.jpg?v=4',
+      breakfastEggsBuckwheatTomatoesCheese:'breakfasts-ready/breakfast-eggs-buckwheat-tomatoes-cheese.jpg?v=4',
+      breakfastMilletPumpkinYogurtAlmonds:'breakfasts-ready/breakfast-millet-pumpkin-yogurt-almonds.jpg?v=4',
+      breakfastShakshukaBread:'breakfasts-ready/breakfast-shakshuka-bread.jpg?v=4',
+      breakfastOvernightOatsBananaChia:'breakfasts-ready/breakfast-overnight-oats-banana-chia.jpg?v=4',
+      breakfastSyrnikiBerries:'breakfasts-ready/breakfast-syrniki-berries.jpg?v=4',
+      breakfastOmeletteMushroomsSpinachToastAvocado:'breakfasts-ready/breakfast-omelette-mushrooms-spinach-toast-avocado.jpg?v=4',
+      breakfastRicePorridgeAppleCinnamon:'breakfasts-ready/breakfast-rice-porridge-apple-cinnamon.jpg?v=4',
+      breakfastBuckwheatPancakesYogurtBerries:'breakfasts-ready/breakfast-buckwheat-pancakes-yogurt-berries.jpg?v=4',
+      breakfastAvocadoToastEggsCucumber:'breakfasts-ready/breakfast-avocado-toast-eggs-cucumber.jpg?v=4',
+      breakfastCottageCheeseBerriesBananaAlmonds:'breakfasts-extra/breakfast-cottage-cheese-berries-banana-almonds.png?v=4',
+      breakfastLavashTurkeyEggTomatoGreens:'breakfasts-extra/breakfast-lavash-turkey-egg-tomato-greens.png?v=4',
+      breakfastCornPorridgeBananaWalnuts:'breakfasts-extra/breakfast-corn-porridge-banana-walnuts.png?v=4',
+      breakfastQuinoaAppleBerriesChiaYogurt:'breakfasts-extra/breakfast-quinoa-apple-berries-chia-yogurt.png?v=4'
     };
 
     function chooseCatalogImage(text,mealKey){
@@ -227,10 +231,10 @@
         if(t.includes('гречані млинці') && t.includes('йогурт') && t.includes('ягод')) return catalogPhotos.breakfastBuckwheatPancakesYogurtBerries;
         if(t.includes('тост з авокадо') && t.includes('2 яйця') && t.includes('огірок')) return catalogPhotos.breakfastAvocadoToastEggsCucumber;
 
-        if((t.includes('кисломолочний сир') || t.includes('безлактозний сир')) && t.includes('ягод')) return catalogPhotos.breakfastSyrnikiBerries;
-        if(t.includes('лаваш') && t.includes('індич')) return catalogPhotos.breakfastOmeletteMushroomsSpinachToastAvocado;
-        if(t.includes('кукурудзяна каша') && t.includes('банан')) return catalogPhotos.breakfastOvernightOatsBananaChia;
-        if(t.includes('кіноа') && t.includes('яблуко') && t.includes('ягод')) return catalogPhotos.breakfastOatmealBerriesWalnutsEgg;
+        if((t.includes('кисломолочний сир') || t.includes('безлактозний сир')) && t.includes('ягод') && t.includes('банан') && t.includes('мигдаль')) return catalogPhotos.breakfastCottageCheeseBerriesBananaAlmonds;
+        if(t.includes('лаваш') && t.includes('індич') && t.includes('яйц') && t.includes('помідор')) return catalogPhotos.breakfastLavashTurkeyEggTomatoGreens;
+        if(t.includes('кукурудзяна каша') && t.includes('банан') && t.includes('волоськ')) return catalogPhotos.breakfastCornPorridgeBananaWalnuts;
+        if(t.includes('кіноа') && t.includes('яблуко') && t.includes('ягод') && t.includes('чіа') && t.includes('йогурт')) return catalogPhotos.breakfastQuinoaAppleBerriesChiaYogurt;
         return catalogPhotos.porridge;
       }
 
