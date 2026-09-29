@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="breakfasts-complete-v4"></head>
+<meta name="meal-planner-build" content="snacks-complete-v5"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -189,16 +189,21 @@
       soup:'assets/soup-toast.jpg?v=3',
       dessert:'assets/dessert-plate.jpg?v=3',
 
-      snackAppleCheese:'snacks/apple-cheese.jpg?v=3',
-      snackYogurtBerriesPistachios:'snacks/yogurt-berries-pistachios.jpg?v=3',
-      snackVeggiesHummus:'snacks/veggies-hummus.jpg?v=3',
-      snackKefirKiwi:'snacks/kefir-kiwi.jpg?v=3',
-      snackEggCheeseVegetables:'snacks/egg-cheese-vegetables.jpg?v=3',
-      snackYogurtGrapesHazelnuts:'snacks/yogurt-grapes-hazelnuts.jpg?v=3',
-      snackSmoothieBerriesBananaChia:'snacks/smoothie-berries-banana-chia.jpg?v=3',
-      snackPearWalnuts:'snacks/pear-walnuts.jpg?v=3',
-      snackBananaPeanutButter:'snacks/banana-peanut-butter.jpg?v=3',
-      snackCrackersHummusCucumber:'snacks/crackers-hummus-cucumber.jpg?v=3',
+      snackAppleCheese:'snacks/apple-cheese.jpg?v=5',
+      snackYogurtBerriesPistachios:'snacks/yogurt-berries-pistachios.jpg?v=5',
+      snackVeggiesHummus:'snacks/veggies-hummus.jpg?v=5',
+      snackKefirKiwi:'snacks/kefir-kiwi.jpg?v=5',
+      snackEggCheeseVegetables:'snacks/egg-cheese-vegetables.jpg?v=5',
+      snackYogurtGrapesHazelnuts:'snacks/yogurt-grapes-hazelnuts.jpg?v=5',
+      snackSmoothieBerriesBananaChia:'snacks/smoothie-berries-banana-chia.jpg?v=5',
+      snackPearWalnuts:'snacks/pear-walnuts.jpg?v=5',
+      snackBananaPeanutButter:'snacks/banana-peanut-butter.jpg?v=5',
+      snackCrackersHummusCucumber:'snacks/crackers-hummus-cucumber.jpg?v=5',
+      snackCitrusAlmonds:'snacks-extra/snack-citrus-almonds.png?v=5',
+      snackCottageCheeseBerries:'snacks-extra/snack-cottage-cheese-berries.png?v=5',
+      snackAvocadoToastTomato:'snacks-extra/snack-avocado-toast-tomato.png?v=5',
+      snackCrackersHummusCucumberTomato:'snacks-extra/snack-crackers-hummus-cucumber-tomato.png?v=5',
+      snackYogurtBananaCinnamon:'snacks-extra/snack-yogurt-banana-cinnamon.png?v=5',
 
       breakfastOatmealBerriesWalnutsEgg:'breakfasts-ready/breakfast-oatmeal-berries-walnuts-egg.jpg?v=4',
       breakfastEggsBuckwheatTomatoesCheese:'breakfasts-ready/breakfast-eggs-buckwheat-tomatoes-cheese.jpg?v=4',
@@ -239,6 +244,11 @@
       }
 
       if(mealKey==='snack'){
+        if((t.includes('мандарин') || t.includes('апельсин')) && t.includes('мигдал')) return catalogPhotos.snackCitrusAlmonds;
+        if((t.includes('кисломолоч') || t.includes('безлактозний сир')) && t.includes('ягод')) return catalogPhotos.snackCottageCheeseBerries;
+        if(t.includes('авокадо') && t.includes('цільнозерновому тості') && t.includes('помідор')) return catalogPhotos.snackAvocadoToastTomato;
+        if(t.includes('хлібц') && t.includes('хумус') && (t.includes('огір') || t.includes('помід'))) return catalogPhotos.snackCrackersHummusCucumberTomato;
+        if(t.includes('йогурт') && t.includes('банан') && t.includes('кориц')) return catalogPhotos.snackYogurtBananaCinnamon;
         if(t.includes('яблук') && t.includes('сир')) return catalogPhotos.snackAppleCheese;
         if(t.includes('йогурт') && t.includes('ягод') && t.includes('фісташ')) return catalogPhotos.snackYogurtBerriesPistachios;
         if((t.includes('морк') || t.includes('огір')) && t.includes('хумус')) return catalogPhotos.snackVeggiesHummus;
