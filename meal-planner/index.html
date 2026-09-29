@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f6f7f3">
-<title>Раціон на 7 днів</title>
+<title>🍽️ Раціон на 7 днів</title>
 <style>
 :root{--bg:#f6f7f3;--card:#fff;--ink:#1f2926;--muted:#74807b;--line:#dfe5df;--accent:#617e70;--soft:#e7eee9;--shadow:0 12px 34px rgba(31,41,38,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.45}
@@ -21,9 +21,9 @@ button,input{font:inherit}.app{max-width:1160px;margin:auto;padding:18px 16px 80
 html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
 .app,.backdrop{display:none!important}.printsheet{display:block!important;width:289mm;height:202mm;margin:0 auto;font-family:Arial,sans-serif;color:#111;overflow:hidden}
 .ptitle{display:flex;justify-content:space-between;align-items:flex-end;height:8mm;margin-bottom:2mm}.ptitle h1{font-size:13pt;margin:0}.ptitle span{font-size:6pt;color:#555}
-.ptable{width:100%;height:190mm;border-collapse:collapse;table-layout:fixed;font-size:5.25pt;line-height:1.06}
-.ptable th,.ptable td{border:.25mm solid #cfd5cf;padding:1.1mm 1.15mm;vertical-align:top;overflow-wrap:anywhere}
-.ptable thead th{height:8mm;background:#eef2ed;font-size:6.1pt;text-align:center;vertical-align:middle}.ptable thead th:first-child{width:17mm}.ptable tbody th{width:17mm;background:#f5f6f4;text-transform:uppercase;font-size:5.3pt;vertical-align:middle}.ptable tbody tr{height:36.4mm}.ptable td{font-weight:600}
+.ptable{width:100%;height:190mm;border-collapse:collapse;table-layout:fixed;font-size:4.65pt;line-height:1.02}
+.ptable th,.ptable td{border:.25mm solid #cfd5cf;padding:.75mm .85mm;vertical-align:top;overflow-wrap:anywhere}
+.ptable thead th{height:8mm;background:#eef2ed;font-size:6.1pt;text-align:center;vertical-align:middle}.ptable thead th:first-child{width:17mm}.ptable tbody th{width:17mm;background:#f5f6f4;text-transform:uppercase;font-size:4.9pt;vertical-align:middle}.ptable tbody tr{height:36.4mm}.ptable td{font-weight:600}
 }
 </style>
 </head>
@@ -31,50 +31,50 @@ html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
 <main class="app">
 <section class="hero">
 <div class="eyebrow">Планувальник харчування</div>
-<h1>Раціон на 7 днів</h1>
+<h1>🍽️ Раціон на 7 днів</h1>
 <p class="lead">Обирай страви для кожного дня. Усі зміни автоматично зберігаються на цьому пристрої, а внизу формується готовий тижневий раціон.</p>
 <div class="toolbar">
-<button class="btn primary" id="goSummary">Готовий раціон</button>
-<button class="btn" id="printBtn">Зберегти в PDF</button>
-<button class="btn" id="resetBtn">Скинути меню</button>
+<button class="btn primary" id="goSummary">📋 Готовий раціон</button>
+<button class="btn" id="printBtn">🖨️ Зберегти в PDF</button>
+<button class="btn" id="resetBtn">↺ Скинути меню</button>
 <div class="saved" id="saved">Збережено</div>
 </div>
 </section>
-<div class="info"><b>Основа меню:</b> без яловичини, субпродуктів і чорносливу. Курка, індичка, риба, яйця, крупи, овочі, бобові та звичні смаколики. Для тебе — безлактозні або рослинні аналоги молочних продуктів; для Олексія — звичайні молочні продукти.</div>
+<div class="info"><b>🥗 Основа меню:</b> без яловичини, субпродуктів і чорносливу. Курка, індичка, риба, яйця, крупи, овочі, бобові та звичні смаколики.<br><br><b>👩 Для Катерини:</b> молоко — безлактозне 1,5–2,5% або рослинне без доданого цукру; натуральний безлактозний йогурт 1,5–3%; безлактозний кефір 1–2,5%; безлактозний кисломолочний сир 2–5%; твердий сир — порція 20–30 г.<br><b>👨 Для Олексія:</b> молоко 1,5–2,5%; натуральний йогурт без добавок 1,5–3%; кефір 1–2,5%; ряжанка близько 2,5%; кисломолочний сир 2–5%; твердий сир — порція 20–30 г.</div>
 <nav class="tabs" id="tabs"></nav>
 <section id="panels"></section>
-<section class="summary" id="summary"><div class="eyebrow">Підсумок</div><h2>Готовий раціон на 7 днів</h2><div class="sumgrid" id="sumgrid"></div></section>
+<section class="summary" id="summary"><div class="eyebrow">Підсумок</div><h2>📋 Готовий раціон на 7 днів</h2><div class="sumgrid" id="sumgrid"></div></section>
 </main>
 <div class="backdrop" id="backdrop"><div class="modal"><div class="mhead"><div><div class="eyebrow" id="mday"></div><h3 id="mtitle"></h3></div><button class="close" id="close">×</button></div><div class="opts" id="opts"></div><div class="custom"><input id="custom" placeholder="Або впиши свою страву"><button class="btn primary" id="saveCustom">Зберегти</button></div></div></div>
 <section class="printsheet"><div class="ptitle"><h1>Раціон на 7 днів</h1><span>Готовий тижневий план</span></div><table class="ptable"><thead><tr id="phead"></tr></thead><tbody id="pbody"></tbody></table></section>
 <script>
 var days=[['mon','ПН','Понеділок'],['tue','ВТ','Вівторок'],['wed','СР','Середа'],['thu','ЧТ','Четвер'],['fri','ПТ','П’ятниця'],['sat','СБ','Субота'],['sun','НД','Неділя']];
-var meals=[['breakfast','Сніданок'],['snack','Перекус'],['lunch','Обід'],['treat','Смаколик'],['dinner','Вечеря']];
+var meals=[['breakfast','🌅 Сніданок'],['snack','🍎 Перекус'],['lunch','🍲 Обід'],['treat','🍫 Смаколик'],['dinner','🌙 Вечеря']];
 var options={
 breakfast:[
-'Вівсянка на безлактозному / рослинному молоці + ягоди + волоські горіхи + 1 яйце. Чай / кава.',
+'Вівсянка: Катерині — безлактозне молоко 1,5–2,5% або рослинне без цукру; Олексію — молоко 1,5–2,5% + ягоди + волоські горіхи + 1 яйце. Чай / кава.',
 'Гречка + 2 яйця + помідор + твердий сир 20–30 г. Чай / кава.',
-'Пшоняна каша з гарбузом + йогурт + мигдаль. Чай.',
-'Шакшука + моцарела / твердий сир + цільнозерновий хліб.',
-'Overnight oats: вівсянка + йогурт / молоко + банан + чіа.',
-'Сирники з кисломолочного / безлактозного сиру + ягоди.',
-'Омлет зі шпинатом і грибами + сир + тост + авокадо.',
-'Рисова каша на молоці / безлактозному молоці + яблуко + кориця.',
-'Гречані млинці + йогурт + ягоди.',
+'Пшоняна каша з гарбузом + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + мигдаль. Чай.',
+'Шакшука + моцарела / твердий сир 20–30 г + цільнозерновий хліб.',
+'Overnight oats: вівсянка + натуральний йогурт 1,5–3% або молоко 1,5–2,5% (Катерині — безлактозні аналоги / рослинне молоко без цукру) + банан + чіа.',
+'Сирники: Олексію — кисломолочний сир 2–5%, Катерині — безлактозний кисломолочний сир 2–5% + ягоди.',
+'Омлет зі шпинатом і грибами + твердий сир 20–30 г + тост + авокадо.',
+'Рисова каша: Олексію — молоко 1,5–2,5%, Катерині — безлактозне 1,5–2,5% або рослинне без цукру + яблуко + кориця.',
+'Гречані млинці + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + ягоди.',
 'Тост з авокадо + 2 яйця пашот / варені + огірок.',
-'Кисломолочний / безлактозний сир + ягоди + банан + мигдаль.',
+'Олексію — кисломолочний сир 2–5%; Катерині — безлактозний кисломолочний сир 2–5% + ягоди + банан + мигдаль.',
 'Цільнозерновий лаваш з індичкою, яйцем, помідором і зеленню.',
 'Кукурудзяна каша + банан + волоські горіхи.',
-'Кіноа з яблуком, ягодами, чіа та йогуртом.',
+'Кіноа з яблуком, ягодами, чіа + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.',
 'Булгур + яйце + авокадо + томати.',
-'Вівсяні панкейки з бананом + йогурт.',
+'Вівсяні панкейки з бананом + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.',
 'Яєчні мафіни з індичкою та овочами + тост.',
 'Перловка з яйцем, зеленню та овочами.',
 'Тост з тунцем, авокадо й огірком.',
 'Запечена вівсянка з яблуком, корицею та горіхами.'
 ],
 snack:[
-'Яблуко + твердий сир 20–30 г.','Йогурт + ягоди + фісташки.','Морква й огірок + хумус.','Кефір / ряжанка + ківі.','Варене яйце + сир + овочі.','Йогурт + виноград + фундук.','Смузі: ягоди + банан + кефір / йогурт + чіа.','Груша + волоські горіхи.','Банан + арахісова паста без цукру.','Хлібці + хумус + огірок.','Йогурт + банан + кориця.','Мандарин / апельсин + мигдаль.','Авокадо на цільнозерновому тості.','Кисломолочний / безлактозний сир + ягоди.','Ківі + фісташки.','Яблуко + арахісова паста.','Домашній хумус + перець соломкою.','Яйце + авокадо + огірок.','Йогурт + чіа + полуниця.','Банан + кілька волоських горіхів.'
+'Яблуко + твердий сир 20–30 г.','Натуральний йогурт без добавок: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + ягоди + фісташки.','Морква й огірок + хумус.','Олексію — кефір 1–2,5% або ряжанка ~2,5%; Катерині — безлактозний кефір 1–2,5% + ківі.','Варене яйце + твердий сир 20–30 г + овочі.','Натуральний йогурт без добавок: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + виноград + фундук.','Смузі: ягоди + банан + Олексію кефір 1–2,5% / натуральний йогурт 1,5–3%; Катерині безлактозний кефір 1–2,5% / йогурт 1,5–3% + чіа.','Груша + волоські горіхи.','Банан + арахісова паста без цукру.','Хлібці + хумус + огірок.','Натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + банан + кориця.','Мандарин / апельсин + мигдаль.','Авокадо на цільнозерновому тості.','Олексію — кисломолочний сир 2–5%; Катерині — безлактозний кисломолочний сир 2–5% + ягоди.','Ківі + фісташки.','Яблуко + арахісова паста.','Домашній хумус + перець соломкою.','Яйце + авокадо + огірок.','Натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + чіа + полуниця.','Банан + кілька волоських горіхів.'
 ],
 lunch:[
 'Лосось у духовці + булгур + салат зі шпинату, огірка й авокадо.',
@@ -103,7 +103,7 @@ lunch:[
 'Домашній плов з індичкою та рисом басматі.'
 ],
 treat:[
-'Темний шоколад 70–85% — 10–20 г.','Вівсяне / цільнозернове печиво без крему — 1–2 шт.','Молочний шоколад — 10–15 г, інколи.','Пастила або зефір без глазурі — 1 шт.','Какао-банановий брауні на вівсяному борошні.','Бананово-вівсяні мафіни.','Лимонний кекс на вівсяному борошні.','Запечене яблуко з корицею та горіхами.','Домашнє вівсяне печиво з бананом.','Йогуртовий десерт з ягодами та чіа.','Мармелад — невелика порція.','Фінік 1–2 шт. + волоський горіх.','Банан з какао та ложкою йогурту.','Домашні сирні кульки з какао.','Ягідне желе.','Печене яблуко з йогуртом.','Домашня гранола + йогурт.','Рисовий хлібець + банан + арахісова паста.','Фруктовий салат.','Маленька порція морозива / безлактозного морозива.'
+'Темний шоколад 70–85% — 10–20 г.','Вівсяне / цільнозернове печиво без крему — 1–2 шт.','Молочний шоколад — 10–15 г, інколи.','Пастила або зефір без глазурі — 1 шт.','Какао-банановий брауні на вівсяному борошні.','Бананово-вівсяні мафіни.','Лимонний кекс на вівсяному борошні.','Запечене яблуко з корицею та горіхами.','Домашнє вівсяне печиво з бананом.','Десерт з натурального йогурту: Олексію 1,5–3%, Катерині безлактозного 1,5–3% + ягоди та чіа.','Мармелад — невелика порція.','Фінік 1–2 шт. + волоський горіх.','Банан з какао + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Домашні сирні кульки з какао: Олексію — кисломолочний сир 2–5%, Катерині — безлактозний 2–5%.','Ягідне желе.','Печене яблуко + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Домашня гранола + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Рисовий хлібець + банан + арахісова паста.','Фруктовий салат.','Маленька порція морозива: Олексію — звичайного молочного; Катерині — безлактозного / рослинного.'
 ],
 dinner:[
 'Фрикадельки з індички / курки + запечені овочі + хумус.',
@@ -139,7 +139,7 @@ function save(){localStorage.setItem(key,JSON.stringify(plan));document.getEleme
 function renderTabs(){document.getElementById('tabs').innerHTML=days.map(function(d){return '<button class="tab '+(d[0]===day?'active':'')+'" data-d="'+d[0]+'">'+d[1]+'<small>'+d[2].slice(0,3)+'</small></button>'}).join('');document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){day=b.dataset.d;renderTabs();renderPanels()}})}
 function renderPanels(){document.getElementById('panels').innerHTML=days.map(function(d){return '<section class="panel '+(d[0]===day?'active':'')+'"><div class="dayhead"><div class="daytitle">'+d[2]+'</div><div class="progress">5 прийомів їжі</div></div><div class="grid">'+meals.map(function(m){return '<article class="card"><div class="cardtop"><div class="meal">'+m[1]+'</div><button class="change" data-d="'+d[0]+'" data-m="'+m[0]+'">Змінити</button></div><div class="choice">'+esc(plan[d[0]][m[0]])+'</div></article>'}).join('')+'</div></section>'}).join('');document.querySelectorAll('.change').forEach(function(b){b.onclick=function(){openPick(b.dataset.d,b.dataset.m)}})}
 function renderSummary(){document.getElementById('sumgrid').innerHTML=days.map(function(d){return '<article class="sumday"><h3>'+d[2]+'</h3>'+meals.map(function(m){return '<div class="sumrow"><b>'+m[1]+'</b><span>'+esc(plan[d[0]][m[0]])+'</span></div>'}).join('')+'</article>'}).join('');renderPrint()}
-function renderPrint(){document.getElementById('phead').innerHTML='<th>Прийом</th>'+days.map(function(d){return '<th>'+d[1]+'<br>'+d[2]+'</th>'}).join('');document.getElementById('pbody').innerHTML=meals.map(function(m){return '<tr><th>'+m[1]+'</th>'+days.map(function(d){return '<td>'+esc(plan[d[0]][m[0]])+'</td>'}).join('')+'</tr>'}).join('')}
+function renderPrint(){document.getElementById('phead').innerHTML='<th>Прийом</th>'+days.map(function(d){return '<th>'+d[1]+'<br>'+d[2]+'</th>'}).join('');document.getElementById('pbody').innerHTML=meals.map(function(m){return '<tr><th>'+m[1].replace(/^\\S+\\s/,\'\')+'</th>'+days.map(function(d){return '<td>'+esc(plan[d[0]][m[0]])+'</td>'}).join('')+'</tr>'}).join('')}
 function openPick(d,m){active={d:d,m:m};var dn=days.find(function(x){return x[0]===d}),mn=meals.find(function(x){return x[0]===m});document.getElementById('mday').textContent=dn[2];document.getElementById('mtitle').textContent='Обери: '+mn[1].toLowerCase();document.getElementById('custom').value='';document.getElementById('opts').innerHTML=options[m].map(function(o,i){return '<button class="opt '+(o===plan[d][m]?'sel':'')+'" data-i="'+i+'">'+esc(o)+'</button>'}).join('');document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){choose(options[m][Number(b.dataset.i)])}});document.getElementById('backdrop').classList.add('open')}
 function choose(v){plan[active.d][active.m]=v;save();closePick();renderPanels();renderSummary()}
 function closePick(){document.getElementById('backdrop').classList.remove('open');active=null}
