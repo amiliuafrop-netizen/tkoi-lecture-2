@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="treats-part1-v9"></head>
+<meta name="meal-planner-build" content="treats-complete-v10"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -246,7 +246,11 @@
       treatLemonOatCake:'treats-part1/treat-07-lemon-oat-cake.png?v=9',
       treatBakedAppleCinnamonWalnuts:'treats-part1/treat-08-baked-apple-cinnamon-walnuts.png?v=9',
       treatHomemadeOatBananaCookies:'treats-part1/treat-09-homemade-oat-banana-cookies.png?v=9',
-      treatYogurtBerriesChia:'treats-part1/treat-10-yogurt-berries-chia-dessert.png?v=9'
+      treatYogurtBerriesChia:'treats-part1/treat-10-yogurt-berries-chia-dessert.png?v=10',
+      treatFruitJellyMarmalade:'treats-part2/treat-11-fruit-jelly-marmalade.png?v=10',
+      treatDatesWalnuts:'treats-part2/treat-12-dates-walnuts.png?v=10',
+      treatBananaCocoaYogurt:'treats-part2/treat-13-banana-cocoa-yogurt.png?v=10',
+      treatCottageCheeseCocoaBalls:'treats-part2/treat-14-cottage-cheese-cocoa-balls.png?v=10'
     };
 
     function chooseCatalogImage(text,mealKey){
@@ -324,6 +328,10 @@
         if(t.includes('запечене яблуко') && t.includes('кориц') && t.includes('горіх')) return catalogPhotos.treatBakedAppleCinnamonWalnuts;
         if(t.includes('домашнє вівсяне печиво') && t.includes('банан')) return catalogPhotos.treatHomemadeOatBananaCookies;
         if(t.includes('йогуртовий десерт') && t.includes('ягод') && t.includes('чіа')) return catalogPhotos.treatYogurtBerriesChia;
+        if(t.includes('фруктове желе') || t.includes('мармелад')) return catalogPhotos.treatFruitJellyMarmalade;
+        if(t.includes('фінік') && t.includes('волось')) return catalogPhotos.treatDatesWalnuts;
+        if(t.includes('банан') && t.includes('какао') && t.includes('йогурт')) return catalogPhotos.treatBananaCocoaYogurt;
+        if(t.includes('сирні кульки') && t.includes('какао')) return catalogPhotos.treatCottageCheeseCocoaBalls;
       }
 
       if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
