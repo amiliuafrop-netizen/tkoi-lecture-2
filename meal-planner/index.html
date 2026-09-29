@@ -39,7 +39,7 @@ html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
 <h1>🍽️ Раціон на 7 днів</h1>
 <p class="lead">Обирай страви для кожного дня. Усі зміни автоматично зберігаються на цьому пристрої, а внизу формується готовий тижневий раціон.</p>
 <div class="toolbar">
-<button class="btn primary" id="goSummary">Готовий раціон</button>
+<button class="btn primary" id="goSummary">Готовий раціон</button><button class="btn" id="openCatalog">Каталог страв</button>
 <button class="btn" id="printBtn">Зберегти в PDF</button>
 <button class="btn" id="resetBtn">Скинути меню</button>
 <div class="saved" id="saved">Збережено</div>
@@ -195,6 +195,15 @@ function renderCatalog(){
     return '<details '+(idx===0?'open':'')+'><summary>'+m[1]+' <small style="color:var(--muted);font-weight:700">'+list.length+' варіантів</small></summary><div class="dish-grid">'+list.map(function(o){return '<article class="dish-card"><div class="dish-art">'+dishVisual(o,m[0])+'</div><div class="dish-name">'+esc(o)+'</div></article>'}).join('')+'</div></details>';
   }).join('');
 }
+document.getElementById('openCatalog').onclick=function(){
+  var catalog=document.getElementById('catalog');
+  var toggle=document.getElementById('catalogToggle');
+  var open=!catalog.classList.contains('open');
+  catalog.classList.toggle('open',open);
+  toggle.classList.toggle('open',open);
+  toggle.querySelector('span:last-child').textContent=open?'⌃':'⌄';
+  if(open){renderCatalog();setTimeout(function(){catalog.scrollIntoView({behavior:'smooth',block:'start'})},50)}
+};
 document.getElementById('catalogToggle').onclick=function(){
   var catalog=document.getElementById('catalog');
   var open=!catalog.classList.contains('open');
