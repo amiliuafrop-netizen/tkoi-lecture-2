@@ -72,7 +72,7 @@
     .dish-loading{opacity:.7;filter:saturate(.75)}
 
   </style>
-<meta name="meal-planner-build" content="fresh-menu-v3-snacks-v6"></head>
+<meta name="meal-planner-build" content="lunches-part1-v7"></head>
 <body>
   <main class="app">
     <section class="hero">
@@ -218,7 +218,18 @@
       breakfastCottageCheeseBerriesBananaAlmonds:'breakfasts-extra/breakfast-cottage-cheese-berries-banana-almonds.png?v=6',
       breakfastLavashTurkeyEggTomatoGreens:'breakfasts-extra/breakfast-lavash-turkey-egg-tomato-greens.png?v=6',
       breakfastCornPorridgeBananaWalnuts:'breakfasts-extra/breakfast-corn-porridge-banana-walnuts.png?v=6',
-      breakfastQuinoaAppleBerriesChiaYogurt:'breakfasts-extra/breakfast-quinoa-apple-berries-chia-yogurt.png?v=6'
+      breakfastQuinoaAppleBerriesChiaYogurt:'breakfasts-extra/breakfast-quinoa-apple-berries-chia-yogurt.png?v=7',
+
+      lunchSalmonBulgurSalad:'lunches-part1/lunch-01-salmon-bulgur-spinach-cucumber-avocado.png?v=7',
+      lunchChickenBasmatiBroccoli:'lunches-part1/lunch-02-chicken-basmati-broccoli.png?v=7',
+      lunchTurkeyChiliBulgur:'lunches-part1/lunch-03-turkey-chili-beans-tomatoes-bulgur.png?v=7',
+      lunchTurkeyCutletsVinaigrette:'lunches-part1/lunch-04-turkey-cutlets-vinaigrette.png?v=7',
+      lunchBakedChickenVinaigrette:'lunches-part1/lunch-05-baked-chicken-vinaigrette.png?v=7',
+      lunchMackerelPotatoesCabbageCarrot:'lunches-part1/lunch-06-mackerel-potatoes-cabbage-carrot-salad.png?v=7',
+      lunchCutletsSweetPotatoSalad:'lunches-part1/lunch-07-cutlets-sweet-potato-mash-salad.png?v=7',
+      lunchTurkeyMeatballsBuckwheatSalad:'lunches-part1/lunch-08-turkey-meatballs-buckwheat-salad.png?v=7',
+      lunchChickenWokRiceVegetables:'lunches-part1/lunch-09-chicken-wok-rice-vegetables.png?v=7',
+      lunchTurkeyTomatoPastaSalad:'lunches-part1/lunch-10-turkey-tomato-sauce-wholegrain-pasta-salad.png?v=7'
     };
 
     function chooseCatalogImage(text,mealKey){
@@ -264,6 +275,19 @@
         if(t.includes('авокадо') && t.includes('тост')) return catalogPhotos.snackEggCheeseVegetables;
         if((t.includes('кисломолоч') || t.includes('безлактозний сир')) && t.includes('ягод')) return catalogPhotos.snackYogurtBerriesPistachios;
         return catalogPhotos.snackAppleCheese;
+      }
+
+      if(mealKey==='lunch'){
+        if(t.includes('лосось') && t.includes('булгур') && t.includes('шпинат') && t.includes('авокадо')) return catalogPhotos.lunchSalmonBulgurSalad;
+        if(t.includes('куряче філе') && t.includes('рис басматі') && t.includes('броколі')) return catalogPhotos.lunchChickenBasmatiBroccoli;
+        if(t.includes('чилі') && t.includes('індич') && t.includes('квасол') && t.includes('булгур')) return catalogPhotos.lunchTurkeyChiliBulgur;
+        if(t.includes('котлети з індички') && t.includes('вінегрет')) return catalogPhotos.lunchTurkeyCutletsVinaigrette;
+        if(t.includes('запечена курка') && t.includes('вінегрет')) return catalogPhotos.lunchBakedChickenVinaigrette;
+        if(t.includes('скумбр') && t.includes('картопл') && t.includes('капуст') && t.includes('морк')) return catalogPhotos.lunchMackerelPotatoesCabbageCarrot;
+        if(t.includes('котлети') && t.includes('батат') && t.includes('салат')) return catalogPhotos.lunchCutletsSweetPotatoSalad;
+        if(t.includes('тефтелі з індички') && t.includes('гречк') && t.includes('огір') && t.includes('томат')) return catalogPhotos.lunchTurkeyMeatballsBuckwheatSalad;
+        if(t.includes('курка wok') && t.includes('рис басматі') && t.includes('перець') && t.includes('морк') && t.includes('броколі')) return catalogPhotos.lunchChickenWokRiceVegetables;
+        if(t.includes('індичка у томатному соусі') && t.includes('цільнозернові макарони') && t.includes('салат')) return catalogPhotos.lunchTurkeyTomatoPastaSalad;
       }
 
       if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
