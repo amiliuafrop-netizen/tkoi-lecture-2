@@ -1,247 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f6f7f3">
-<title>🍽️ Раціон на 7 днів</title>
-<style>
-:root{--bg:#f6f7f3;--card:#fff;--ink:#1f2926;--muted:#74807b;--line:#dfe5df;--accent:#617e70;--soft:#e7eee9;--shadow:0 12px 34px rgba(31,41,38,.08)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.45}
-button,input{font:inherit}.app{max-width:1160px;margin:auto;padding:18px 16px 80px}.hero{padding:18px 0 8px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(34px,6vw,60px);line-height:1;margin:8px 0;letter-spacing:-.04em}.lead{max-width:780px;margin:0;color:var(--muted);font-size:17px}.info{margin:16px 0 20px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fbfcfa;color:#58645f;font-size:14px}
-.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:11px 14px;border-radius:14px;font-weight:750;cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:white}.saved{margin-left:auto;align-self:center;color:var(--muted);font-size:13px}
-.tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;position:sticky;top:0;z-index:5;padding:10px 0;background:linear-gradient(var(--bg) 72%,rgba(246,247,243,0))}.tab{border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:15px;padding:11px 6px;font-weight:800;color:var(--muted);cursor:pointer}.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}.tab small{display:block;font-size:10px;opacity:.7}
-.panel{display:none}.panel.active{display:block}.dayhead{display:flex;justify-content:space-between;align-items:end;margin:12px 0}.daytitle{font-size:28px;font-weight:900}.progress{font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow);min-height:145px}.card:last-child{grid-column:1/-1}.cardtop{display:flex;justify-content:space-between;gap:10px;align-items:center}.meal{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.change{border:0;background:var(--soft);color:#42594f;font-weight:800;border-radius:999px;padding:9px 12px;cursor:pointer}.choice{font-size:17px;font-weight:700;margin-top:14px}
-.summary{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}.summary h2{margin:0 0 14px;font-size:26px}.sumgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.sumday{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfcfa}.sumday h3{margin:0 0 8px}.sumrow{display:grid;grid-template-columns:86px 1fr;gap:8px;border-top:1px dashed #e2e6e2;padding:7px 0;font-size:13px}.sumrow:first-of-type{border-top:0}.sumrow b{font-size:10px;text-transform:uppercase;color:var(--muted)}
-.backdrop{position:fixed;inset:0;background:rgba(24,31,28,.44);display:none;align-items:flex-end;justify-content:center;z-index:50;padding:18px}.backdrop.open{display:flex}.modal{width:min(760px,100%);max-height:84vh;overflow:auto;background:#fff;border-radius:26px;padding:18px}.mhead{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-18px;background:white;padding:8px 0 12px;z-index:2}.mhead h3{margin:0}.close{border:0;background:#eef2ef;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer}.opts{display:grid;gap:8px}.opt{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 13px;cursor:pointer;font-weight:650}.opt:hover,.opt.sel{background:var(--soft);border-color:var(--accent)}.custom{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.custom input{flex:1;border:1px solid var(--line);border-radius:13px;padding:11px}.printsheet{display:none}
-@media(max-width:760px){.app{padding:12px 12px 70px}.toolbar .btn{flex:1 1 auto;min-height:46px}.saved{width:100%;margin-left:2px}.tabs{grid-template-columns:repeat(7,minmax(58px,1fr));overflow-x:auto;margin-left:-12px;margin-right:-12px;padding:10px 12px}.grid,.sumgrid{grid-template-columns:1fr}.card:last-child{grid-column:auto}.card{min-height:0}.backdrop{padding:0}.modal{border-radius:26px 26px 0 0;max-height:90vh;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}.custom{flex-direction:column}}
-@page{size:A4 landscape;margin:4mm}
-@media print{
-html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
-.app,.backdrop{display:none!important}.printsheet{display:block!important;width:289mm;height:202mm;margin:0 auto;font-family:Arial,sans-serif;color:#111;overflow:hidden}
-.ptitle{display:flex;justify-content:space-between;align-items:flex-end;height:8mm;margin-bottom:2mm}.ptitle h1{font-size:13pt;margin:0}.ptitle span{font-size:6pt;color:#555}
-.ptable{width:100%;height:190mm;border-collapse:collapse;table-layout:fixed;font-size:4.65pt;line-height:1.02}
-.ptable th,.ptable td{border:.25mm solid #cfd5cf;padding:.75mm .85mm;vertical-align:top;overflow-wrap:anywhere}
-.ptable thead th{height:8mm;background:#eef2ed;font-size:6.1pt;text-align:center;vertical-align:middle}.ptable thead th:first-child{width:17mm}.ptable tbody th{width:17mm;background:#f5f6f4;text-transform:uppercase;font-size:4.9pt;vertical-align:middle}.ptable tbody tr{height:36.4mm}.ptable td{font-weight:600}
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f8f4" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Раціон" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Раціон на 7 днів</title>
+  <style>
+    :root{
+      --bg:#f7f8f4;--surface:#fff;--surface-2:#f0f3ec;--ink:#1f2a28;--muted:#6e7a76;
+      --line:#dde4dd;--accent:#5f7d70;--accent-dark:#425e53;--accent-soft:#e3ece6;
+      --shadow:0 14px 40px rgba(36,54,47,.08);--radius:22px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45;-webkit-text-size-adjust:100%}
+    button,input{font:inherit} button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .app{max-width:1180px;margin:0 auto;padding:18px 18px 90px}.hero{padding:20px 0 12px}
+    .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+    h1{margin:8px 0;font-size:clamp(30px,5vw,56px);line-height:1.02;letter-spacing:-.04em}
+    .lead{margin:0;max-width:780px;color:var(--muted);font-size:clamp(15px,2vw,18px)}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+    .btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:11px 15px;border-radius:14px;font-weight:750;box-shadow:0 2px 0 rgba(31,42,40,.03)}
+    .btn:hover{border-color:#c9d4cc}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.ghost{background:transparent}
+    .save-pill{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin-left:auto}.dot{width:8px;height:8px;border-radius:50%;background:#87aa94;box-shadow:0 0 0 4px rgba(135,170,148,.14)}
+    .info{margin:14px 0 20px;background:linear-gradient(135deg,#eef3ec,#f8f4ee);border:1px solid var(--line);border-radius:18px;padding:14px 16px;color:#53605c;font-size:14px}.info strong{color:var(--ink)}
+    .day-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:18px 0 16px;position:sticky;top:0;z-index:8;padding:10px 0;background:linear-gradient(var(--bg) 70%,rgba(247,248,244,0))}
+    .day-tab{border:1px solid var(--line);background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:16px;padding:12px 8px;font-weight:800;color:var(--muted);min-height:54px}.day-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}.day-tab small{display:block;font-size:10px;margin-top:2px;opacity:.7;font-weight:700}
+    .day-panel{display:none}.day-panel.active{display:block}.day-title-row{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:12px 0 14px}.day-title{font-size:28px;font-weight:900;letter-spacing:-.025em}.progress{color:var(--muted);font-size:13px}
+    .meals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.meal-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow);min-height:148px;display:flex;flex-direction:column;gap:12px;transition:.18s ease}.meal-card:hover{transform:translateY(-2px);border-color:#cad5cd}.meal-card.full{grid-column:1/-1}
+    .meal-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.meal-name{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.meal-icon{width:34px;height:34px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;font-size:17px}.change{border:0;background:var(--surface-2);color:var(--accent-dark);font-weight:800;font-size:12px;border-radius:999px;padding:9px 12px}.choice{font-size:17px;font-weight:730;line-height:1.35}.choice.empty{color:#94a09a;font-weight:650}
+    .summary-wrap{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:var(--shadow)}.summary-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.summary-head h2{margin:0;font-size:26px;letter-spacing:-.03em}.summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.summary-day{border:1px solid var(--line);border-radius:18px;padding:15px;background:#fbfcfa}.summary-day h3{margin:0 0 10px;font-size:18px}.summary-row{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:7px 0;border-top:1px dashed #e1e6e0;font-size:13px}.summary-row:first-of-type{border-top:0}.summary-row b{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(20,28,25,.42);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:18px}.modal-backdrop.open{display:flex}.modal{width:min(760px,100%);max-height:min(82vh,800px);overflow:auto;background:var(--surface);border-radius:26px 26px 18px 18px;border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 80px rgba(15,25,20,.22);padding:18px;-webkit-overflow-scrolling:touch}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:-18px;background:var(--surface);padding:8px 0 12px;z-index:2}.modal h3{margin:0;font-size:22px}.close{border:0;background:var(--surface-2);width:42px;height:42px;border-radius:50%;font-size:21px}.option-list{display:grid;gap:9px}.option{width:100%;text-align:left;border:1px solid var(--line);background:#fcfdfb;border-radius:16px;padding:13px 14px;color:var(--ink);font-weight:650;line-height:1.35}.option:hover,.option.selected{border-color:var(--accent);background:var(--accent-soft)}.custom-box{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:8px}.custom-box input{flex:1;border:1px solid var(--line);border-radius:14px;padding:12px 13px;outline:none;background:#fff}.custom-box input:focus{border-color:var(--accent)}
+    .footer-note{color:var(--muted);font-size:12px;text-align:center;margin-top:18px}.print-sheet{display:none}
+    @media(max-width:760px){
+      .dish-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 10px 10px}.dish-name{padding:10px;font-size:12px}.catalog-group summary{padding:14px}.catalog-toggle{padding:13px 14px}
+      .app{padding:12px 12px calc(84px + env(safe-area-inset-bottom))}.hero{padding-top:10px}.toolbar{align-items:stretch}.toolbar .btn{flex:1 1 auto;min-height:46px}.save-pill{width:100%;margin-left:2px}.day-tabs{grid-template-columns:repeat(7,minmax(56px,1fr));overflow-x:auto;scrollbar-width:none;margin-left:-12px;margin-right:-12px;padding:10px 12px}.day-tabs::-webkit-scrollbar{display:none}.day-tab{min-width:60px;padding:10px 6px}.meals{grid-template-columns:1fr}.meal-card.full{grid-column:auto}.meal-card{min-height:0;padding:15px}.summary-grid{grid-template-columns:1fr}.summary-wrap{padding:14px;border-radius:22px}.summary-row{grid-template-columns:78px 1fr}.modal-backdrop{padding:0;align-items:flex-end}.modal{border-radius:26px 26px 0 0;max-height:88vh;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}.custom-box{flex-direction:column}.option{padding:14px}.choice{font-size:16px}
+    }
+    @page{size:A4 landscape;margin:5mm}
+    @media print{
+      html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden}
+      body{margin:0!important;padding:0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .app,.modal-backdrop{display:none!important}.print-sheet{display:block!important;width:287mm;height:200mm;margin:0 auto;color:#111;font-family:Arial,sans-serif;overflow:hidden}
+      .print-title{display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 2.5mm}.print-title h1{font-size:14pt;margin:0;letter-spacing:-.02em}.print-title p{font-size:6.5pt;margin:0;color:#555}
+      .print-table{width:100%;height:188mm;border-collapse:collapse;table-layout:fixed;font-size:6.2pt;line-height:1.12}
+      .print-table th,.print-table td{border:.25mm solid #cfd5cf;padding:1.4mm 1.5mm;vertical-align:top;overflow-wrap:anywhere}
+      .print-table thead th{height:9mm;background:#eef2ed;font-size:7pt;text-align:center;vertical-align:middle}.print-table thead th:first-child{width:18mm}.print-table tbody th{width:18mm;background:#f5f6f4;text-transform:uppercase;font-size:6pt;letter-spacing:.03em;text-align:left;vertical-align:middle}.print-table tbody tr{height:35.8mm}.print-table td{font-weight:600}
+    }
 
-.catalog-wrap{margin:16px 0 22px}.catalog-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px 17px;font-weight:850;cursor:pointer;box-shadow:var(--shadow)}.catalog-toggle span:last-child{font-size:20px;transition:transform .2s ease}.catalog-toggle.open span:last-child{transform:rotate(180deg)}.catalog{display:none;margin-top:12px}.catalog.open{display:block}.catalog details{background:#fff;border:1px solid var(--line);border-radius:18px;margin:10px 0;overflow:hidden}.catalog summary{list-style:none;cursor:pointer;padding:15px 17px;font-weight:900;display:flex;align-items:center;justify-content:space-between}.catalog summary::-webkit-details-marker{display:none}.catalog summary:after{content:'＋';font-size:20px;color:var(--muted)}.catalog details[open] summary:after{content:'–'}.dish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 14px 14px}.dish-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fbfcfa}.dish-art{aspect-ratio:16/10;background:linear-gradient(145deg,#f2ede3,#e9efe9);display:flex;align-items:center;justify-content:center;overflow:hidden}.dish-art img{width:100%;height:100%;object-fit:cover;display:block}.dish-art .photo-placeholder{width:100%;height:100%;display:grid;place-items:center;font-size:42px;color:#6f7d76;background:linear-gradient(145deg,#f2ede3,#e9efe9)}.dish-name{padding:10px 11px;font-size:13px;font-weight:750;line-height:1.35}.catalog-note{padding:0 2px 6px;color:var(--muted);font-size:13px}
-@media(max-width:760px){.dish-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0 10px 10px}.dish-name{font-size:12px;padding:9px}.catalog-toggle{padding:14px}.catalog summary{padding:14px}}
-@media(max-width:430px){.dish-grid{grid-template-columns:1fr 1fr}}
+    .catalog-wrap{margin:16px 0 22px}
+    .catalog-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-weight:800;color:var(--ink);box-shadow:var(--shadow)}
+    .catalog-toggle span:last-child{font-size:20px;line-height:1;transition:transform .2s ease}
+    .catalog-toggle.open span:last-child{transform:rotate(180deg)}
+    .catalog{display:none;margin-top:12px}
+    .catalog.open{display:block}
+    .catalog-note{color:var(--muted);font-size:13px;margin-bottom:12px;padding:0 2px}
+    .catalog-group{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+    .catalog-group summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px;cursor:pointer;font-weight:850}
+    .catalog-group summary::-webkit-details-marker{display:none}
+    .catalog-group summary small{font-weight:700;color:var(--muted)}
+    .catalog-group summary .left{display:flex;align-items:center;gap:10px}
+    .catalog-group summary .chev{color:var(--muted);font-size:18px;transition:transform .2s ease}
+    .catalog-group[open] summary .chev{transform:rotate(180deg)}
+    .dish-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 14px 14px}
+    .dish-card{border:1px solid var(--line);border-radius:18px;background:#fbfcfa;overflow:hidden;display:flex;flex-direction:column;min-height:100%}
+    .dish-photo{aspect-ratio:4/3;background:#eef2ed;overflow:hidden}
+    .dish-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .dish-name{padding:11px 12px;font-size:13px;line-height:1.35;font-weight:700;color:var(--ink)}
+    .dish-loading{opacity:.7;filter:saturate(.75)}
 
-</style>
+  </style>
 </head>
 <body>
-<main class="app">
-<section class="hero">
-<div class="eyebrow">Планувальник харчування</div>
-<h1>🍽️ Раціон на 7 днів</h1>
-<p class="lead">Обирай страви для кожного дня. Усі зміни автоматично зберігаються на цьому пристрої, а внизу формується готовий тижневий раціон.</p>
-<div class="toolbar">
-<button class="btn primary" id="goSummary">Готовий раціон</button><button class="btn" id="openCatalog">Каталог страв</button>
-<button class="btn" id="printBtn">Зберегти в PDF</button>
-<button class="btn" id="resetBtn">Скинути меню</button>
-<div class="saved" id="saved">Збережено</div>
-</div>
-</section>
-<div class="info"><b>🥗 Основа меню:</b> без яловичини, субпродуктів і чорносливу. Курка, індичка, риба, яйця, крупи, овочі, бобові та звичні смаколики.<br><br><b>👩 Для Катерини:</b> молоко — безлактозне 1,5–2,5% або рослинне без доданого цукру; натуральний безлактозний йогурт 1,5–3%; безлактозний кефір 1–2,5%; безлактозний кисломолочний сир 2–5%; твердий сир — порція 20–30 г.<br><b>👨 Для Олексія:</b> молоко 1,5–2,5%; натуральний йогурт без добавок 1,5–3%; кефір 1–2,5%; ряжанка близько 2,5%; кисломолочний сир 2–5%; твердий сир — порція 20–30 г.</div>
-<div class="catalog-wrap">
-  <button class="catalog-toggle" id="catalogToggle" type="button"><span>Усі страви та варіанти</span><span>⌄</span></button>
-  <section class="catalog" id="catalog">
-    <div class="catalog-note">Усі варіанти з меню зібрані за категоріями. Натисни на категорію, щоб розгорнути список.</div>
-    <div id="catalogBody"></div>
+  <main class="app">
+    <section class="hero">
+      <div class="eyebrow">Планувальник харчування</div>
+      <h1>Раціон на 7 днів</h1>
+      <p class="lead">Обирай страви на кожен день — сніданок, перекус, обід, смаколик і вечерю. Вибір автоматично зберігається, а внизу формується готовий тижневий раціон.</p>
+      <div class="toolbar">
+        <button class="btn primary" id="scrollSummary">Готовий раціон</button>
+        <button class="btn" id="printPlan">Зберегти в PDF</button>
+        <button class="btn" id="openCatalog">Каталог страв</button>
+        <button class="btn ghost" id="resetPlan">Скинути меню</button>
+        <div class="save-pill"><span class="dot"></span><span id="saveText">Збережено</span></div>
+      </div>
+    </section>
+    <div class="info"><strong>Основа меню:</strong> без яловичини, субпродуктів і чорносливу; курка, індичка, риба, крупи, овочі та звичні смаколики. Для тебе — безлактозні або рослинні аналоги молочних продуктів, для Олексія — звичайні молочні продукти.</div>
+    <div class="catalog-wrap">
+      <button class="catalog-toggle" id="openCatalogBlock" type="button"><span>Каталог страв з фото</span><span>⌄</span></button>
+      <section class="catalog" id="catalogSection">
+        <div class="catalog-note">Тут зібрані всі страви по категоріях: сніданки, перекуси, обіди, смаколики та вечері. Фото підібрані вручну, щоб вони були максимально близькими до самих страв.</div>
+        <div id="catalogGroups"></div>
+      </section>
+    </div>
+    <nav class="day-tabs" id="dayTabs" aria-label="Дні тижня"></nav>
+    <section id="panels"></section>
+    <section class="summary-wrap" id="summary">
+      <div class="summary-head"><div><div class="eyebrow">Підсумок</div><h2>Готовий раціон на 7 днів</h2></div></div>
+      <div class="summary-grid" id="summaryGrid"></div>
+    </section>
+    <div class="footer-note">Зміни автоматично зберігаються в браузері. Після публікації сайту його можна відкривати з телефона, планшета та комп’ютера.</div>
+  </main>
+
+  <section class="print-sheet" id="printSheet" aria-hidden="true">
+    <div class="print-title"><h1>Раціон на 7 днів</h1><p>Готовий тижневий план харчування</p></div>
+    <table class="print-table"><thead><tr id="printHead"></tr></thead><tbody id="printBody"></tbody></table>
   </section>
-</div>
-<nav class="tabs" id="tabs"></nav>
-<section id="panels"></section>
-<section class="summary" id="summary"><div class="eyebrow">Підсумок</div><h2>Готовий раціон на 7 днів</h2><div class="sumgrid" id="sumgrid"></div></section>
-</main>
-<div class="backdrop" id="backdrop"><div class="modal"><div class="mhead"><div><div class="eyebrow" id="mday"></div><h3 id="mtitle"></h3></div><button class="close" id="close">×</button></div><div class="opts" id="opts"></div><div class="custom"><input id="custom" placeholder="Або впиши свою страву"><button class="btn primary" id="saveCustom">Зберегти</button></div></div></div>
-<section class="printsheet"><div class="ptitle"><h1>Раціон на 7 днів</h1><span>Готовий тижневий план</span></div><table class="ptable"><thead><tr id="phead"></tr></thead><tbody id="pbody"></tbody></table></section>
-<script>
-var days=[['mon','ПН','Понеділок'],['tue','ВТ','Вівторок'],['wed','СР','Середа'],['thu','ЧТ','Четвер'],['fri','ПТ','П’ятниця'],['sat','СБ','Субота'],['sun','НД','Неділя']];
-var meals=[['breakfast','🌅 Сніданок'],['snack','🍎 Перекус'],['lunch','🍲 Обід'],['treat','🍫 Смаколик'],['dinner','🌙 Вечеря']];
-var options={
-breakfast:[
-'Вівсянка: Катерині — безлактозне молоко 1,5–2,5% або рослинне без цукру; Олексію — молоко 1,5–2,5% + ягоди + волоські горіхи + 1 яйце. Чай / кава.',
-'Гречка + 2 яйця + помідор + твердий сир 20–30 г. Чай / кава.',
-'Пшоняна каша з гарбузом + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + мигдаль. Чай.',
-'Шакшука + моцарела / твердий сир 20–30 г + цільнозерновий хліб.',
-'Overnight oats: вівсянка + натуральний йогурт 1,5–3% або молоко 1,5–2,5% (Катерині — безлактозні аналоги / рослинне молоко без цукру) + банан + чіа.',
-'Сирники: Олексію — кисломолочний сир 2–5%, Катерині — безлактозний кисломолочний сир 2–5% + ягоди.',
-'Омлет зі шпинатом і грибами + твердий сир 20–30 г + тост + авокадо.',
-'Рисова каша: Олексію — молоко 1,5–2,5%, Катерині — безлактозне 1,5–2,5% або рослинне без цукру + яблуко + кориця.',
-'Гречані млинці + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + ягоди.',
-'Тост з авокадо + 2 яйця пашот / варені + огірок.',
-'Олексію — кисломолочний сир 2–5%; Катерині — безлактозний кисломолочний сир 2–5% + ягоди + банан + мигдаль.',
-'Цільнозерновий лаваш з індичкою, яйцем, помідором і зеленню.',
-'Кукурудзяна каша + банан + волоські горіхи.',
-'Кіноа з яблуком, ягодами, чіа + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.',
-'Булгур + яйце + авокадо + томати.',
-'Вівсяні панкейки з бананом + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.',
-'Яєчні мафіни з індичкою та овочами + тост.',
-'Перловка з яйцем, зеленню та овочами.',
-'Тост з тунцем, авокадо й огірком.',
-'Запечена вівсянка з яблуком, корицею та горіхами.'
-],
-snack:[
-'Яблуко + твердий сир 20–30 г.','Натуральний йогурт без добавок: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + ягоди + фісташки.','Морква й огірок + хумус.','Олексію — кефір 1–2,5% або ряжанка ~2,5%; Катерині — безлактозний кефір 1–2,5% + ківі.','Варене яйце + твердий сир 20–30 г + овочі.','Натуральний йогурт без добавок: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + виноград + фундук.','Смузі: ягоди + банан + Олексію кефір 1–2,5% / натуральний йогурт 1,5–3%; Катерині безлактозний кефір 1–2,5% / йогурт 1,5–3% + чіа.','Груша + волоські горіхи.','Банан + арахісова паста без цукру.','Хлібці + хумус + огірок.','Натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + банан + кориця.','Мандарин / апельсин + мигдаль.','Авокадо на цільнозерновому тості.','Олексію — кисломолочний сир 2–5%; Катерині — безлактозний кисломолочний сир 2–5% + ягоди.','Ківі + фісташки.','Яблуко + арахісова паста.','Домашній хумус + перець соломкою.','Яйце + авокадо + огірок.','Натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3% + чіа + полуниця.','Банан + кілька волоських горіхів.'
-],
-lunch:[
-'Лосось у духовці + булгур + салат зі шпинату, огірка й авокадо.',
-'Куряче філе + рис басматі + броколі + оливкова олія.',
-'Чилі з індичкою, квасолею й томатами + булгур.',
-'Котлети з індички + вінегрет.',
-'Запечена курка / індичка + вінегрет.',
-'Скумбрія в духовці + картопля + салат із капусти й моркви.',
-'Котлети з індички / курки + пюре з батату + великий салат.',
-'Тефтелі з індички + гречка + овочевий салат.',
-'Курка wok + рис басматі + перець, морква, броколі.',
-'Індичка у томатному соусі + цільнозернові макарони + салат.',
-'Запечений хек / минтай + картопля + овочевий салат.',
-'Суп з куркою, булгуром та овочами + цільнозерновий тост.',
-'Курячі котлети + перловка + овочі.',
-'Індичка + кіноа + запечені кабачок, перець і морква.',
-'Тунець + рис басматі + огірок, томат, зелень.',
-'Курка / індичка + картопляне пюре + салат із капусти.',
-'Паста з тунцем у томатному соусі + зелений салат.',
-'Боул: курка + булгур + нут + овочі + авокадо.',
-'Рибні котлети з хека + гречка + салат.',
-'Індичка з овочами в духовці + рис басматі.',
-'Сочевиця з овочами + запечена курка.',
-'Курка + фунчоза + овочі wok.',
-'Запечена форель + кіноа + броколі.',
-'Домашній плов з індичкою та рисом басматі.'
-],
-treat:[
-'Темний шоколад 70–85% — 10–20 г.','Вівсяне / цільнозернове печиво без крему — 1–2 шт.','Молочний шоколад — 10–15 г, інколи.','Пастила або зефір без глазурі — 1 шт.','Какао-банановий брауні на вівсяному борошні.','Бананово-вівсяні мафіни.','Лимонний кекс на вівсяному борошні.','Запечене яблуко з корицею та горіхами.','Домашнє вівсяне печиво з бананом.','Десерт з натурального йогурту: Олексію 1,5–3%, Катерині безлактозного 1,5–3% + ягоди та чіа.','Мармелад — невелика порція.','Фінік 1–2 шт. + волоський горіх.','Банан з какао + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Домашні сирні кульки з какао: Олексію — кисломолочний сир 2–5%, Катерині — безлактозний 2–5%.','Ягідне желе.','Печене яблуко + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Домашня гранола + натуральний йогурт: Олексію 1,5–3%, Катерині безлактозний 1,5–3%.','Рисовий хлібець + банан + арахісова паста.','Фруктовий салат.','Маленька порція морозива: Олексію — звичайного молочного; Катерині — безлактозного / рослинного.'
-],
-dinner:[
-'Фрикадельки з індички / курки + запечені овочі + хумус.',
-'Суп із червоної сочевиці + цільнозерновий тост + зелень.',
-'Скумбрія в духовці + картопля + стручкова квасоля.',
-'Салат: тунець, нут, огірок, томат, зелень, оливкова олія.',
-'Курка + фунчоза + багато овочів wok.',
-'Цільнозернові макарони + курка / індичка + томатний соус + овочі.',
-'Мінестроне з квасолею + цільнозерновий хліб.',
-'Омлет з овочами + салат + цільнозерновий тост.',
-'Запечений хек / минтай + броколі + картопля / батат.',
-'Індичка + тушковані кабачок, перець і морква + булгур.',
-'Теплий салат з куркою, нутом, овочами та зеленню.',
-'Крем-суп з гарбуза + курка / індичка + тост.',
-'Гречка + курка + салат з огірка, томата і зелені.',
-'Рис басматі + креветки + овочі wok.',
-'Запечена індичка + цвітна капуста / броколі + хумус.',
-'Салат з яйцем, тунцем, авокадо, огірком і зеленню.',
-'Тефтелі з індички + тушкована стручкова квасоля.',
-'Запечена форель + овочі + невелика порція булгуру.',
-'Курячий суп з овочами + цільнозерновий тост.',
-'Овочеве рагу з нутом + курка / індичка.',
-'Кіноа + креветки + салат з огірка й зелені.',
-'Запечені курячі стегна без шкіри + овочі.',
-'Тунець + картопля + великий зелений салат.',
-'Індичка в томатному соусі + гречка + овочі.'
-]};
-var key='meal-planner-github-v1',plan,day='mon',active=null;
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function defaults(){var p={};days.forEach(function(d,i){p[d[0]]={};meals.forEach(function(m){p[d[0]][m[0]]=options[m[0]][i]})});return p}
-function load(){try{var s=localStorage.getItem(key);if(!s)return defaults();var p=defaults(),x=JSON.parse(s);days.forEach(function(d){meals.forEach(function(m){if(x&&x[d[0]]&&x[d[0]][m[0]])p[d[0]][m[0]]=x[d[0]][m[0]]})});return p}catch(e){return defaults()}}
-function save(){localStorage.setItem(key,JSON.stringify(plan));document.getElementById('saved').textContent='Зміни збережені автоматично';setTimeout(function(){document.getElementById('saved').textContent='Збережено'},900)}
-function renderTabs(){document.getElementById('tabs').innerHTML=days.map(function(d){return '<button class="tab '+(d[0]===day?'active':'')+'" data-d="'+d[0]+'">'+d[1]+'<small>'+d[2].slice(0,3)+'</small></button>'}).join('');document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){day=b.dataset.d;renderTabs();renderPanels()}})}
-function renderPanels(){document.getElementById('panels').innerHTML=days.map(function(d){return '<section class="panel '+(d[0]===day?'active':'')+'"><div class="dayhead"><div class="daytitle">'+d[2]+'</div><div class="progress">5 прийомів їжі</div></div><div class="grid">'+meals.map(function(m){return '<article class="card"><div class="cardtop"><div class="meal">'+m[1]+'</div><button class="change" data-d="'+d[0]+'" data-m="'+m[0]+'">Змінити</button></div><div class="choice">'+esc(plan[d[0]][m[0]])+'</div></article>'}).join('')+'</div></section>'}).join('');document.querySelectorAll('.change').forEach(function(b){b.onclick=function(){openPick(b.dataset.d,b.dataset.m)}})}
-function renderSummary(){document.getElementById('sumgrid').innerHTML=days.map(function(d){return '<article class="sumday"><h3>'+d[2]+'</h3>'+meals.map(function(m){return '<div class="sumrow"><b>'+m[1]+'</b><span>'+esc(plan[d[0]][m[0]])+'</span></div>'}).join('')+'</article>'}).join('');renderPrint()}
-function renderPrint(){document.getElementById('phead').innerHTML='<th>Прийом</th>'+days.map(function(d){return '<th>'+d[1]+'<br>'+d[2]+'</th>'}).join('');document.getElementById('pbody').innerHTML=meals.map(function(m){return '<tr><th>'+m[1].replace(/^\\S+\\s/,'')+'</th>'+days.map(function(d){return '<td>'+esc(plan[d[0]][m[0]])+'</td>'}).join('')+'</tr>'}).join('')}
-function openPick(d,m){active={d:d,m:m};var dn=days.find(function(x){return x[0]===d}),mn=meals.find(function(x){return x[0]===m});document.getElementById('mday').textContent=dn[2];document.getElementById('mtitle').textContent='Обери: '+mn[1].toLowerCase();document.getElementById('custom').value='';document.getElementById('opts').innerHTML=options[m].map(function(o,i){return '<button class="opt '+(o===plan[d][m]?'sel':'')+'" data-i="'+i+'">'+esc(o)+'</button>'}).join('');document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){choose(options[m][Number(b.dataset.i)])}});document.getElementById('backdrop').classList.add('open')}
-function choose(v){plan[active.d][active.m]=v;save();closePick();renderPanels();renderSummary()}
-function closePick(){document.getElementById('backdrop').classList.remove('open');active=null}
-document.getElementById('close').onclick=closePick;document.getElementById('backdrop').onclick=function(e){if(e.target.id==='backdrop')closePick()};document.getElementById('saveCustom').onclick=function(){var v=document.getElementById('custom').value.trim();if(v&&active)choose(v)};document.getElementById('custom').onkeydown=function(e){if(e.key==='Enter')document.getElementById('saveCustom').click()};document.getElementById('goSummary').onclick=function(){document.getElementById('summary').scrollIntoView({behavior:'smooth'})};document.getElementById('printBtn').onclick=function(){renderPrint();window.print()};document.getElementById('resetBtn').onclick=function(){if(confirm('Скинути всі зміни та повернути початковий варіант?')){plan=defaults();save();renderPanels();renderSummary()}};
 
-var photoCache={};
-function photoQueries(text,cat){
-  var t=text.toLowerCase(), q=[];
-  if(/сирник|панкейк|млинец/.test(t)) q=['pancakes','breakfast'];
-  else if(/вівсян|каша|гречк|пшон|кіноа|булгур|перлов|рисов|кукурудз/.test(t)) q=['breakfast','porridge'];
-  else if(/омлет|яйц|шакшук/.test(t)) q=['omelette','breakfast'];
-  else if(/лосос|скумбр|хек|минтай|форел|тунец|риб|кревет/.test(t)) q=['salmon','seafood'];
-  else if(/суп|мінестрон|крем-суп|сочевиц/.test(t)) q=['soup','stew'];
-  else if(/салат|авокадо|нут|хумус|овоч/.test(t)) q=['salad','vegetarian'];
-  else if(/макарон|паста|фунчоз/.test(t)) q=['pasta','spaghetti'];
-  else if(/йогурт|кефір|ряжанк|кисломолоч/.test(t)) q=['yogurt','dessert'];
-  else if(/шоколад|брауні|кекс|мафін|зефір|пастил|мармелад|морозив|желе|печиво|десерт/.test(t)) q=['dessert','cake'];
-  else if(/яблук|банан|ківі|виноград|ягод|груш|мандарин|апельсин|полуниц/.test(t)) q=['fruit','dessert'];
-  else if(/курк|індич|тефтел|фрикадель|котлет/.test(t)) q=['chicken','turkey'];
-  else if(cat==='breakfast') q=['breakfast','pancakes'];
-  else if(cat==='snack') q=['fruit','salad'];
-  else if(cat==='lunch') q=['chicken','seafood'];
-  else if(cat==='treat') q=['dessert','cake'];
-  else q=['salmon','soup'];
-  return q;
-}
-function photoFallback(cat){
-  return cat==='breakfast'?'🌅':cat==='snack'?'🍎':cat==='lunch'?'🍲':cat==='treat'?'🍫':'🌙';
-}
-async function fetchMealPhoto(query){
-  if(Object.prototype.hasOwnProperty.call(photoCache,query)) return photoCache[query];
-  try{
-    var r=await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='+encodeURIComponent(query));
-    if(!r.ok) throw new Error('photo');
-    var data=await r.json();
-    var url=data&&data.meals&&data.meals[0]&&data.meals[0].strMealThumb?data.meals[0].strMealThumb:'';
-    photoCache[query]=url;
-    return url;
-  }catch(e){
-    photoCache[query]='';
-    return '';
-  }
-}
-async function hydrateDishPhotos(){
-  var imgs=Array.from(document.querySelectorAll('#catalogBody img[data-photo-queries]'));
-  for(var i=0;i<imgs.length;i++){
-    var img=imgs[i], queries=(img.dataset.photoQueries||'').split('|').filter(Boolean), found='';
-    for(var j=0;j<queries.length;j++){
-      found=await fetchMealPhoto(queries[j]);
-      if(found) break;
-    }
-    if(found){
-      img.src=found;
-      img.removeAttribute('data-photo-queries');
-    }else{
-      var p=img.parentElement;
-      if(p) p.innerHTML='<div class="photo-placeholder">'+(img.dataset.fallback||'🍽️')+'</div>';
-    }
-  }
-}
-function renderCatalog(){
-  var body=document.getElementById('catalogBody');
-  body.innerHTML=meals.map(function(m,idx){
-    var list=options[m[0]];
-    return '<details '+(idx===0?'open':'')+'><summary>'+m[1]+' <small style="color:var(--muted);font-weight:700">'+list.length+' варіантів</small></summary><div class="dish-grid">'+list.map(function(o){
-      var qs=photoQueries(o,m[0]).join('|');
-      return '<article class="dish-card"><div class="dish-art"><img src="" data-photo-queries="'+esc(qs)+'" data-fallback="'+photoFallback(m[0])+'" alt="'+esc(o)+'" loading="lazy"></div><div class="dish-name">'+esc(o)+'</div></article>';
-    }).join('')+'</div></details>';
-  }).join('');
-  hydrateDishPhotos();
-}
-document.getElementById('openCatalog').onclick=function(){
-  var catalog=document.getElementById('catalog');
-  var toggle=document.getElementById('catalogToggle');
-  var open=!catalog.classList.contains('open');
-  catalog.classList.toggle('open',open);
-  toggle.classList.toggle('open',open);
-  toggle.querySelector('span:last-child').textContent=open?'⌃':'⌄';
-  if(open){renderCatalog();setTimeout(function(){catalog.scrollIntoView({behavior:'smooth',block:'start'})},50)}
-};
-document.getElementById('catalogToggle').onclick=function(){
-  var catalog=document.getElementById('catalog');
-  var open=!catalog.classList.contains('open');
-  catalog.classList.toggle('open',open);
-  this.classList.toggle('open',open);
-  this.querySelector('span:last-child').textContent=open?'⌃':'⌄';
-  if(open){renderCatalog();setTimeout(function(){catalog.scrollIntoView({behavior:'smooth',block:'start'})},50)}
-};
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-head"><div><div class="eyebrow" id="modalDay">Понеділок</div><h3 id="modalTitle">Обери сніданок</h3></div><button class="close" id="modalClose" aria-label="Закрити">×</button></div>
+      <div class="option-list" id="optionList"></div>
+      <div class="custom-box"><input id="customInput" placeholder="Або впиши свій варіант…" /><button class="btn primary" id="saveCustom">Додати</button></div>
+    </div>
+  </div>
 
-plan=load();renderTabs();renderPanels();renderSummary();
-</script>
+  <script>
+    const days=[
+      {key:'mon',short:'ПН',name:'Понеділок'},{key:'tue',short:'ВТ',name:'Вівторок'},{key:'wed',short:'СР',name:'Середа'},
+      {key:'thu',short:'ЧТ',name:'Четвер'},{key:'fri',short:'ПТ',name:'П’ятниця'},{key:'sat',short:'СБ',name:'Субота'},{key:'sun',short:'НД',name:'Неділя'}
+    ];
+    const meals=[
+      {key:'breakfast',name:'Сніданок',icon:'☀️'},{key:'snack',name:'Перекус',icon:'🍏'},{key:'lunch',name:'Обід',icon:'🥗'},
+      {key:'treat',name:'Смаколик',icon:'🍫'},{key:'dinner',name:'Вечеря',icon:'🌙'}
+    ];
+    const options={
+      breakfast:[
+        'Вівсянка на безлактозному / рослинному молоці + ягоди + волоські горіхи + 1 яйце. Чай / кава.',
+        'Гречка + 2 яйця + помідор + твердий сир 20–30 г. Чай / кава.',
+        'Пшоняна каша з гарбузом + йогурт + мигдаль. Чай.',
+        'Шакшука + моцарела / твердий сир 20–30 г + цільнозерновий хліб. Чай / кава.',
+        'Overnight oats: вівсянка + йогурт / молоко + банан + чіа. Чай / кава.',
+        'Сирники з кисломолочного сиру 2–5% + ягоди. Чай / кава.',
+        'Омлет зі шпинатом і грибами + твердий сир 20–30 г + тост + авокадо. Чай / кава.',
+        'Рисова каша з басматі на молоці / безлактозному молоці + яблуко + кориця + горіхи.',
+        'Гречані млинці + натуральний йогурт + ягоди + чай.',
+        'Тост з авокадо + 2 яйця пашот / варені + огірок і зелень.',
+        'Кисломолочний сир 2–5% / безлактозний сир + ягоди + банан + мигдаль.',
+        'Цільнозерновий лаваш з індичкою, яйцем, помідором і зеленню.',
+        'Кукурудзяна каша + банан + волоські горіхи + чай / кава.',
+        'Кіноа з яблуком, ягодами, чіа та йогуртом / безлактозним йогуртом.'
+      ],
+      snack:[
+        'Яблуко + твердий сир 20–30 г.','Натуральний йогурт + ягоди + фісташки.','Морква й огірок + хумус. Чай.',
+        'Кефір 1–2,5% або ряжанка ~2,5% + ківі.','Варене яйце + твердий сир 20–30 г + овочі.','Ряжанка / йогурт + виноград + фундук.',
+        'Смузі: ягоди + банан + кефір / йогурт + чіа.','Груша + волоські горіхи 20 г.','Банан + арахісова паста 1 ч. л. без цукру.',
+        'Хлібці + хумус + огірок / помідор.','Йогурт + банан + кориця.','Мандарини / апельсин + мигдаль 20 г.',
+        'Авокадо на цільнозерновому тості + помідор.','Кисломолочний сир / безлактозний сир + ягоди.'
+      ],
+      lunch:[
+        'Лосось у духовці + булгур + салат зі шпинату, огірка й авокадо.','Куряче філе + рис басматі + броколі + оливкова олія.',
+        'Чилі з індичкою, квасолею й томатами + булгур.','Котлети з індички + вінегрет.','Запечена курка / індичка + вінегрет.',
+        'Скумбрія в духовці + картопля + салат із капусти й моркви.','Котлети з індички / курки + пюре з батату + великий салат.',
+        'Тефтелі з індички + гречка + салат із огірка, томата та зелені.','Курка wok + рис басматі + перець, морква, броколі.',
+        'Індичка у томатному соусі + цільнозернові макарони + салат.','Запечений хек / минтай + картопля + овочевий салат.',
+        'Суп з куркою, булгуром та овочами + цільнозерновий тост.','Курячі котлети + перловка + овочі.',
+        'Індичка + кіноа + запечені кабачок, перець і морква.','Тунець + рис басматі + огірок, томат, зелень, кукурудза.',
+        'Курка / індичка + картопляне пюре + салат із капусти.'
+      ],
+      treat:[
+        'Темний шоколад 70–85% — 10–20 г.','Вівсяне / цільнозернове печиво без крему — 1–2 шт.','Молочний шоколад — 10–15 г, інколи.',
+        'Пастила або зефір без глазурі — 1 шт.','Какао-банановий брауні на вівсяному борошні.','Бананово-вівсяні мафіни без цукру й лактози.',
+        'Лимонний кекс на вівсяному борошні, без лактози.','Запечене яблуко з корицею та горіхами.','Домашнє вівсяне печиво з бананом.',
+        'Йогуртовий десерт з ягодами та чіа.','Фруктове желе / мармелад — невелика порція.','Фінік 1–2 шт. + волоський горіх.',
+        'Банан з какао та ложкою йогурту / безлактозного йогурту.','Домашні сирні кульки з какао без глазурі.'
+      ],
+      dinner:[
+        'Фрикадельки з індички / курки + запечені овочі + хумус.','Суп із червоної сочевиці + цільнозерновий тост + зелень.',
+        'Скумбрія в духовці + картопля + стручкова квасоля.','Салат: тунець, нут, огірок, томат, зелень, оливкова олія.',
+        'Курка + фунчоза + багато овочів wok; соусу небагато.','Цільнозернові макарони + курка / індичка + томатний соус + овочі.',
+        'Мінестроне з квасолею + цільнозерновий хліб.','Омлет з овочами + салат + цільнозерновий тост.',
+        'Запечений хек / минтай + броколі + картопля / батат.','Індичка + тушковані кабачок, перець і морква + булгур.',
+        'Теплий салат з куркою, нутом, овочами та зеленню.','Крем-суп з гарбуза + курка / індичка + тост.',
+        'Гречка + курка + салат з огірка, томата і зелені.','Рис басматі + креветки + овочі wok.',
+        'Запечена індичка + цвітна капуста / броколі + хумус.','Салат з яйцем, тунцем, авокадо, огірком і зеленню.'
+      ]
+    };
+
+
+    const catalogPhotos={
+      syrniki:'assets/syrniki.jpg',
+      porridge:'assets/porridge.jpg',
+      omelette:'assets/omelette.jpg',
+      appleCheese:'assets/apple-cheese.jpg',
+      yogurt:'assets/yogurt-berries.jpg',
+      hummus:'assets/hummus-veggies.jpg',
+      salmon:'assets/salmon-plate.jpg',
+      chicken:'assets/chicken-plate.jpg',
+      soup:'assets/soup-toast.jpg',
+      dessert:'assets/dessert-plate.jpg'
+    };
+    function chooseCatalogImage(text,mealKey){
+      const t=(text||'').toLowerCase();
+      if(/сирник|панкейк|млинец/.test(t)) return catalogPhotos.syrniki;
+      if(/вівсян|каша|гречк|пшон|рисова каша|кіноа з яблуком|кукурудзяна каша|перловка|запечена вівсянка/.test(t)) return catalogPhotos.porridge;
+      if(/шакшук|омлет|яєчн|яйц|тост з авокадо|лаваш/.test(t)) return catalogPhotos.omelette;
+      if(/overnight oats|йогурт|кефір|ряжанк|кисломолоч|сир 2–5|сир 2-5|сир 2/.test(t)) return catalogPhotos.yogurt;
+      if(/хумус|морква й огірок|хлібці|авокадо на цільнозерновому тості|овочеві палички/.test(t)) return catalogPhotos.hummus;
+      if(/яблук|груш|банан|ківі|мандарин|апельсин|виноград|полуниц|ягод|фінік/.test(t) && mealKey==='snack') return catalogPhotos.appleCheese;
+      if(/шоколад|печиво|кекс|брауні|мафін|зефір|пастил|мармелад|желе|десерт|морозив/.test(t)) return catalogPhotos.dessert;
+      if(/суп|мінестрон|крем-суп|сочевиц/.test(t)) return catalogPhotos.soup;
+      if(/лосос|скумбр|хек|минтай|форел|тунец|риб|кревет/.test(t)) return catalogPhotos.salmon;
+      if(/паста з тунцем/.test(t)) return catalogPhotos.salmon;
+      if(/салат/.test(t)){
+        if(/тунец|лосос|кревет/.test(t)) return catalogPhotos.salmon;
+        if(/курк|індич/.test(t)) return catalogPhotos.chicken;
+        return catalogPhotos.hummus;
+      }
+      if(/паста|макарон|фунчоз/.test(t)){
+        if(/тунец|кревет/.test(t)) return catalogPhotos.salmon;
+        return catalogPhotos.chicken;
+      }
+      if(/курк|індич|котлет|тефтел|фрикадель|боул|плов/.test(t)) return catalogPhotos.chicken;
+      if(mealKey==='treat') return catalogPhotos.dessert;
+      if(mealKey==='snack') return catalogPhotos.appleCheese;
+      if(mealKey==='breakfast') return catalogPhotos.porridge;
+      if(mealKey==='lunch') return catalogPhotos.chicken;
+      if(mealKey==='dinner') return catalogPhotos.chicken;
+      return catalogPhotos.porridge;
+    }
+    function renderCatalog(){
+      const groups=document.getElementById('catalogGroups');
+      if(!groups || groups.dataset.ready==='1') return;
+      groups.innerHTML=meals.map((meal,index)=>`<details class="catalog-group" ${index===0?'open':''}><summary><div class="left"><span class="meal-icon">${meal.icon}</span><span>${meal.name}</span></div><div><small>${options[meal.key].length} варіантів</small> <span class="chev">⌄</span></div></summary><div class="dish-grid">${options[meal.key].map((dish)=>{const imageSrc=chooseCatalogImage(dish,meal.key);return `<article class="dish-card"><div class="dish-photo"><img src="${imageSrc}" alt="${escapeHtml(dish)}" loading="lazy"></div><div class="dish-name">${escapeHtml(dish)}</div></article>`}).join('')}</div></details>`).join('');
+      groups.dataset.ready='1';
+    }
+    const defaultPlan={};days.forEach((day,idx)=>{defaultPlan[day.key]={};meals.forEach(meal=>defaultPlan[day.key][meal.key]=options[meal.key][idx]);});
+    const STORAGE_KEY='weekly-meal-planner-v2';let plan=loadPlan();let activeDay='mon';let activePicker=null;
+    function clone(o){return JSON.parse(JSON.stringify(o))}
+    function loadPlan(){try{const saved=localStorage.getItem(STORAGE_KEY);if(!saved)return clone(defaultPlan);const parsed=JSON.parse(saved);const merged=clone(defaultPlan);days.forEach(d=>meals.forEach(m=>{if(parsed?.[d.key]?.[m.key])merged[d.key][m.key]=parsed[d.key][m.key]}));return merged}catch(e){return clone(defaultPlan)}}
+    function savePlan(){localStorage.setItem(STORAGE_KEY,JSON.stringify(plan));const el=document.getElementById('saveText');el.textContent='Збережено';clearTimeout(savePlan.t);savePlan.t=setTimeout(()=>el.textContent='Зміни збережені автоматично',700)}
+    function escapeHtml(str){return String(str).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    function renderTabs(){const tabs=document.getElementById('dayTabs');tabs.innerHTML=days.map(d=>`<button class="day-tab ${d.key===activeDay?'active':''}" data-day="${d.key}">${d.short}<small>${d.name.slice(0,3)}</small></button>`).join('');tabs.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{activeDay=btn.dataset.day;renderTabs();renderPanels()}))}
+    function renderPanels(){const wrap=document.getElementById('panels');wrap.innerHTML=days.map(d=>{const selectedCount=meals.filter(m=>plan[d.key]?.[m.key]).length;return `<section class="day-panel ${d.key===activeDay?'active':''}"><div class="day-title-row"><div class="day-title">${d.name}</div><div class="progress">Обрано ${selectedCount} з ${meals.length}</div></div><div class="meals">${meals.map((m,i)=>`<article class="meal-card ${i===4?'full':''}"><div class="meal-top"><div class="meal-name"><span class="meal-icon">${m.icon}</span>${m.name}</div><button class="change" data-day="${d.key}" data-meal="${m.key}">Змінити</button></div><div class="choice ${plan[d.key]?.[m.key]?'':'empty'}">${escapeHtml(plan[d.key]?.[m.key]||'Ще не обрано')}</div></article>`).join('')}</div></section>`}).join('');wrap.querySelectorAll('.change').forEach(btn=>btn.addEventListener('click',()=>openPicker(btn.dataset.day,btn.dataset.meal)))}
+    function renderSummary(){document.getElementById('summaryGrid').innerHTML=days.map(d=>`<article class="summary-day"><h3>${d.name}</h3>${meals.map(m=>`<div class="summary-row"><b>${m.name}</b><span>${escapeHtml(plan[d.key]?.[m.key]||'—')}</span></div>`).join('')}</article>`).join('');renderPrintSheet()}
+    function renderPrintSheet(){document.getElementById('printHead').innerHTML='<th>Прийом їжі</th>'+days.map(d=>`<th>${d.short}<br>${d.name}</th>`).join('');document.getElementById('printBody').innerHTML=meals.map(m=>`<tr><th>${m.name}</th>${days.map(d=>`<td>${escapeHtml(plan[d.key]?.[m.key]||'—')}</td>`).join('')}</tr>`).join('')}
+    function openPicker(dayKey,mealKey){activePicker={dayKey,mealKey};const day=days.find(d=>d.key===dayKey);const meal=meals.find(m=>m.key===mealKey);document.getElementById('modalDay').textContent=day.name;document.getElementById('modalTitle').textContent=`Обери: ${meal.name.toLowerCase()}`;document.getElementById('customInput').value='';const list=document.getElementById('optionList');const current=plan[dayKey]?.[mealKey];list.innerHTML=options[mealKey].map((opt,idx)=>`<button class="option ${opt===current?'selected':''}" data-index="${idx}">${escapeHtml(opt)}</button>`).join('');list.querySelectorAll('.option').forEach(btn=>btn.addEventListener('click',()=>chooseOption(options[mealKey][Number(btn.dataset.index)])));const backdrop=document.getElementById('modalBackdrop');backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+    function chooseOption(value){if(!activePicker)return;const{dayKey,mealKey}=activePicker;plan[dayKey]||={};plan[dayKey][mealKey]=value;savePlan();closePicker();renderPanels();renderSummary()}
+    function closePicker(){document.getElementById('modalBackdrop').classList.remove('open');document.getElementById('modalBackdrop').setAttribute('aria-hidden','true');document.body.style.overflow='';activePicker=null}
+    document.getElementById('modalClose').addEventListener('click',closePicker);document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closePicker()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePicker()});document.getElementById('saveCustom').addEventListener('click',()=>{const v=document.getElementById('customInput').value.trim();if(v)chooseOption(v)});document.getElementById('customInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('saveCustom').click()}});document.getElementById('scrollSummary').addEventListener('click',()=>document.getElementById('summary').scrollIntoView({behavior:'smooth'}));document.getElementById('printPlan').addEventListener('click',()=>{renderPrintSheet();window.print()});document.getElementById('resetPlan').addEventListener('click',()=>{if(confirm('Повернути початкове меню та видалити всі твої зміни?')){plan=clone(defaultPlan);savePlan();renderPanels();renderSummary()}});
+
+    function setCatalogOpen(open){
+      const toggle=document.getElementById('openCatalogBlock');
+      const section=document.getElementById('catalogSection');
+      section.classList.toggle('open',open);
+      toggle.classList.toggle('open',open);
+      toggle.querySelector('span:last-child').textContent=open?'⌃':'⌄';
+      if(open){renderCatalog();setTimeout(()=>section.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+    }
+    document.getElementById('openCatalog').addEventListener('click',()=>{
+      const isOpen=document.getElementById('catalogSection').classList.contains('open');
+      setCatalogOpen(!isOpen);
+    });
+    document.getElementById('openCatalogBlock').addEventListener('click',()=>{
+      const isOpen=document.getElementById('catalogSection').classList.contains('open');
+      setCatalogOpen(!isOpen);
+    });
+    renderTabs();renderPanels();renderSummary();
+    if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+  </script>
 </body>
 </html>
