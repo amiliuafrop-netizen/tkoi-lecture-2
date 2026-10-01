@@ -296,12 +296,17 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
       const lab=document.getElementById('fiberLab');lab.classList.remove('run');document.querySelectorAll('.wDot').forEach(function(d,i){d.classList.toggle('active',checks[i].checked)});void lab.offsetWidth;lab.classList.add('run');launched=true;
       document.getElementById('wdmFb').className='feedback good';document.getElementById('wdmFb').textContent='Сигнали різних довжин хвиль одночасно рухаються одним фізичним волокном.';
     };
-    document.querySelectorAll('#wdmChoices .choice').forEach(function(btn){btn.onclick=function(){
-      if(!launched){document.getElementById('wdmFb').className='feedback bad';document.getElementById('wdmFb').textContent='Спочатку запустіть передачу.';return}
-      const ok=btn.dataset.ok==='1';document.querySelectorAll('#wdmChoices .choice').forEach(function(x){x.disabled=true;if(x.dataset.ok==='1')x.classList.add('correct')});if(!ok)btn.classList.add('wrong');
-      document.getElementById('wdmFb').className='feedback '+(ok?'good':'bad');document.getElementById('wdmFb').textContent=ok?'Правильно. Це і є головна ідея WDM.':'Неправильно. WDM саме дозволяє кільком оптичним каналам використовувати одне волокно.';
-      setTimeout(function(){nextMission(5,140,'Майстер WDM')},600);
-    }};
+    document.querySelectorAll('#wdmChoices .choice').forEach(function(btn){
+      btn.onclick=function(){
+        if(!launched){document.getElementById('wdmFb').className='feedback bad';document.getElementById('wdmFb').textContent='Спочатку запустіть передачу.';return}
+        const ok=btn.dataset.ok==='1';
+        document.querySelectorAll('#wdmChoices .choice').forEach(function(x){x.disabled=true;if(x.dataset.ok==='1')x.classList.add('correct')});
+        if(!ok)btn.classList.add('wrong');
+        document.getElementById('wdmFb').className='feedback '+(ok?'good':'bad');
+        document.getElementById('wdmFb').textContent=ok?'Правильно. Це і є головна ідея WDM.':'Неправильно. WDM саме дозволяє кільком оптичним каналам використовувати одне волокно.';
+        setTimeout(function(){nextMission(5,140,'Майстер WDM')},600);
+      };
+    });
   }
 
   function mission6(){
