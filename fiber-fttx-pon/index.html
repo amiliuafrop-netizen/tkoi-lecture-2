@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f3fb">
+<title>Вступ до спеціальності — FTTx, PON, GPON, XGS-PON та WDM</title>
+<style>
+:root{
+  --bg:#f7f5fb;
+  --bg2:#f0ebf7;
+  --panel:rgba(255,255,255,.88);
+  --panel2:#f2edf8;
+  --text:#332c3d;
+  --muted:#756b80;
+  --purple:#78668f;
+  --purple2:#9b8aad;
+  --purple3:#c8bdd5;
+  --lav:#e9e1f1;
+  --line:#ddd4e7;
+  --good:#5f856f;
+  --warn:#a98050;
+  --bad:#9c626d;
+  --shadow:0 24px 70px rgba(67,53,82,.12);
+  --r:28px;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;min-height:100%;background:
+  radial-gradient(circle at 14% 12%,rgba(154,135,177,.14),transparent 28%),
+  radial-gradient(circle at 88% 82%,rgba(202,191,215,.18),transparent 34%),
+  linear-gradient(145deg,var(--bg),#fbfafc 48%,var(--bg2));
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  overflow:hidden
+}
+button{font:inherit}
+.app{height:100dvh;width:100vw;position:relative;overflow:hidden}
+.bgGrid{position:fixed;inset:0;pointer-events:none;opacity:.38;background-image:
+ linear-gradient(rgba(118,102,143,.045) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(118,102,143,.045) 1px,transparent 1px);
+ background-size:44px 44px;mask-image:radial-gradient(circle at center,#000 32%,transparent 88%)}
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:22px}
+.slide{
+  position:absolute;width:min(95vw,1540px);height:min(88vh,860px);
+  border:1px solid rgba(132,112,157,.19);border-radius:30px;overflow:auto;
+  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,245,252,.94));
+  box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateX(42px) scale(.985);
+  transition:.38s cubic-bezier(.2,.72,.2,1)
+}
+.slide.active{opacity:1;pointer-events:auto;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-42px) scale(.985)}
+.slide:before{content:"";position:absolute;inset:0;background:
+ radial-gradient(circle at 92% 5%,rgba(154,135,177,.13),transparent 30%),
+ radial-gradient(circle at 5% 95%,rgba(203,191,218,.14),transparent 28%);
+ pointer-events:none}
+.inner{position:relative;min-height:100%;padding:42px 52px 38px;display:flex;flex-direction:column;gap:18px;z-index:1}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:rgba(244,240,248,.84);padding:8px 13px;border-radius:999px;color:#6b5b7d;font-size:13px;font-weight:800}
+.dot{width:8px;height:8px;border-radius:50%;background:#8f7ca7;box-shadow:0 0 0 5px rgba(143,124,167,.12)}
+.count{color:#93879e;font-size:13px;font-weight:800;letter-spacing:.08em}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(40px,5vw,72px);line-height:1.02;letter-spacing:-.045em;max-width:1240px}
+h2{font-size:clamp(30px,3.4vw,50px);line-height:1.06;letter-spacing:-.035em}
+h3{font-size:20px;line-height:1.2}
+.lead{font-size:clamp(17px,1.55vw,23px);line-height:1.48;color:var(--muted);max-width:1160px}
+.glow{background:linear-gradient(90deg,#4c405b,#7d698f 48%,#9b86ae);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;min-height:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1;min-height:0}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(242,237,248,.84));border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.85)}
+.card p,.card li{color:#6e6478;line-height:1.5}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:#8a739f;font-weight:900}
+.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 10px;border:1px solid var(--line);background:#f1ecf6;color:#6c5b80;font-size:12px;font-weight:800}
+.accent{color:#76608c}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.footer{display:flex;justify-content:space-between;gap:16px;align-items:center;color:#94899d;font-size:12px;border-top:1px solid rgba(127,108,148,.11);padding-top:11px}.footer strong{color:#71627e}
+.nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid rgba(122,103,145,.18);background:rgba(255,255,255,.82);backdrop-filter:blur(18px);border-radius:999px;box-shadow:0 12px 40px rgba(66,50,82,.13)}
+.nav button{width:38px;height:38px;border-radius:50%;border:1px solid #ddd4e7;background:#f5f1f9;color:#5d4c70;cursor:pointer;font-size:18px}
+.nav button:hover{background:#ece5f3}.progress{width:150px;height:5px;border-radius:99px;background:#e6deee;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#8d78a4,#b3a2c5);transition:.35s}.navNum{font-size:12px;color:#887992;font-weight:800;min-width:48px;text-align:center}
+.heroRow{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;flex:1}
+.heroVisual{min-height:390px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(145deg,#fbf9fd,#eee7f5);position:relative;overflow:hidden}
+.heroVisual:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 28%,rgba(134,112,157,.14),transparent 24%)}
+.lightPath{position:absolute;left:8%;right:8%;top:50%;height:18px;border-radius:999px;background:#ded3e8;transform:translateY(-50%);box-shadow:inset 0 0 0 6px rgba(255,255,255,.72)}
+.lightPulse{position:absolute;top:50%;left:7%;width:24px;height:24px;border-radius:50%;background:#8e79a4;transform:translateY(-50%);box-shadow:0 0 0 10px rgba(142,121,164,.12),0 0 40px rgba(142,121,164,.34);animation:pulseMove 3.3s ease-in-out infinite}
+@keyframes pulseMove{0%{left:7%}50%{left:84%}100%{left:7%}}
+.house{position:absolute;right:8%;bottom:14%;font-size:84px;z-index:2}.office{position:absolute;left:7%;bottom:14%;font-size:78px;z-index:2}
+.bigLabel{position:absolute;left:50%;top:18%;transform:translateX(-50%);font-weight:900;color:#6b5b7c;text-align:center}
+.termBox{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;flex:1}
+.termBtn{border:1px solid var(--line);border-radius:18px;background:#fbfafd;color:#5b4c6b;padding:18px 12px;cursor:pointer;text-align:left;transition:.22s}
+.termBtn:hover,.termBtn.active{transform:translateY(-4px);background:#efe8f5;border-color:#c9bdd6}
+.termBtn strong{display:block;font-size:22px}.termBtn span{font-size:12px;color:#8a7f93}
+.reveal{border:1px dashed #c8bbd5;border-radius:20px;background:#f7f3fa;padding:18px;min-height:100px;color:#63586d;line-height:1.5}
+.fiberWrap{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;flex:1}
+.fiberDiagram{position:relative;border:1px solid var(--line);border-radius:25px;background:#fcfbfd;min-height:360px;overflow:hidden}
+.fiber{position:absolute;left:7%;right:7%;top:45%;height:126px;border-radius:999px;background:linear-gradient(180deg,#e5e0e9,#bbb2c3 48%,#e9e4ec);box-shadow:inset 0 0 0 4px rgba(255,255,255,.8)}
+.clad{position:absolute;left:10%;right:10%;top:50%;height:70px;border-radius:999px;background:#d6cbe0;box-shadow:inset 0 0 0 3px rgba(255,255,255,.58)}
+.core{position:absolute;left:13%;right:13%;top:55%;height:28px;border-radius:999px;background:linear-gradient(90deg,#af9fc0,#8d78a3,#b9a9c7)}
+.ray{position:absolute;left:16%;right:16%;top:59%;height:5px;border-radius:99px;background:#fff;box-shadow:0 0 15px rgba(255,255,255,.95);animation:ray 1.8s linear infinite}
+@keyframes ray{0%{opacity:.35;transform:scaleX(.15);transform-origin:left}50%{opacity:1;transform:scaleX(1);transform-origin:left}100%{opacity:.35;transform:scaleX(.15);transform-origin:right}}
+.label{position:absolute;padding:7px 10px;border-radius:12px;background:white;border:1px solid var(--line);font-size:12px;font-weight:800;color:#685776}
+.l1{left:15%;top:19%}.l2{left:43%;top:26%}.l3{right:11%;top:18%}
+.infoList{display:flex;flex-direction:column;gap:10px}
+.infoRow{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:#fbfafd}
+.infoRow b{min-width:28px;height:28px;border-radius:9px;background:#ece4f3;display:grid;place-items:center;color:#745f8b}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}
+.compare .card{position:relative;overflow:hidden}.compare .card:after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:rgba(157,139,177,.09)}
+.speed{font-size:42px;font-weight:900;letter-spacing:-.04em;color:#5d4c70}
+.route{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr 54px 1fr;gap:8px;align-items:center;flex:1}
+.node{min-height:185px;border:1px solid var(--line);border-radius:22px;background:#fbfafd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px}
+.node .ico{font-size:48px}.node small{color:#8a7f93;line-height:1.35}.arrow{text-align:center;font-size:31px;color:#9c89b0;animation:shift 1.5s ease-in-out infinite alternate}@keyframes shift{to{transform:translateX(6px)}}
+.fttxTabs{display:flex;gap:8px;flex-wrap:wrap}.fttxTabs button,.softBtn{border:1px solid var(--line);background:#faf8fc;color:#63536f;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:800}.fttxTabs button.active,.softBtn.active,.softBtn:hover{background:#e9e0f1;border-color:#c6b7d4}
+.fttxStage{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;flex:1}.street{position:relative;border:1px solid var(--line);border-radius:24px;background:linear-gradient(#fbfafd 0 62%,#e9e4ec 62% 72%,#f1edf5 72%);overflow:hidden;min-height:340px}.street .co{position:absolute;left:6%;bottom:30%;font-size:62px}.street .cab{position:absolute;left:43%;bottom:27%;font-size:49px}.street .home{position:absolute;right:7%;bottom:25%;font-size:72px}.street .lineA,.street .lineB{position:absolute;height:8px;border-radius:99px;bottom:45%;transition:.35s}.street .lineA{left:15%;width:36%;background:#8d78a3}.street .lineB{left:49%;right:14%;background:#c9c0d1}.street .lineB.fiberOn{background:#8d78a3}
+.ponStage{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;flex:1}.ponDiagram{position:relative;border:1px solid var(--line);border-radius:24px;background:#fcfbfd;min-height:350px;overflow:hidden}.olt{position:absolute;left:5%;top:41%;width:120px;padding:18px;border-radius:18px;background:#e9e1f0;border:1px solid #cfc2dc;text-align:center;font-weight:900}.splitter{position:absolute;left:45%;top:39%;width:130px;padding:20px 12px;border-radius:50%;background:#f0e9f5;border:1px solid #c9bdd5;text-align:center;font-weight:900;cursor:pointer;transition:.2s}.splitter:hover{transform:scale(1.05)}
+.ont{position:absolute;right:5%;width:110px;padding:12px;border-radius:14px;background:#faf8fc;border:1px solid var(--line);text-align:center;font-size:13px;font-weight:800}.oA{top:12%}.oB{top:40%}.oC{top:68%}.ponLine{position:absolute;height:4px;background:#9b86ae;transform-origin:left}.p1{left:13%;top:48%;width:36%}.p2{left:54%;top:48%;width:39%;transform:rotate(-25deg)}.p3{left:54%;top:48%;width:36%}.p4{left:54%;top:48%;width:39%;transform:rotate(25deg)}
+.note{padding:13px 15px;border-left:4px solid #a996bb;background:#f4eff8;border-radius:0 14px 14px 0;color:#675b70;line-height:1.5}
+.flowBox{border:1px solid var(--line);border-radius:22px;background:#fbfafd;padding:18px}.flowLine{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tag{padding:9px 11px;border-radius:11px;background:#ece5f3;border:1px solid #d6cbe0;font-weight:800;color:#685779}.down{color:#6c5a80}.up{color:#7e6f57}
+.toggleRow{display:flex;gap:8px;margin-bottom:10px}.toggleRow button{border:1px solid var(--line);background:#faf8fc;border-radius:12px;padding:9px 13px;cursor:pointer;font-weight:800;color:#62526e}.toggleRow button.active{background:#e9e0f0}
+.lanes{display:flex;flex-direction:column;gap:14px;padding-top:10px}.lane{height:52px;border-radius:16px;border:1px solid var(--line);background:#f7f3fa;position:relative;overflow:hidden}.lane span{position:absolute;left:10px;top:7px;font-size:11px;font-weight:900;color:#7c6d88}.packet{position:absolute;top:22px;left:-70px;padding:6px 10px;border-radius:999px;background:#8e79a4;color:white;font-size:11px;font-weight:900;animation:travel 4.2s linear infinite}.packet.p2x{animation-delay:1.3s}.packet.p3x{animation-delay:2.6s}@keyframes travel{from{left:-70px}to{left:calc(100% + 20px)}}
+.specGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1}.spec{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:18px}.spec .n{font-size:34px;font-weight:900;color:#665673}.spec p{font-size:13px;color:#7a6e83;line-height:1.4;margin-top:6px}
+.wdmVis{position:relative;border:1px solid var(--line);border-radius:24px;background:#fbfafd;min-height:320px;overflow:hidden}.fiberRail{position:absolute;left:8%;right:8%;top:49%;height:28px;border-radius:99px;background:#e5ddec;border:1px solid #d1c5dc}.wave{position:absolute;left:10%;right:10%;height:4px;border-radius:99px;top:50%;animation:waveMove 2s ease-in-out infinite alternate}.w1{background:#9480aa;transform:translateY(-10px)}.w2{background:#b7a8c6;transform:translateY(0)}.w3{background:#6f617e;transform:translateY(10px)}@keyframes waveMove{to{left:18%;right:4%}}
+.wdmLegend{position:absolute;left:50%;top:18%;transform:translateX(-50%);text-align:center;color:#72657c}
+.coexist{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}.spectrum{position:relative;height:200px;border:1px solid var(--line);border-radius:22px;background:#fbfafd;margin-top:12px;overflow:hidden}.band{position:absolute;bottom:35px;height:80px;border-radius:16px;display:grid;place-items:center;font-weight:900;color:white}.b1{left:8%;width:23%;background:#9c89ae}.b2{left:38%;width:23%;background:#776589}.b3{left:68%;width:23%;background:#b6a5c5;color:#493e53}.axis{position:absolute;left:6%;right:6%;bottom:23px;height:2px;background:#bfb5c8}.axisLabels{position:absolute;left:7%;right:7%;bottom:4px;display:flex;justify-content:space-between;font-size:11px;color:#8b8093}
+.lossDemo{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;flex:1}.meter{border:1px solid var(--line);border-radius:24px;background:#fcfbfd;padding:24px}.signal{height:46px;border-radius:99px;background:#e8e1ef;overflow:hidden;margin:18px 0}.signalFill{height:100%;width:100%;background:linear-gradient(90deg,#725f86,#a18eb3);transition:.4s}.rangeLine{display:flex;justify-content:space-between;color:#82758c;font-size:12px}.lossBtns{display:flex;gap:8px;flex-wrap:wrap}.lossBtns button{border:1px solid var(--line);border-radius:12px;background:#faf8fc;padding:9px 12px;cursor:pointer;color:#64546f;font-weight:800}
+.story{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;flex:1}.storyStep{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}.storyStep:not(:last-child):after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);font-size:24px;color:#a18eb3;z-index:3}.storyStep .num{width:30px;height:30px;border-radius:10px;background:#ece4f3;display:grid;place-items:center;font-weight:900;color:#6d5b7d}.storyStep p{font-size:13px;color:#73677d;line-height:1.45}
+.glossary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1}.g{border:1px solid var(--line);border-radius:18px;background:#fbfafd;padding:14px}.g b{color:#5d4c6f}.g p{font-size:13px;color:#796e81;line-height:1.45;margin-top:5px}
+.quiz{display:grid;gap:12px}.q{border:1px solid var(--line);border-radius:18px;background:#fbfafd;padding:15px}.q button{margin-top:10px;border:1px solid var(--line);border-radius:11px;background:#f0eaf5;color:#655471;padding:8px 11px;cursor:pointer;font-weight:800}.ans{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#f5f1f8;color:#6b5f73;line-height:1.45}.ans.show{display:block}
+@media(max-width:900px){
+  body{overflow:auto}.app{height:auto;min-height:100vh}.deck{display:block;padding:10px}.slide{position:relative;display:none;width:100%;height:auto;min-height:calc(100vh - 82px);margin:0 auto;overflow:visible}.slide.active{display:block}.inner{padding:28px 22px 80px}
+  .grid2,.grid3,.grid4,.heroRow,.fiberWrap,.compare,.fttxStage,.ponStage,.coexist,.lossDemo{grid-template-columns:1fr}.termBox,.specGrid,.story,.glossary{grid-template-columns:1fr 1fr}.route{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.nav{bottom:8px}.progress{width:90px}.ponDiagram{min-height:430px}
+}
+@media(max-width:560px){
+  .termBox,.specGrid,.story,.glossary{grid-template-columns:1fr}.heroVisual{min-height:310px}.fiberDiagram{min-height:300px}.inner{padding:24px 16px 82px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="bgGrid"></div>
+<main class="deck" id="deck">
+
+<section class="slide active">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>Вступ до спеціальності</span><span class="count">ЛЕКЦІЯ</span></div>
+    <div class="heroRow">
+      <div>
+        <div class="kicker">Волоконно-оптичні мережі без складних слів</div>
+        <h1><span class="glow">FTTx, PON, GPON, XGS‑PON та WDM</span></h1>
+        <p class="lead">Розберемося, як світло переносить інтернет, як одне оптичне волокно підключає багато абонентів і чим сучасний XGS‑PON відрізняється від GPON.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <span class="pill">💡 прості пояснення</span><span class="pill">🧩 інтерактивні схеми</span><span class="pill">🏠 приклади від провайдера до квартири</span>
+        </div>
+      </div>
+      <div class="heroVisual">
+        <div class="bigLabel">Дані рухаються у волокні як світлові імпульси</div>
+        <div class="office">🏢</div><div class="house">🏠</div>
+        <div class="lightPath"></div><div class="lightPulse"></div>
+      </div>
+    </div>
+    <div class="footer"><span>Мета: зрозуміти логіку оптичної мережі, а не завчити абревіатури</span><strong>→ гортайте стрілками</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>1. Навіщо потрібна оптика?</span><span class="count">01</span></div>
+    <h2>Чому провайдери переходять на <span class="accent">оптичне волокно</span>?</h2>
+    <p class="lead">Тому що світловий сигнал може переносити дуже багато даних на великі відстані з малими втратами.</p>
+    <div class="grid4">
+      <div class="card"><div class="kicker">Швидкість</div><h3>Багато даних</h3><p>Оптика добре підходить для високих швидкостей: відео, хмари, великі файли, резервні копії.</p></div>
+      <div class="card"><div class="kicker">Відстань</div><h3>Далі без підсилення</h3><p>Сигнал слабшає повільніше, ніж у мідному кабелі, тому ділянки мережі можуть бути довшими.</p></div>
+      <div class="card"><div class="kicker">Перешкоди</div><h3>Не боїться наводок</h3><p>У волокні немає електричного струму, тому електромагнітні перешкоди майже не впливають на передачу.</p></div>
+      <div class="card"><div class="kicker">Масштабування</div><h3>Легше підвищувати швидкість</h3><p>Часто можна модернізувати обладнання, не замінюючи все прокладене волокно.</p></div>
+    </div>
+    <div class="note"><b>Головна думка:</b> мідь передає дані електричним сигналом, а оптика — світлом.</div>
+    <div class="footer"><span>Не плутайте “оптичний кабель” і “світловий сигнал”: кабель — це середовище, сигнал — це інформація всередині нього.</span><strong>1 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>2. Словник перед стартом</span><span class="count">02</span></div>
+    <h2>П’ять скорочень, які зустрічатимуться всю лекцію</h2>
+    <p class="lead">Натисніть на термін — нижче з’явиться просте пояснення.</p>
+    <div class="termBox" id="terms">
+      <button class="termBtn active" data-text="<b>FTTx</b> — загальна назва способів підвести оптичне волокно ближче до користувача. Літера після FTT показує, докуди саме доходить оптика."><strong>FTTx</strong><span>Fiber To The ...</span></button>
+      <button class="termBtn" data-text="<b>PON</b> — пасивна оптична мережа. Між обладнанням провайдера та абонентами сигнал ділиться пасивними сплітерами, яким не потрібне електроживлення."><strong>PON</strong><span>Passive Optical Network</span></button>
+      <button class="termBtn" data-text="<b>GPON</b> — поширений стандарт PON. Типово дає близько 2,5 Гбіт/с у напрямку до абонентів і 1,25 Гбіт/с від абонентів на один PON-порт, який спільно використовує група користувачів."><strong>GPON</strong><span>Gigabit-capable PON</span></button>
+      <button class="termBtn" data-text="<b>XGS-PON</b> — новіший стандарт PON приблизно на 10 Гбіт/с у кожному напрямку. Літера S означає symmetric — симетрична швидкість."><strong>XGS‑PON</strong><span>10G Symmetric PON</span></button>
+      <button class="termBtn" data-text="<b>WDM</b> — передача кількох сигналів по одному волокну за допомогою різних довжин хвиль світла. Уявіть кілька «кольорів» світла, які одночасно їдуть однією дорогою."><strong>WDM</strong><span>Wavelength Division Multiplexing</span></button>
+    </div>
+    <div class="reveal" id="termReveal"><b>FTTx</b> — загальна назва способів підвести оптичне волокно ближче до користувача. Літера після FTT показує, докуди саме доходить оптика.</div>
+    <div class="footer"><span>Не треба вчити розшифрування англійською напам’ять — важливо розуміти зміст.</span><strong>2 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>3. Як світло не “втікає” з волокна?</span><span class="count">03</span></div>
+    <h2>Оптичне волокно — це дуже тонкий <span class="accent">світловод</span></h2>
+    <div class="fiberWrap">
+      <div class="fiberDiagram">
+        <div class="fiber"></div><div class="clad"></div><div class="core"></div><div class="ray"></div>
+        <div class="label l1">Захисне покриття</div><div class="label l2">Оболонка</div><div class="label l3">Серцевина</div>
+      </div>
+      <div class="infoList">
+        <div class="infoRow"><b>1</b><div><strong>Серцевина</strong><p>Центральна частина, якою рухається світло.</p></div></div>
+        <div class="infoRow"><b>2</b><div><strong>Оболонка</strong><p>Допомагає утримувати світло всередині серцевини, щоб воно не виходило назовні.</p></div></div>
+        <div class="infoRow"><b>3</b><div><strong>Захисні шари</strong><p>Захищають крихке скло від згинів, вологи та механічних пошкоджень.</p></div></div>
+      </div>
+    </div>
+    <div class="note"><b>Просто:</b> волокно працює як “доріжка для світла”. Дані кодуються швидкими світловими імпульсами — є імпульс / немає імпульсу, а електроніка перетворює це на біти.</div>
+    <div class="footer"><span>Світло не “передає інтернет саме по собі”: передавач кодує дані, а приймач декодує.</span><strong>3 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>4. Одномодове та багатомодове волокно</span><span class="count">04</span></div>
+    <h2>У мережах доступу до будинків найчастіше використовують <span class="accent">одномодове волокно</span></h2>
+    <div class="compare">
+      <div class="card">
+        <div class="kicker">Single-mode / SMF</div>
+        <div class="speed">Одномодове</div>
+        <p style="margin-top:12px">Тонка серцевина. Світло проходить фактично одним основним шляхом. Добре підходить для великих відстаней та операторських мереж.</p>
+        <div style="margin-top:16px"><span class="pill">FTTH</span> <span class="pill">PON</span> <span class="pill">магістралі</span></div>
+      </div>
+      <div class="card">
+        <div class="kicker">Multi-mode / MMF</div>
+        <div class="speed">Багатомодове</div>
+        <p style="margin-top:12px">Ширша серцевина. Світло може йти різними шляхами. Часто використовується на коротших дистанціях усередині будівель і дата-центрів.</p>
+        <div style="margin-top:16px"><span class="pill">короткі лінії</span> <span class="pill">локальні мережі</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Для цієї лекції:</b> коли говоримо про GPON або XGS‑PON до абонента, уявляємо одномодове оптичне волокно.</div>
+    <div class="footer"><span>“Мода” тут — це не стиль, а спосіб поширення світла у волокні.</span><strong>4 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>5. Весь шлях інтернету</span><span class="count">05</span></div>
+    <h2>Від обладнання провайдера до вашого Wi‑Fi</h2>
+    <div class="route">
+      <div class="node"><div class="ico">🏢</div><strong>Вузол провайдера</strong><small>Тут стоїть активне обладнання, яке підключає абонентську оптичну мережу.</small></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ico">〽️</div><strong>Оптичне волокно</strong><small>Передає світловий сигнал від провайдера у район або будинок.</small></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ico">⑂</div><strong>Сплітер</strong><small>Пасивно ділить один оптичний сигнал між кількома абонентськими лініями.</small></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ico">📶</div><strong>ONT + роутер</strong><small>ONT перетворює оптичний сигнал на Ethernet, а роутер роздає мережу вашим пристроям.</small></div>
+    </div>
+    <div class="footer"><span>Ключове: сплітер не “створює інтернет”, він лише розділяє світловий потік.</span><strong>5 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>6. Що таке FTTx?</span><span class="count">06</span></div>
+    <h2>FTTx показує, <span class="accent">докуди саме доходить оптика</span></h2>
+    <div class="fttxTabs">
+      <button class="active" data-fttx="FTTH">FTTH — до квартири/будинку</button>
+      <button data-fttx="FTTB">FTTB — до будинку</button>
+      <button data-fttx="FTTC">FTTC — до вуличної шафи</button>
+    </div>
+    <div class="fttxStage">
+      <div class="street">
+        <div class="co">🏢</div><div class="cab">🗄️</div><div class="home">🏠</div>
+        <div class="lineA"></div><div class="lineB fiberOn" id="lineB"></div>
+      </div>
+      <div class="card" id="fttxText">
+        <div class="kicker">FTTH = Fiber To The Home</div>
+        <h3 style="font-size:30px;margin:8px 0">Оптика доходить прямо до абонента</h3>
+        <p>До квартири або приватного будинку заходить саме оптичне волокно. Це типовий варіант для PON.</p>
+        <div class="note" style="margin-top:18px"><b>Чим ближче оптика до користувача,</b> тим менше мідних ділянок залишається в останній частині мережі.</div>
+      </div>
+    </div>
+    <div class="footer"><span>FTTx — не один стандарт, а сімейство архітектур.</span><strong>6 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>7. Що таке PON?</span><span class="count">07</span></div>
+    <h2><span class="accent">PON</span> — Passive Optical Network</h2>
+    <p class="lead">“Пасивна” означає: між центральним обладнанням провайдера і абонентськими терміналами можуть стояти пасивні оптичні елементи, насамперед сплітери, яким не потрібне електроживлення.</p>
+    <div class="ponStage">
+      <div class="ponDiagram">
+        <div class="olt">OLT<br><small>у провайдера</small></div>
+        <div class="splitter" id="splitterBtn">Сплітер<br><small>натисніть</small></div>
+        <div class="ont oA">ONT №1</div><div class="ont oB">ONT №2</div><div class="ont oC">ONT №3</div>
+        <div class="ponLine p1"></div><div class="ponLine p2"></div><div class="ponLine p3"></div><div class="ponLine p4"></div>
+      </div>
+      <div class="card">
+        <div class="kicker">Три головні компоненти</div>
+        <div class="infoList" style="margin-top:12px">
+          <div class="infoRow"><b>O</b><div><strong>OLT — Optical Line Terminal</strong><p>Головне обладнання PON на стороні оператора. Керує абонентами та передачею даних.</p></div></div>
+          <div class="infoRow"><b>S</b><div><strong>Splitter — сплітер</strong><p>Оптичний розгалужувач. Один вхід → багато виходів. Не потребує живлення.</p></div></div>
+          <div class="infoRow"><b>N</b><div><strong>ONT / ONU</strong><p>Абонентський оптичний термінал. Приймає оптичний сигнал і видає звичайний Ethernet.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" id="splitterReveal">Натисніть на сплітер на схемі.</div>
+    <div class="footer"><span>PON = одна оптична лінія може обслуговувати групу абонентів.</span><strong>7 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>8. Як один порт працює з багатьма абонентами?</span><span class="count">08</span></div>
+    <h2>Вниз — “для всіх”, вгору — <span class="accent">по черзі</span></h2>
+    <div class="grid2">
+      <div class="flowBox">
+        <div class="kicker">Downstream — від OLT до абонентів</div>
+        <h3 style="margin:8px 0">OLT надсилає потік у напрямку всіх ONT</h3>
+        <p style="color:#766b7f;line-height:1.5">Кожен ONT отримує потік, але обробляє лише ті дані, які призначені саме йому.</p>
+        <div class="flowLine" style="margin-top:18px"><span class="tag">OLT</span> → <span class="tag">сплітер</span> → <span class="tag">ONT 1</span><span class="tag">ONT 2</span><span class="tag">ONT 3</span></div>
+      </div>
+      <div class="flowBox">
+        <div class="kicker">Upstream — від абонентів до OLT</div>
+        <h3 style="margin:8px 0">ONT передають не одночасно, а у свої часові вікна</h3>
+        <p style="color:#766b7f;line-height:1.5">OLT розподіляє час передачі, щоб сигнали різних абонентів не “зіткнулися”.</p>
+        <div class="flowLine" style="margin-top:18px"><span class="tag">ONT 1</span> → <span class="tag">ONT 2</span> → <span class="tag">ONT 3</span> → <span class="tag">OLT</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Аналогія:</b> вниз — викладач говорить до всієї аудиторії. Вгору — студенти відповідають по черзі, щоб усі не говорили одночасно.</div>
+    <div class="footer"><span>Такий розподіл часу у висхідному напрямку — одна з ключових ідей PON.</span><strong>8 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>9. Міні-симуляція</span><span class="count">09</span></div>
+    <h2>Подивіться, як “рухаються” дані</h2>
+    <div class="toggleRow">
+      <button class="active" data-mode="down">Downstream ↓</button>
+      <button data-mode="up">Upstream ↑</button>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="lanes" id="lanes">
+        <div class="lane"><span>Абонент 1</span><div class="packet">дані</div></div>
+        <div class="lane"><span>Абонент 2</span><div class="packet p2x">дані</div></div>
+        <div class="lane"><span>Абонент 3</span><div class="packet p3x">дані</div></div>
+      </div>
+      <div class="reveal" id="modeText" style="margin-top:18px">У downstream дані йдуть від провайдера до абонентів. Сплітер фізично розділяє оптичний сигнал.</div>
+    </div>
+    <div class="footer"><span>У реальній мережі процес набагато швидший — тут анімація лише показує принцип.</span><strong>9 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>10. GPON</span><span class="count">10</span></div>
+    <h2>GPON — найвідоміший “гігабітний” варіант PON</h2>
+    <p class="lead">GPON описаний у серії стандартів ITU‑T G.984. Один PON‑порт обслуговує групу абонентів, тому його загальна швидкість ділиться між активними користувачами.</p>
+    <div class="specGrid">
+      <div class="spec"><div class="n">≈2.5</div><strong>Гбіт/с ↓</strong><p>номінальна швидкість від OLT до групи ONT</p></div>
+      <div class="spec"><div class="n">≈1.25</div><strong>Гбіт/с ↑</strong><p>поширений варіант швидкості від ONT до OLT</p></div>
+      <div class="spec"><div class="n">1490</div><strong>нм ↓</strong><p>типова довжина хвилі для downstream</p></div>
+      <div class="spec"><div class="n">1310</div><strong>нм ↑</strong><p>типова довжина хвилі для upstream</p></div>
+    </div>
+    <div class="note"><b>Що означає “нм”?</b> Нанометр — одиниця довжини. Тут вона описує довжину світлової хвилі. Різні довжини хвиль можна уявляти як різні “кольорові канали” світла.</div>
+    <div class="footer"><span>GPON ≠ “2,5 Гбіт/с кожному”. Це сумарна швидкість PON-порту, яку розподіляють між абонентами.</span><strong>10 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>11. XGS‑PON</span><span class="count">11</span></div>
+    <h2>XGS‑PON — приблизно <span class="accent">10 Гбіт/с в обидва боки</span></h2>
+    <p class="lead">У назві XGS: XG = 10‑гігабітний клас, S = symmetric, тобто однакова номінальна швидкість у напрямку до абонента і від нього.</p>
+    <div class="grid3">
+      <div class="card"><div class="kicker">Downstream</div><div class="speed">≈10 Гбіт/с</div><p>від OLT до абонентів</p></div>
+      <div class="card"><div class="kicker">Upstream</div><div class="speed">≈10 Гбіт/с</div><p>від абонентів до OLT</p></div>
+      <div class="card"><div class="kicker">Стандарт</div><div class="speed">G.9807.1</div><p>рекомендація ITU‑T для XGS‑PON</p></div>
+    </div>
+    <div class="note"><b>Де це корисно?</b> Багатоквартирні будинки, бізнес, Wi‑Fi 6/7, резервне копіювання у хмару, відеоспостереження, сервіси з великим вихідним трафіком.</div>
+    <div class="footer"><span>“Симетрична” — це однакова номінальна швидкість лінії в обох напрямках, а не гарантія однакового тарифу користувачу.</span><strong>11 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>12. GPON vs XGS‑PON</span><span class="count">12</span></div>
+    <h2>Порівняння без зайвих деталей</h2>
+    <div class="compare">
+      <div class="card">
+        <div class="kicker">GPON</div><div class="speed">≈2.5 ↓ / 1.25 ↑</div>
+        <p style="margin-top:10px">Добре підходить для масового домашнього доступу. Технологія широко використовується і достатня для багатьох тарифів.</p>
+        <div style="margin-top:16px"><span class="pill">дешевше обладнання</span> <span class="pill">масове FTTH</span></div>
+      </div>
+      <div class="card">
+        <div class="kicker">XGS‑PON</div><div class="speed">≈10 ↓ / 10 ↑</div>
+        <p style="margin-top:10px">Дає більшу сумарну пропускну здатність і високу швидкість від абонента до мережі.</p>
+        <div style="margin-top:16px"><span class="pill">вища швидкість</span> <span class="pill">симетрія</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Найважливіше:</b> обидві технології — PON. Вони використовують подібну ідею “OLT → пасивна оптична мережа → ONT”, але працюють на різних швидкостях і оптичних діапазонах.</div>
+    <div class="footer"><span>Новіша технологія не змінює саму ідею PON — вона збільшує можливості мережі.</span><strong>12 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>13. WDM</span><span class="count">13</span></div>
+    <h2>WDM: кілька сигналів по <span class="accent">одному волокну</span></h2>
+    <p class="lead">Wavelength Division Multiplexing — це поділ за довжинами хвиль. Різні оптичні сигнали можуть одночасно передаватися одним волокном, якщо вони використовують різні діапазони.</p>
+    <div class="wdmVis">
+      <div class="wdmLegend"><b>Одне волокно — кілька “світлових каналів”</b><br><small>кольори тут умовні, щоб показати принцип</small></div>
+      <div class="fiberRail"></div><div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
+    </div>
+    <div class="note"><b>Аналогія:</b> одна автомагістраль, але машини різних “кольорів” рухаються одночасно. Приймач знає, який “колір” йому потрібен.</div>
+    <div class="footer"><span>WDM — не окремий тип кабелю. Це спосіб ефективніше використовувати те саме волокно.</span><strong>13 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>14. Навіщо WDM у PON?</span><span class="count">14</span></div>
+    <h2>Різні покоління PON можуть <span class="accent">співіснувати</span> на тому самому волокні</h2>
+    <div class="coexist">
+      <div class="card">
+        <div class="kicker">Ідея</div>
+        <h3 style="font-size:28px;margin:8px 0">GPON і XGS‑PON не повинні “говорити” одним світловим каналом</h3>
+        <p>Вони використовують різні оптичні діапазони. Завдяки цьому оператор може поступово оновлювати обладнання, не прокладаючи окреме волокно для кожної технології.</p>
+      </div>
+      <div>
+        <div class="spectrum">
+          <div class="band b1">GPON ↑</div><div class="band b2">GPON ↓</div><div class="band b3">XGS‑PON</div>
+          <div class="axis"></div><div class="axisLabels"><span>коротша λ</span><span>довша λ</span></div>
+        </div>
+        <p style="color:#80748a;font-size:13px;margin-top:10px">Схема умовна: важлива не точна позиція блоків, а принцип розділення за довжиною хвилі λ.</p>
+      </div>
+    </div>
+    <div class="footer"><span>λ (“лямбда”) — позначення довжини хвилі.</span><strong>14 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>15. Спліт і втрати</span><span class="count">15</span></div>
+    <h2>Чим більше розгалужень — тим <span class="accent">менше оптичної потужності</span> отримує кожна гілка</h2>
+    <div class="lossDemo">
+      <div class="meter">
+        <div class="kicker">Спробуйте змінити поділ</div>
+        <div class="lossBtns" style="margin-top:10px">
+          <button data-loss="100" class="active">1:2</button><button data-loss="82">1:8</button><button data-loss="64">1:32</button><button data-loss="48">1:64</button>
+        </div>
+        <div class="signal"><div class="signalFill" id="signalFill"></div></div>
+        <div class="rangeLine"><span>сильніший сигнал</span><span>слабший сигнал</span></div>
+        <div class="reveal" id="lossText" style="margin-top:18px">1:2 — один вхід ділиться на два виходи. Втрати вже з’являються, але вони менші, ніж при великому коефіцієнті поділу.</div>
+      </div>
+      <div class="card">
+        <div class="kicker">Оптичний бюджет</div>
+        <h3 style="font-size:28px;margin:8px 0">Скільки сигналу можна “втратити” по дорозі</h3>
+        <p>На сигнал впливають довжина волокна, сплітери, конектори, зварні з’єднання та якість монтажу.</p>
+        <div class="note" style="margin-top:15px"><b>Оптичний бюджет</b> — запас між потужністю передавача і мінімальним рівнем, який ще здатний прийняти приймач.</div>
+      </div>
+    </div>
+    <div class="footer"><span>Тому мережу не можна розгалужувати нескінченно.</span><strong>15 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>16. З’єднання волокна</span><span class="count">16</span></div>
+    <h2>Як фізично з’єднують оптичні лінії?</h2>
+    <div class="grid3">
+      <div class="card"><div style="font-size:50px">🔥</div><h3>Зварювання волокна</h3><p>Два підготовлені кінці волокна точно суміщають і зварюють. Це дає мале послаблення сигналу.</p></div>
+      <div class="card"><div style="font-size:50px">🔌</div><h3>Конектори</h3><p>Роз’ємні з’єднання, які можна підключати і відключати. У PON часто зустрічаються оптичні конектори з поліруванням APC.</p></div>
+      <div class="card"><div style="font-size:50px">🧼</div><h3>Чистота важлива</h3><p>Навіть пил на торці конектора може погіршити сигнал. Перед підключенням оптичні роз’єми очищують.</p></div>
+    </div>
+    <div class="note"><b>Практична логіка:</b> оптика швидка, але дуже чутлива до якості фізичного з’єднання. “Трохи бруду” тут може означати реальне погіршення лінії.</div>
+    <div class="footer"><span>Не дивіться в торець активного оптичного волокна — випромінювання може бути невидимим для ока.</span><strong>16 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>17. Що відбувається, коли ви відкриваєте відео?</span><span class="count">17</span></div>
+    <h2>Один запит — п’ять зрозумілих кроків</h2>
+    <div class="story">
+      <div class="storyStep"><div class="num">1</div><h3>Телефон</h3><p>Ви натискаєте “Play”. Телефон створює мережевий запит.</p></div>
+      <div class="storyStep"><div class="num">2</div><h3>Роутер</h3><p>Передає запит через Ethernet до ONT.</p></div>
+      <div class="storyStep"><div class="num">3</div><h3>ONT</h3><p>Перетворює електричний сигнал Ethernet на оптичну передачу у PON.</p></div>
+      <div class="storyStep"><div class="num">4</div><h3>PON</h3><p>Сигнал проходить через сплітер до OLT провайдера.</p></div>
+      <div class="storyStep"><div class="num">5</div><h3>Інтернет</h3><p>OLT передає трафік далі у мережу оператора, а відповідь повертається у зворотному напрямку.</p></div>
+    </div>
+    <div class="footer"><span>Тепер абревіатури можна прив’язати до реального маршруту даних.</span><strong>17 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>18. Короткий словник</span><span class="count">18</span></div>
+    <h2>Що треба вміти пояснити своїми словами</h2>
+    <div class="glossary">
+      <div class="g"><b>FTTx</b><p>Архітектура, що показує, докуди доходить оптичне волокно.</p></div>
+      <div class="g"><b>FTTH</b><p>Оптика доходить безпосередньо до квартири або будинку абонента.</p></div>
+      <div class="g"><b>PON</b><p>Пасивна оптична мережа з OLT, сплітерами та ONT/ONU.</p></div>
+      <div class="g"><b>OLT</b><p>Обладнання оператора, яке керує PON.</p></div>
+      <div class="g"><b>ONT</b><p>Абонентський оптичний термінал у користувача.</p></div>
+      <div class="g"><b>Splitter</b><p>Пасивний оптичний розгалужувач: один сигнал ділиться на кілька гілок.</p></div>
+      <div class="g"><b>GPON</b><p>Гігабітне покоління PON із приблизно 2,5 Гбіт/с вниз і 1,25 Гбіт/с вгору.</p></div>
+      <div class="g"><b>XGS‑PON</b><p>10‑гігабітне симетричне покоління PON — близько 10 Гбіт/с в обидва боки.</p></div>
+      <div class="g"><b>WDM</b><p>Передача кількох оптичних каналів по одному волокну на різних довжинах хвиль.</p></div>
+    </div>
+    <div class="footer"><span>Якщо можете пояснити ці 9 термінів без підказки — тема вже зрозуміла.</span><strong>18 / 19</strong></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="inner">
+    <div class="top"><span class="badge"><span class="dot"></span>19. Самоперевірка</span><span class="count">19</span></div>
+    <h2>5 питань після лекції</h2>
+    <p class="lead">Спочатку дайте відповідь самі, потім натисніть “Показати відповідь”.</p>
+    <div class="quiz">
+      <div class="q"><b>1. Чим оптичне волокно принципово відрізняється від мідного кабелю під час передачі даних?</b><br><button>Показати відповідь</button><div class="ans">Оптика передає інформацію світловими імпульсами, а мідний кабель — електричним сигналом.</div></div>
+      <div class="q"><b>2. Що означає FTTH?</b><br><button>Показати відповідь</button><div class="ans">Fiber To The Home — оптичне волокно доходить безпосередньо до житла абонента.</div></div>
+      <div class="q"><b>3. Які три основні елементи PON потрібно знати?</b><br><button>Показати відповідь</button><div class="ans">OLT у оператора, пасивний оптичний сплітер і ONT/ONU у абонента.</div></div>
+      <div class="q"><b>4. У чому головна різниця між GPON та XGS‑PON за швидкістю?</b><br><button>Показати відповідь</button><div class="ans">GPON має приблизно 2,5 Гбіт/с вниз і 1,25 Гбіт/с вгору, а XGS‑PON — близько 10 Гбіт/с у кожному напрямку.</div></div>
+      <div class="q"><b>5. Для чого потрібен WDM?</b><br><button>Показати відповідь</button><div class="ans">Щоб передавати кілька оптичних сигналів по одному волокну, розділяючи їх за різними довжинами хвиль.</div></div>
+    </div>
+    <div class="note"><b>Підсумок:</b> FTTx описує, докуди йде оптика; PON — як побудована пасивна мережа; GPON і XGS‑PON — конкретні покоління PON; WDM дозволяє ефективно використовувати одне волокно для різних оптичних каналів.</div>
+    <div class="footer"><span>Кінець лекції</span><strong>19 / 19</strong></div>
+  </div>
+</section>
+
+</main>
+
+<div class="nav">
+  <button id="prev" aria-label="Попередній слайд">←</button>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="navNum" id="navNum">1 / 20</div>
+  <button id="next" aria-label="Наступний слайд">→</button>
+</div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+const bar=document.getElementById('bar');
+const navNum=document.getElementById('navNum');
+function show(i){
+  if(i<0||i>=slides.length)return;
+  slides.forEach((s,idx)=>{s.classList.remove('active','prev');if(idx<i)s.classList.add('prev')});
+  current=i;slides[current].classList.add('active');
+  bar.style.width=((current+1)/slides.length*100)+'%';
+  navNum.textContent=(current+1)+' / '+slides.length;
+}
+document.getElementById('prev').onclick=()=>show(current-1);
+document.getElementById('next').onclick=()=>show(current+1);
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}
+});
+let touchX=null;
+document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  if(touchX===null)return;
+  const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>60)show(current+(dx<0?1:-1));
+  touchX=null;
+},{passive:true});
+
+document.querySelectorAll('.termBtn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.termBtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('termReveal').innerHTML=btn.dataset.text;
+}));
+
+const fttxData={
+ FTTH:{k:'FTTH = Fiber To The Home',h:'Оптика доходить прямо до абонента',p:'До квартири або приватного будинку заходить саме оптичне волокно. Це типовий варіант для PON.',fiber:true},
+ FTTB:{k:'FTTB = Fiber To The Building',h:'Оптика доходить до будинку',p:'Оптичний кабель приходить у будинок, а далі до квартир може використовуватись інша технологія, наприклад Ethernet по мідному кабелю.',fiber:false},
+ FTTC:{k:'FTTC = Fiber To The Curb/Cabinet',h:'Оптика доходить до вуличної шафи',p:'Волокно закінчується у вузлі поблизу будинків. Остання ділянка до користувача виконується іншим середовищем.',fiber:false}
+};
+document.querySelectorAll('[data-fttx]').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('[data-fttx]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const d=fttxData[btn.dataset.fttx];
+  document.getElementById('fttxText').innerHTML='<div class="kicker">'+d.k+'</div><h3 style="font-size:30px;margin:8px 0">'+d.h+'</h3><p>'+d.p+'</p><div class="note" style="margin-top:18px"><b>Запам’ятайте:</b> остання літера у FTTx показує, докуди доходить оптика.</div>';
+  document.getElementById('lineB').classList.toggle('fiberOn',d.fiber);
+}));
+
+document.getElementById('splitterBtn').onclick=()=>{
+  document.getElementById('splitterReveal').innerHTML='<b>Що зробив сплітер?</b> Він поділив світлову потужність з однієї вхідної лінії між кількома вихідними гілками. Він не аналізує пакети і не потребує електроживлення.';
+};
+
+document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const up=btn.dataset.mode==='up';
+  document.querySelectorAll('.packet').forEach((p,i)=>{
+    p.style.animationDirection=up?'reverse':'normal';
+    p.textContent=up?'запит':'дані';
+  });
+  document.getElementById('modeText').textContent=up
+    ?'У upstream ONT передають до OLT у виділені для них часові вікна, щоб сигнали не накладалися.'
+    :'У downstream дані йдуть від провайдера до абонентів. Сплітер фізично розділяє оптичний сигнал.';
+}));
+
+const lossInfo={
+ '100':'1:2 — один вхід ділиться на два виходи. Втрати вже з’являються, але вони менші, ніж при великому коефіцієнті поділу.',
+ '82':'1:8 — сигнал ділиться між більшою кількістю гілок, тому кожен вихід отримує меншу оптичну потужність.',
+ '64':'1:32 — типовий великий поділ для PON. Потрібно уважно рахувати сумарні втрати всієї траси.',
+ '48':'1:64 — ще більше абонентів на одну PON-гілку, але оптичний бюджет стає жорсткішим.'
+};
+document.querySelectorAll('[data-loss]').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('[data-loss]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const v=btn.dataset.loss;
+  document.getElementById('signalFill').style.width=v+'%';
+  document.getElementById('lossText').textContent=lossInfo[v];
+}));
+
+document.querySelectorAll('.q button').forEach(btn=>btn.addEventListener('click',()=>{
+  const ans=btn.parentElement.querySelector('.ans');
+  ans.classList.toggle('show');
+  btn.textContent=ans.classList.contains('show')?'Сховати відповідь':'Показати відповідь';
+}));
+
+show(0);
+</script>
+</body>
+</html>
