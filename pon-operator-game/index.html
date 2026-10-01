@@ -68,6 +68,22 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
 @media(max-width:900px){.hero,.ticket,.wdmLab,.shiftWrap{grid-template-columns:1fr}.missions{grid-template-columns:1fr 1fr}.signalBoard{grid-template-columns:1fr}.badgeGrid{grid-template-columns:1fr 1fr}.gameHead{flex-direction:column}.progressOuter{width:100%}.sequence{grid-template-columns:1fr}.slot{min-height:58px}.networkAnim{min-height:250px}.nbox{position:relative;left:auto!important;right:auto!important;top:auto!important;margin:9px;display:inline-block}.nline,.npulse{display:none!important}.stats .stat.hideSm{display:none}.signalMap{height:300px}}
 @media(max-width:560px){.missions,.choiceGrid,.badgeGrid{grid-template-columns:1fr}.topin{align-items:flex-start}.stats{gap:6px}.stat{padding:7px 9px}.heroCard{min-height:330px}.office{font-size:55px}.house{font-size:58px}.signalMap{height:340px}.sigOlt{left:3%;top:44%}.sigSplit{left:38%;top:44%}.sigOnt1{right:2%;top:13%}.sigOnt2{right:2%;top:44%}.sigOnt3{right:2%;top:75%}.sl0{left:18%;width:24%}.sl1,.sl2,.sl3{left:49%;width:35%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+
+.rankPill{background:#eee7f4;color:#675775}
+.profile{margin-top:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.82);padding:14px;display:flex;align-items:center;gap:13px}
+.avatarBig{width:50px;height:50px;border-radius:16px;background:#ece5f3;display:grid;place-items:center;font-size:28px}
+.profile b{display:block}.profile span{color:var(--muted);font-size:13px}.miniProgress{height:7px;background:#e8e0ef;border-radius:99px;overflow:hidden;margin-top:8px}.miniProgress>i{display:block;height:100%;background:linear-gradient(90deg,#79678e,#b09dc1);width:0}
+.missions{grid-template-columns:repeat(4,1fr)}
+.chatDesk{display:grid;grid-template-columns:.95fr 1.05fr;gap:18px}.chatLog{display:flex;flex-direction:column;gap:10px;min-height:300px}.bubble{max-width:86%;padding:12px 13px;border-radius:16px;line-height:1.45}.bubble.client{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}.bubble.operator{align-self:flex-end;background:#ece5f3;color:#5e506a;border-bottom-right-radius:5px}
+.meterGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.meter{border:1px solid var(--line);border-radius:23px;background:#fbfafd;padding:20px}.meterFace{height:220px;border-radius:22px;background:linear-gradient(180deg,#312c37,#443b4e);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}.meterValue{font-size:58px;font-weight:950;letter-spacing:-.05em}.meterUnit{font-size:14px;color:#c9becf}.meterLamp{width:12px;height:12px;border-radius:50%;background:#72b98a;box-shadow:0 0 16px rgba(114,185,138,.7);margin-top:12px}.scale{height:24px;border-radius:99px;background:linear-gradient(90deg,#d9919c 0 28%,#d8bf83 28% 48%,#7aae89 48% 100%);position:relative;margin-top:16px}.scaleNeedle{position:absolute;top:-6px;width:4px;height:36px;background:#403647;border-radius:5px;left:70%;transition:.4s}.scaleLabels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}.readingBtns{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.readingBtns button{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px;font-weight:900;cursor:pointer;color:#61546b}
+.connectorLab{display:grid;grid-template-columns:1fr 1fr;gap:18px}.connectorCard{border:1px solid var(--line);border-radius:22px;background:#fbfafd;padding:18px;text-align:center}.ferrule{width:170px;height:170px;border-radius:50%;margin:14px auto;background:radial-gradient(circle,#fdfdfd 0 19%,#cfcfd1 20% 34%,#ececef 35% 57%,#c7c5ca 58% 100%);border:10px solid #ebe6ef;position:relative;box-shadow:inset 0 0 20px rgba(0,0,0,.08)}.dust:before,.dust:after{content:"";position:absolute;border-radius:50%;background:#62596b}.dust:before{width:18px;height:18px;left:35px;top:44px;box-shadow:52px 14px 0 #857990,18px 62px 0 #514959}.dust:after{width:9px;height:9px;right:31px;bottom:38px;box-shadow:-47px -5px 0 #746a7d}.connectorStatus{font-weight:900;margin-top:8px}.connectorReadout{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:16px;padding:13px 15px;background:#fff;margin-top:12px}.connectorReadout strong{font-size:28px;color:#675774}
+.otdrGrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.routeTrack{border:1px solid var(--line);border-radius:22px;background:#fbfafd;padding:18px}.track{height:120px;position:relative;margin-top:16px}.trackLine{position:absolute;left:4%;right:4%;top:48px;height:8px;background:#d9cfdf;border-radius:99px}.trackNode{position:absolute;top:30px;width:44px;height:44px;border-radius:14px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:900;z-index:3}.tn0{left:2%}.tn1{left:32%}.tn2{left:71%}.tn3{right:1%}.otdrPulse{display:none;position:absolute;top:43px;left:5%;width:18px;height:18px;border-radius:50%;background:#7c6891;box-shadow:0 0 0 7px rgba(124,104,145,.12);z-index:4}.track.run .otdrPulse{display:block;animation:otdrPulse 2.4s linear forwards}@keyframes otdrPulse{from{left:5%}to{left:82%}}.graph{height:260px;border:1px solid var(--line);border-radius:22px;background:#fff;padding:12px}.graph svg{width:100%;height:100%}.faultMark{opacity:0;transition:.35s}.graph.reveal .faultMark{opacity:1}.segmentBtns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.segmentBtns button{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px;font-weight:900;color:#62546c;cursor:pointer}
+.rackGrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.rack{border:10px solid #4a424f;border-radius:18px;background:#2f2934;padding:18px}.rackLabel{color:#d9cfdf;font-size:12px;font-weight:900;margin-bottom:10px}.ponPorts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.port{background:#17141a;border:1px solid #6a5f70;border-radius:10px;padding:12px 8px;color:#ddd4e2;text-align:center;cursor:pointer;font-weight:900}.port:before{content:"";display:block;width:16px;height:8px;border-radius:3px;background:#679d75;margin:0 auto 8px}.port.selected{outline:3px solid #bca8ca;background:#3f3547}.patchPanel{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:16px}.patch{height:32px;border-radius:7px;background:#f7f4f9;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:900;cursor:pointer}.patch.selected{background:#e5dbee;border-color:#a996bb}
+.planGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.building{border:1px solid var(--line);border-radius:22px;background:#fbfafd;padding:18px}.floors{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:13px}.apt{height:48px;border:1px solid var(--line);border-radius:10px;background:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}.outageMap{position:relative;height:280px;border:1px solid var(--line);border-radius:22px;background:#faf8fc;overflow:hidden}.hub{position:absolute;left:8%;top:42%;padding:10px;background:#fff;border:1px solid var(--line);border-radius:12px;font-weight:900;z-index:4}.splitHub{position:absolute;left:43%;top:42%;padding:10px;background:#fff;border:1px solid var(--line);border-radius:12px;font-weight:900;z-index:4}.houseNode{position:absolute;right:6%;padding:9px;background:#fff;border:1px solid var(--line);border-radius:12px;font-weight:900;z-index:4}.ha{top:10%}.hb{top:42%}.hc{top:74%}.oLine{position:absolute;height:5px;background:#d9cfdf;border-radius:99px;transform-origin:left center;z-index:1}.ol0{left:17%;top:50%;width:30%}.ol1{left:51%;top:50%;width:38%;transform:rotate(-25deg)}.ol2{left:51%;top:50%;width:37%}.ol3{left:51%;top:50%;width:38%;transform:rotate(25deg)}.downBadge{display:inline-flex;font-size:11px;font-weight:900;padding:5px 8px;border-radius:999px;background:var(--badbg);color:#844f5c;margin-left:5px}
+@media(max-width:1050px){.missions{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.chatDesk,.meterGrid,.connectorLab,.otdrGrid,.rackGrid,.planGrid{grid-template-columns:1fr}.missions{grid-template-columns:1fr 1fr}.readingBtns,.segmentBtns{grid-template-columns:1fr}.ponPorts{grid-template-columns:1fr 1fr}.patchPanel{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){.missions{grid-template-columns:1fr}.floors{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 </head>
 <body>
@@ -76,9 +92,10 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
   <div class="topin">
     <div class="brand"><div class="logo">◈</div><div>PON Operator<br><span style="font-size:11px;color:#8b7f94;font-weight:800">навчальний тренажер</span></div></div>
     <div class="stats">
+      <div class="stat rankPill hideSm" id="rankTop">Стажер</div>
       <div class="stat">⭐ XP: <span id="xpTop">0</span></div>
-      <div class="stat hideSm">🏅 Досягнення: <span id="badgeTop">0</span>/4</div>
-      <div class="stat">Місія <span id="missionTop">0</span>/6</div>
+      <div class="stat hideSm">🏅 Досягнення: <span id="badgeTop">0</span>/10</div>
+      <div class="stat">Місія <span id="missionTop">0</span>/12</div>
       <div class="xpbar" aria-label="Загальний прогрес"><div class="xpfill" id="xpFill"></div></div>
     </div>
   </div>
@@ -90,12 +107,14 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
     <div>
       <div class="eyebrow">Симулятор роботи провайдера</div>
       <h1>PON Operator:<br><span style="color:#79658d">Перша зміна</span></h1>
-      <p class="lead">Ви — новий оператор технічної підтримки інтернет-провайдера. Побудуйте PON-лінію, простежте рух сигналу, знайдіть несправність, підберіть технологію клієнту та завершіть першу зміну.</p>
+      <p class="lead">Ви — новий оператор технічної підтримки інтернет-провайдера. Тут уже не просто тести: ви будете говорити з клієнтом, вимірювати оптичний рівень, очищати конектор, запускати OTDR, працювати з портами OLT та локалізувати аварії.</p>
       <div class="actions">
         <button class="btn primary" id="startBtn">▶ Розпочати зміну</button>
         <button class="btn" id="howBtn">Що тут буде?</button>
+        <a class="btn" href="../fiber-fttx-pon/">← До лекції</a>
       </div>
-      <div id="howText" class="feedback" style="display:none;margin-top:14px">6 місій • практичні ситуації • анімації світлового сигналу • XP • 4 досягнення • фінальний результат. Усі нові терміни пояснюються одразу в грі.</div>
+      <div id="howText" class="feedback" style="display:none;margin-top:14px">12 місій • XP • 10 досягнень • світловий сигнал • LOS • GPON/XGS-PON • WDM • dBm • очищення конектора • OTDR • OLT-порти • проєктування PON • аварійні сценарії • фінальна зміна.</div>
+      <div class="profile"><div class="avatarBig">🧑‍💻</div><div style="flex:1"><b id="profileRank">Стажер</b><span>Кар’єрний шлях: Стажер → Оператор підтримки → Технік PON → Інженер оптичної мережі</span><div class="miniProgress"><i id="profileProgress"></i></div></div></div>
     </div>
     <div class="heroCard" aria-label="Анімація оптичного сигналу">
       <div class="heroText"><b>Світло переносить дані</b><span>від мережі провайдера до абонента</span></div>
@@ -104,12 +123,18 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
   </div>
 
   <div class="missions" id="missionCards">
-    <div class="missionCard" data-card="1"><div class="mnum">1</div><h3>Побудуй PON-лінію</h3><p>Розстав обладнання у правильному порядку.</p><span class="tag">архітектура мережі</span></div>
-    <div class="missionCard locked" data-card="2"><div class="mnum">2</div><h3>Куди йде сигнал?</h3><p>Розрізни downstream та upstream.</p><span class="tag">рух даних</span></div>
-    <div class="missionCard locked" data-card="3"><div class="mnum">3</div><h3>Червоний LOS</h3><p>Прийми перший дзвінок від абонента.</p><span class="tag">діагностика</span></div>
-    <div class="missionCard locked" data-card="4"><div class="mnum">4</div><h3>Підбери технологію</h3><p>GPON чи XGS-PON? Розбери заявки.</p><span class="tag">робота з клієнтом</span></div>
-    <div class="missionCard locked" data-card="5"><div class="mnum">5</div><h3>WDM-лабораторія</h3><p>Запусти кілька світлових каналів одним волокном.</p><span class="tag">WDM</span></div>
-    <div class="missionCard locked" data-card="6"><div class="mnum">6</div><h3>Перша зміна</h3><p>5 заявок без підказок. Фінальний іспит.</p><span class="tag">фінал</span></div>
+    <div class="missionCard" data-card="1"><div class="mnum">1</div><h3>Побудуй PON-лінію</h3><p>Розстав обладнання у правильному порядку.</p><span class="tag">архітектура</span></div>
+    <div class="missionCard locked" data-card="2"><div class="mnum">2</div><h3>Куди йде сигнал?</h3><p>Розрізни downstream та upstream.</p><span class="tag">напрямок</span></div>
+    <div class="missionCard locked" data-card="3"><div class="mnum">3</div><h3>Червоний LOS</h3><p>Розшифруй індикатори ONT.</p><span class="tag">діагностика</span></div>
+    <div class="missionCard locked" data-card="4"><div class="mnum">4</div><h3>GPON чи XGS-PON?</h3><p>Підбери технологію під задачу.</p><span class="tag">технології</span></div>
+    <div class="missionCard locked" data-card="5"><div class="mnum">5</div><h3>WDM-лабораторія</h3><p>Запусти кілька каналів одним волокном.</p><span class="tag">WDM</span></div>
+    <div class="missionCard locked" data-card="6"><div class="mnum">6</div><h3>Діалог із клієнтом</h3><p>Постав правильні питання і локалізуй проблему.</p><span class="tag">техпідтримка</span></div>
+    <div class="missionCard locked" data-card="7"><div class="mnum">7</div><h3>Оптичний рівень</h3><p>Навчися читати значення у dBm.</p><span class="tag">вимірювання</span></div>
+    <div class="missionCard locked" data-card="8"><div class="mnum">8</div><h3>Брудний конектор</h3><p>Знайди забруднення та віднови сигнал.</p><span class="tag">фізичний рівень</span></div>
+    <div class="missionCard locked" data-card="9"><div class="mnum">9</div><h3>Знайди обрив</h3><p>Запусти OTDR і визнач відстань до події.</p><span class="tag">OTDR</span></div>
+    <div class="missionCard locked" data-card="10"><div class="mnum">10</div><h3>OLT і патч-панель</h3><p>Підключи будинок до правильного PON-порту.</p><span class="tag">вузол провайдера</span></div>
+    <div class="missionCard locked" data-card="11"><div class="mnum">11</div><h3>Спроєктуй мережу</h3><p>Вибери сплітер і локалізуй масову аварію.</p><span class="tag">проєктування</span></div>
+    <div class="missionCard locked" data-card="12"><div class="mnum">12</div><h3>Фінальна зміна</h3><p>8 заявок без підказок.</p><span class="tag">фінал</span></div>
   </div>
 </section>
 
@@ -129,7 +154,7 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
     <div class="scoreBig" id="finalScore">0 / 1000</div>
     <p class="lead" style="margin:10px auto 0;max-width:700px" id="finalText"></p>
     <div class="badgeGrid" id="badgeGrid"></div>
-    <div class="actions" style="justify-content:center"><button class="btn primary" id="restartBtn">↻ Пройти зміну ще раз</button></div>
+    <div class="actions" style="justify-content:center"><button class="btn primary" id="restartBtn">↻ Пройти зміну ще раз</button><a class="btn" href="../fiber-fttx-pon/">Повернутися до лекції</a></div>
   </div>
 </section>
 </main>
@@ -139,6 +164,7 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
 <script>
 (function(){
   const state={mission:0,xp:0,completed:new Set(),badges:new Set(),finalCorrect:0,mission4Correct:0};
+  function rankName(){if(state.xp<220)return 'Стажер';if(state.xp<520)return 'Оператор підтримки';if(state.xp<850)return 'Технік PON';return 'Інженер оптичної мережі';}
   const startScreen=document.getElementById('startScreen');
   const gameScreen=document.getElementById('gameScreen');
   const resultScreen=document.getElementById('resultScreen');
@@ -153,7 +179,9 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
     document.getElementById('xpTop').textContent=state.xp;
     document.getElementById('badgeTop').textContent=state.badges.size;
     document.getElementById('missionTop').textContent=state.mission;
-    document.getElementById('xpFill').style.width=Math.min(100,(state.xp/900)*100)+'%';
+    document.getElementById('xpFill').style.width=Math.min(100,(state.xp/1100)*100)+'%';
+    const rt=document.getElementById('rankTop'),pr=document.getElementById('profileRank'),pp=document.getElementById('profileProgress');
+    if(rt)rt.textContent=rankName();if(pr)pr.textContent=rankName();if(pp)pp.style.width=Math.min(100,(state.xp/1100)*100)+'%';
     document.querySelectorAll('[data-card]').forEach(function(card){
       const n=Number(card.dataset.card);
       card.classList.toggle('locked',n>state.mission+1 && !state.completed.has(n));
@@ -172,14 +200,14 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
   }
   function beginMission(n){
     state.mission=n;updateTop();setScreen(gameScreen);
-    document.getElementById('missionEyebrow').textContent='Місія '+n+' з 6';
-    document.getElementById('missionProgress').style.width=((n-1)/6*100)+'%';
+    document.getElementById('missionEyebrow').textContent='Місія '+n+' з 12';
+    document.getElementById('missionProgress').style.width=((n-1)/12*100)+'%';
     renderMission(n);
   }
   function nextMission(n,xp,badge){
     if(!state.completed.has(n)){state.completed.add(n);award(xp,badge)}
-    document.getElementById('missionProgress').style.width=(n/6*100)+'%';
-    if(n<6){
+    document.getElementById('missionProgress').style.width=(n/12*100)+'%';
+    if(n<12){
       const b=document.createElement('button');b.className='btn primary';b.textContent='Наступна місія →';b.style.marginTop='16px';
       b.addEventListener('click',function(){beginMission(n+1)});
       area.appendChild(b);
@@ -200,6 +228,12 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
     if(n===4) mission4();
     if(n===5) mission5();
     if(n===6) mission6();
+    if(n===7) mission7();
+    if(n===8) mission8();
+    if(n===9) mission9();
+    if(n===10) mission10();
+    if(n===11) mission11();
+    if(n===12) mission12();
   }
 
   function mission1(){
@@ -309,46 +343,106 @@ h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spa
     });
   }
 
+
   function mission6(){
-    document.getElementById('missionTitle').textContent='Перша зміна';
-    document.getElementById('missionDesc').textContent='Фінал: 5 заявок без додаткових підказок. За кожну правильну відповідь — 100 балів.';
+    document.getElementById('missionTitle').textContent='Діалог із клієнтом';
+    document.getElementById('missionDesc').textContent='Не вгадуйте проблему — поставте питання, яке допоможе відокремити стан оптичної лінії від проблеми після ONT.';
+    area.innerHTML='<div class="panel chatDesk"><div class="phone"><div class="kicker">Чат техпідтримки</div><div class="chatLog" id="chatLog"><div class="bubble client">👩 Добрий день. Інтернет не працює.</div></div></div><div><div class="kicker">Ваш наступний крок</div><h3 style="margin:6px 0">Що запитати спочатку?</h3><div class="choiceGrid"><button class="choice" data-chat="leds">Які індикатори горять на ONT?</button><button class="choice" data-chat="phone">Яка модель телефону?</button><button class="choice" data-chat="password">Який пароль Wi‑Fi?</button><button class="choice" data-chat="browser">Який браузер ви використовуєте?</button></div><div class="feedback" id="chatFb">Потрібне питання, яке одразу дасть технічну інформацію.</div><div id="chatStep2" style="display:none"><h3 style="margin-top:16px">Клієнт відповів: POWER 🟢, PON 🟢, LOS не горить, LAN 🟢. Що це означає?</h3><div class="choiceGrid"><button class="choice" data-diag="optical">Оптична лінія, найімовірніше, працює; шукати проблему після ONT</button><button class="choice" data-diag="los">У клієнта точно обрив оптики</button><button class="choice" data-diag="xgs">Потрібно перейти на XGS-PON</button><button class="choice" data-diag="split">Потрібно замінити сплітер</button></div></div></div></div>';
+    const log=document.getElementById('chatLog'),fb=document.getElementById('chatFb');
+    document.querySelectorAll('[data-chat]').forEach(function(btn){btn.onclick=function(){
+      if(btn.dataset.chat!=='leds'){fb.className='feedback warn';fb.textContent='Це можна уточнити пізніше. Спочатку перевірте стан ONT.';return}
+      document.querySelectorAll('[data-chat]').forEach(function(x){x.disabled=true});btn.classList.add('correct');
+      const op=document.createElement('div');op.className='bubble operator';op.textContent='Які індикатори горять на ONT?';log.appendChild(op);
+      const cl=document.createElement('div');cl.className='bubble client';cl.textContent='POWER зелений, PON зелений, LOS не горить, LAN зелений.';log.appendChild(cl);
+      fb.className='feedback good';fb.textContent='Добре. Ви отримали інформацію про оптичну реєстрацію.';document.getElementById('chatStep2').style.display='block';
+    }});
+    document.querySelectorAll('[data-diag]').forEach(function(btn){btn.onclick=function(){
+      const ok=btn.dataset.diag==='optical';document.querySelectorAll('[data-diag]').forEach(function(x){x.disabled=true;if(x.dataset.diag==='optical')x.classList.add('correct')});if(!ok)btn.classList.add('wrong');
+      fb.className='feedback '+(ok?'good':'bad');fb.textContent=ok?'Правильно. PON зелений і LOS не горить: далі перевіряють Ethernet, роутер та Wi‑Fi.':'Ні. За цими індикаторами ознак втрати оптичного сигналу немає.';
+      setTimeout(function(){nextMission(6,110,'Оператор підтримки')},600);
+    }});
+  }
+
+  function mission7(){
+    document.getElementById('missionTitle').textContent='Оптичний рівень у dBm';
+    document.getElementById('missionDesc').textContent='dBm показує рівень оптичної потужності. Чим значення сильніше йде в мінус, тим слабший сигнал. Реальні допустимі межі залежать від класу оптики та обладнання.';
+    area.innerHTML='<div class="panel meterGrid"><div class="meter"><div class="kicker">Навчальний вимірювач</div><div class="meterFace" style="margin-top:10px"><div class="meterValue" id="meterValue">−16</div><div class="meterUnit">dBm</div><div class="meterLamp" id="meterLamp"></div></div><div class="scale"><div class="scaleNeedle" id="needle"></div></div><div class="scaleLabels"><span>критично</span><span>перевірити</span><span>робоча зона</span></div><div class="readingBtns"><button data-read="-16">−16 dBm</button><button data-read="-26">−26 dBm</button><button data-read="-31">−31 dBm</button></div></div><div><div class="kicker">Правило тільки для цієї вправи</div><div class="feedback warn"><b>Навчальні межі:</b> −8…−24 dBm — робоча зона; −25…−27 dBm — перевірити; нижче −27 dBm — критично. У реальній мережі дивіться специфікацію обладнання.</div><h3 style="margin-top:16px">Оцініть вибране значення</h3><div class="choiceGrid"><button class="choice" data-level="good">Робоча зона</button><button class="choice" data-level="warn">Потрібно перевірити</button><button class="choice" data-level="bad">Критично слабкий сигнал</button></div><div class="feedback" id="levelFb">Класифікуйте всі три значення.</div></div></div>';
+    let current=-16,solved=new Set();
+    function expected(v){if(v>=-24)return 'good';if(v>=-27)return 'warn';return 'bad'}
+    function render(v){current=v;document.getElementById('meterValue').textContent='−'+Math.abs(v);document.getElementById('needle').style.left=(v===-16?78:v===-26?42:18)+'%';document.getElementById('meterLamp').style.background=v>=-24?'#72b98a':v>=-27?'#d6b56f':'#d66d7e'}
+    document.querySelectorAll('[data-read]').forEach(function(b){b.onclick=function(){current=Number(b.dataset.read);render(current);document.getElementById('levelFb').className='feedback';document.getElementById('levelFb').textContent='Класифікуйте '+current+' dBm.'}});
+    document.querySelectorAll('[data-level]').forEach(function(b){b.onclick=function(){const ok=b.dataset.level===expected(current),f=document.getElementById('levelFb');if(ok){solved.add(current);f.className='feedback good';f.textContent='Правильно для навчальних меж цієї вправи.'}else{f.className='feedback bad';f.textContent='Ні. Чим сильніше число йде в мінус, тим слабший сигнал.'}if(solved.size===3){document.querySelectorAll('[data-level],[data-read]').forEach(function(x){x.disabled=true});setTimeout(function(){nextMission(7,120,'Оптичний метролог')},500)}}});
+    render(-16);
+  }
+
+  function mission8(){
+    document.getElementById('missionTitle').textContent='Брудний оптичний конектор';
+    document.getElementById('missionDesc').textContent='Забруднення торця конектора може додати втрати. Значення нижче — умовний навчальний приклад.';
+    area.innerHTML='<div class="panel"><div class="connectorLab"><div class="connectorCard"><div class="kicker">Конектор A</div><div class="ferrule"></div><div class="connectorStatus">чистий торець</div><button class="btn" data-connect="clean" style="margin-top:10px">Підключити A</button></div><div class="connectorCard"><div class="kicker">Конектор B</div><div class="ferrule dust" id="dirtyFerrule"></div><div class="connectorStatus">видимі забруднення</div><div class="actions" style="justify-content:center"><button class="btn" data-connect="dirty">Підключити B</button><button class="btn" id="cleanBtn">🧼 Очистити B</button></div></div></div><div class="connectorReadout"><span>Умовний рівень на ONT</span><strong id="connLevel">−17 dBm</strong></div><div class="feedback" id="connFb">Спробуйте підключити обидва варіанти та очистіть забруднений торець.</div></div>';
+    let dirtyTried=false;
+    document.querySelector('[data-connect="clean"]').onclick=function(){document.getElementById('connLevel').textContent='−17 dBm';document.getElementById('connFb').className='feedback good';document.getElementById('connFb').textContent='Чистий торець: умовний рівень залишається нормальним.'};
+    document.querySelector('[data-connect="dirty"]').onclick=function(){dirtyTried=true;document.getElementById('connLevel').textContent='−26 dBm';document.getElementById('connFb').className='feedback bad';document.getElementById('connFb').textContent='Умовно бачимо додаткові втрати через забруднення.'};
+    document.getElementById('cleanBtn').onclick=function(){document.getElementById('dirtyFerrule').classList.remove('dust');document.getElementById('connLevel').textContent='−17 dBm';document.getElementById('connFb').className='feedback good';document.getElementById('connFb').textContent='Конектор очищено. Сигнал відновився у нашій моделі.';this.disabled=true;setTimeout(function(){nextMission(8,120,'Чисте волокно')},dirtyTried?450:700)};
+  }
+
+  function mission9(){
+    document.getElementById('missionTitle').textContent='Знайди обрив за допомогою OTDR';
+    document.getElementById('missionDesc').textContent='OTDR надсилає світловий імпульс у волокно та аналізує повернене світло, щоб оцінити відстань до події або пошкодження.';
+    area.innerHTML='<div class="panel otdrGrid"><div class="routeTrack"><div class="kicker">Оптична траса</div><div class="track" id="otdrTrack"><div class="trackLine"></div><div class="trackNode tn0">OLT</div><div class="trackNode tn1">300 м</div><div class="trackNode tn2">750 м</div><div class="trackNode tn3">900 м</div><div class="otdrPulse"></div></div><button class="btn primary" id="runOtdr">▶ Запустити OTDR</button><div class="feedback" id="otdrFb">Спочатку виконайте вимірювання.</div><div class="segmentBtns"><button data-dist="300">300 м</button><button data-dist="750">750 м</button><button data-dist="900">900 м</button></div></div><div><div class="graph" id="graph"><svg viewBox="0 0 600 230"><line x1="45" y1="190" x2="570" y2="190" stroke="#cfc5d7" stroke-width="2"/><line x1="45" y1="25" x2="45" y2="190" stroke="#cfc5d7" stroke-width="2"/><polyline points="45,45 160,68 300,92 430,115 455,175 555,183" fill="none" stroke="#7b688f" stroke-width="5" stroke-linecap="round"/><g class="faultMark"><line x1="455" y1="25" x2="455" y2="190" stroke="#b65f72" stroke-width="3" stroke-dasharray="7 6"/><text x="466" y="45" fill="#915866" font-size="14" font-weight="800">подія ≈750 м</text></g><text x="50" y="215" fill="#817688" font-size="12">0 м</text><text x="520" y="215" fill="#817688" font-size="12">900 м</text></svg></div><div class="feedback warn"><b>Спрощена модель:</b> реальна OTDR-траса складніша. Тут важлива ідея — різка подія відповідає певній відстані.</div></div></div>';
+    let ran=false;
+    document.getElementById('runOtdr').onclick=function(){ran=true;const tr=document.getElementById('otdrTrack');tr.classList.remove('run');void tr.offsetWidth;tr.classList.add('run');setTimeout(function(){document.getElementById('graph').classList.add('reveal');document.getElementById('otdrFb').className='feedback good';document.getElementById('otdrFb').textContent='На трасі видно різку подію приблизно на 750 м.'},1100)};
+    document.querySelectorAll('[data-dist]').forEach(function(b){b.onclick=function(){if(!ran){document.getElementById('otdrFb').className='feedback bad';document.getElementById('otdrFb').textContent='Спочатку запустіть OTDR.';return}const ok=b.dataset.dist==='750';document.querySelectorAll('[data-dist]').forEach(function(x){x.disabled=true;if(x.dataset.dist==='750')x.classList.add('correct')});if(!ok)b.classList.add('wrong');document.getElementById('otdrFb').className='feedback '+(ok?'good':'bad');document.getElementById('otdrFb').textContent=ok?'Правильно: подія приблизно на 750 м.':'Ні. Подивіться на різкий спад графіка.';setTimeout(function(){nextMission(9,130,'OTDR слідопит')},550)}});
+  }
+
+  function mission10(){
+    document.getElementById('missionTitle').textContent='OLT і патч-панель';
+    document.getElementById('missionDesc').textContent='Наряд: будинок B потрібно підключити до PON 3, а його оптична лінія заведена на порт 6 патч-панелі.';
+    area.innerHTML='<div class="panel rackGrid"><div class="rack"><div class="rackLabel">OLT • PON-порти</div><div class="ponPorts"><button class="port" data-port="1">PON 1</button><button class="port" data-port="2">PON 2</button><button class="port" data-port="3">PON 3</button><button class="port" data-port="4">PON 4</button></div><div class="rackLabel" style="margin-top:18px">Оптична патч-панель</div><div class="patchPanel" id="patches"></div></div><div><div class="kicker">Наряд</div><h3 style="font-size:28px;margin:6px 0">Будинок B → PON 3 → порт 6</h3><p class="subtle">Оберіть PON-порт, потім порт патч-панелі.</p><div class="feedback" id="rackFb">Чекаю підключення.</div><div class="connectorReadout"><span>Стан лінку</span><strong id="linkState">OFF</strong></div></div></div>';
+    const pp=document.getElementById('patches');for(let i=1;i<=8;i++){const b=document.createElement('button');b.className='patch';b.dataset.patch=String(i);b.textContent=i;pp.appendChild(b)}
+    let p=null,pa=null;
+    function check(){if(p===3&&pa===6){document.getElementById('linkState').textContent='PON UP';document.getElementById('rackFb').className='feedback good';document.getElementById('rackFb').textContent='Правильно: PON 3 ↔ порт 6.';document.querySelectorAll('.port,.patch').forEach(function(x){x.disabled=true});setTimeout(function(){nextMission(10,110,'')},550)}else if(p!==null&&pa!==null){document.getElementById('rackFb').className='feedback bad';document.getElementById('rackFb').textContent='Не той порт. Перечитайте наряд.';p=null;pa=null;document.querySelectorAll('.port,.patch').forEach(function(x){x.classList.remove('selected')})}}
+    document.querySelectorAll('.port').forEach(function(b){b.onclick=function(){document.querySelectorAll('.port').forEach(function(x){x.classList.remove('selected')});b.classList.add('selected');p=Number(b.dataset.port);check()}});
+    document.querySelectorAll('.patch').forEach(function(b){b.onclick=function(){document.querySelectorAll('.patch').forEach(function(x){x.classList.remove('selected')});b.classList.add('selected');pa=Number(b.dataset.patch);check()}});
+  }
+
+  function mission11(){
+    document.getElementById('missionTitle').textContent='Спроєктуй PON і локалізуй аварію';
+    document.getElementById('missionDesc').textContent='Виберіть сплітер для 16 квартир, а потім визначте, де логічніше шукати спільну проблему.';
+    let apts='';for(let i=1;i<=16;i++)apts+='<div class="apt">кв. '+i+'</div>';
+    area.innerHTML='<div class="panel planGrid"><div class="building"><div class="kicker">Частина 1 • 16 квартир</div><div class="floors">'+apts+'</div><h3 style="margin-top:16px">Який один сплітер логічно вибрати для 16 окремих гілок?</h3><div class="choiceGrid"><button class="choice" data-split="2">1:2</button><button class="choice" data-split="8">1:8</button><button class="choice" data-split="16">1:16</button><button class="choice" data-split="64">1:64</button></div><div class="feedback" id="planFb">У спрощеній задачі потрібно 16 виходів.</div></div><div><div class="kicker">Частина 2 • масова аварія</div><div class="outageMap"><div class="hub">OLT</div><div class="splitHub">сплітер</div><div class="houseNode ha">A <span class="downBadge">немає сигналу</span></div><div class="houseNode hb">B <span class="downBadge">немає сигналу</span></div><div class="houseNode hc">C <span class="downBadge">немає сигналу</span></div><div class="oLine ol0"></div><div class="oLine ol1"></div><div class="oLine ol2"></div><div class="oLine ol3"></div></div><h3 style="margin-top:14px">Усі три будинки одночасно втратили сигнал. Де шукати спільну проблему?</h3><div class="choiceGrid"><button class="choice" data-outage="before">На спільній ділянці до розгалуження</button><button class="choice" data-outage="each">У трьох ONT одночасно</button><button class="choice" data-outage="wifi">У Wi‑Fi кожної квартири</button></div><div class="feedback" id="outageFb">Одна спільна відмова чи три незалежні?</div></div></div>';
+    let splitDone=false,outDone=false;function done(){if(splitDone&&outDone)setTimeout(function(){nextMission(11,140,'Архітектор PON')},600)}
+    document.querySelectorAll('[data-split]').forEach(function(b){b.onclick=function(){const ok=b.dataset.split==='16';document.querySelectorAll('[data-split]').forEach(function(x){x.disabled=true;if(x.dataset.split==='16')x.classList.add('correct')});if(!ok)b.classList.add('wrong');document.getElementById('planFb').className='feedback '+(ok?'good':'bad');document.getElementById('planFb').textContent=ok?'Так. У цій вправі 1:16 дає 16 вихідних гілок.':'Для 16 гілок у цій спрощеній вправі потрібен 1:16.';splitDone=true;done()}});
+    document.querySelectorAll('[data-outage]').forEach(function(b){b.onclick=function(){const ok=b.dataset.outage==='before';document.querySelectorAll('[data-outage]').forEach(function(x){x.disabled=true;if(x.dataset.outage==='before')x.classList.add('correct')});if(!ok)b.classList.add('wrong');document.getElementById('outageFb').className='feedback '+(ok?'good':'bad');document.getElementById('outageFb').textContent=ok?'Правильно. Якщо всі гілки впали одночасно, спочатку перевіряють спільну ділянку.':'Менш імовірно, що три незалежні абонентські проблеми виникли одночасно.';outDone=true;done()}});
+  }
+
+  function mission12(){
+    document.getElementById('missionTitle').textContent='Фінальна зміна';
+    document.getElementById('missionDesc').textContent='8 заявок без підказок. Кожна правильна відповідь впливає на фінальний бал.';
     const qs=[
       {t:'Заявка №1',p:'На ONT горить червоний LOS. Що перевіряємо насамперед?',o:['Оптичну лінію та конектор','Пароль Instagram','Колір роутера','Частоту монітора'],a:0},
       {t:'Заявка №2',p:'Клієнт завантажує резервну копію у хмару. Це…',o:['Downstream','Upstream','WDM','FTTB'],a:1},
-      {t:'Заявка №3',p:'Бізнесу потрібна висока симетрична швидкість приблизно 10 Гбіт/с на PON.',o:['GPON','XGS-PON','ADSL','Мідний телефонний кабель'],a:1},
-      {t:'Заявка №4',p:'Який елемент пасивно ділить оптичний сигнал на кілька гілок?',o:['OLT','Роутер','Сплітер','Ноутбук'],a:2},
-      {t:'Заявка №5',p:'Для чого потрібен WDM?',o:['Передавати кілька оптичних каналів одним волокном','Замінити ONT','Живити сплітер','Створити пароль Wi‑Fi'],a:0}
+      {t:'Заявка №3',p:'Потрібна висока симетрична PON-швидкість близько 10 Гбіт/с.',o:['GPON','XGS-PON','ADSL','Телефонна лінія'],a:1},
+      {t:'Заявка №4',p:'Який елемент пасивно ділить оптичний сигнал?',o:['OLT','Роутер','Сплітер','Ноутбук'],a:2},
+      {t:'Заявка №5',p:'Для чого потрібен WDM?',o:['Кілька оптичних каналів одним волокном','Замінити ONT','Живити сплітер','Створити пароль Wi‑Fi'],a:0},
+      {t:'Заявка №6',p:'У навчальній шкалі −31 dBm — це…',o:['Дуже сильний сигнал','Критично слабкий сигнал','Нульова відстань','Тип Wi‑Fi'],a:1},
+      {t:'Заявка №7',p:'OTDR показав різку подію на 750 м. Що це означає?',o:['Подію або пошкодження приблизно на цій відстані','Швидкість 750 Мбіт/с','Номер PON-порту','Кількість абонентів'],a:0},
+      {t:'Заявка №8',p:'Одразу три гілки після одного сплітера втратили сигнал. Що перевірити спочатку?',o:['Спільну ділянку до розгалуження','Три паролі Wi‑Fi','Три телефони','Три браузери'],a:0}
     ];
     let idx=0,correct=0;
     area.innerHTML='<div class="panel shiftWrap"><div class="queue" id="queue"></div><div id="shiftCase"></div></div>';
-    const queue=document.getElementById('queue');
-    qs.forEach(function(q,i){const x=document.createElement('div');x.className='queueItem'+(i===0?' active':'');x.textContent=q.t;x.dataset.i=i;queue.appendChild(x)});
-    function renderQ(){
-      const q=qs[idx],wrap=document.getElementById('shiftCase');wrap.innerHTML='<div class="kicker">'+q.t+'</div><h3 style="font-size:28px;margin:7px 0">'+q.p+'</h3><div class="choiceGrid" id="finalChoices"></div><div class="feedback" id="finalFb">Оберіть одну відповідь.</div>';
-      q.o.forEach(function(o,oi){const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=function(){
-        const ok=oi===q.a;if(ok)correct++;document.querySelectorAll('#finalChoices .choice').forEach(function(x,j){x.disabled=true;if(j===q.a)x.classList.add('correct')});if(!ok)b.classList.add('wrong');
-        const fb=document.getElementById('finalFb');fb.className='feedback '+(ok?'good':'bad');fb.textContent=ok?'✓ Заявку вирішено правильно.':'✗ Неправильно. Правильний варіант підсвічено.';
-        document.querySelector('.queueItem[data-i="'+idx+'"]').classList.remove('active');document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('done');
-        setTimeout(function(){idx++;if(idx<qs.length){document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('active');renderQ()}else{state.finalCorrect=correct;state.xp+=correct*100;state.completed.add(6);updateTop();finishGame()}},650);
-      };document.getElementById('finalChoices').appendChild(b)});
-    }
+    const queue=document.getElementById('queue');qs.forEach(function(q,i){const x=document.createElement('div');x.className='queueItem'+(i===0?' active':'');x.textContent=q.t;x.dataset.i=i;queue.appendChild(x)});
+    function renderQ(){const q=qs[idx],wrap=document.getElementById('shiftCase');wrap.innerHTML='<div class="kicker">'+q.t+'</div><h3 style="font-size:28px;margin:7px 0">'+q.p+'</h3><div class="choiceGrid" id="finalChoices"></div><div class="feedback" id="finalFb">Оберіть одну відповідь.</div>';q.o.forEach(function(o,oi){const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=function(){const ok=oi===q.a;if(ok)correct++;document.querySelectorAll('#finalChoices .choice').forEach(function(x,j){x.disabled=true;if(j===q.a)x.classList.add('correct')});if(!ok)b.classList.add('wrong');const fb=document.getElementById('finalFb');fb.className='feedback '+(ok?'good':'bad');fb.textContent=ok?'✓ Заявку вирішено правильно.':'✗ Неправильно. Правильний варіант підсвічено.';document.querySelector('.queueItem[data-i="'+idx+'"]').classList.remove('active');document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('done');setTimeout(function(){idx++;if(idx<qs.length){document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('active');renderQ()}else{state.finalCorrect=correct;state.xp+=correct*50;state.completed.add(12);updateTop();finishGame()}},600)};document.getElementById('finalChoices').appendChild(b)})}
     renderQ();
   }
 
   function finishGame(){
     setScreen(resultScreen);
-    const score=state.finalCorrect*100 + Math.round((state.xp-state.finalCorrect*100)/400*500);
-    const capped=Math.max(0,Math.min(1000,score));
-    let rank='Стажер PON';
-    if(capped>=550)rank='Молодший оператор PON';
-    if(capped>=750)rank='Оператор PON';
-    if(capped>=900)rank='Майстер оптичної мережі';
+    const score=Math.round((state.finalCorrect/8)*700+(state.badges.size/10)*300);
+    let rank='Стажер PON';if(score>=550)rank='Молодший оператор PON';if(score>=750)rank='Оператор PON';if(score>=900)rank='Інженер оптичної мережі';
     document.getElementById('rankTitle').textContent=rank;
-    document.getElementById('finalScore').textContent=capped+' / 1000';
-    document.getElementById('finalText').textContent='Фінальні заявки: '+state.finalCorrect+' / 5 правильних. Ви пройшли повний шлях від побудови PON-лінії до діагностики LOS, вибору GPON/XGS-PON та роботи з WDM.';
-    const all=[
-      ['Світло пішло!','💡'],['Де сигнал?','🔎'],['10 Gigabit','⚡'],['Майстер WDM','🌈']
-    ],grid=document.getElementById('badgeGrid');grid.innerHTML='';
+    document.getElementById('finalScore').textContent=score+' / 1000';
+    document.getElementById('finalText').textContent='Фінальна зміна: '+state.finalCorrect+' / 8 правильних. Досягнення: '+state.badges.size+' / 10. Ви пройшли шлях від базової PON-схеми до OTDR, оптичних вимірювань та аварійної локалізації.';
+    const all=[['Світло пішло!','💡'],['Напрямок зрозумілий','↕️'],['Де сигнал?','🔎'],['10 Gigabit','⚡'],['Майстер WDM','🌈'],['Оператор підтримки','🎧'],['Оптичний метролог','📟'],['Чисте волокно','🧼'],['OTDR слідопит','📈'],['Архітектор PON','🏗️']],grid=document.getElementById('badgeGrid');grid.innerHTML='';
     all.forEach(function(b){const got=state.badges.has(b[0]);const d=document.createElement('div');d.className='badgeCard';d.style.opacity=got?'1':'.42';d.innerHTML='<div class="i">'+b[1]+'</div><b>'+b[0]+'</b><span>'+(got?'отримано':'ще не отримано')+'</span>';grid.appendChild(d)});
     document.getElementById('missionProgress').style.width='100%';
   }
