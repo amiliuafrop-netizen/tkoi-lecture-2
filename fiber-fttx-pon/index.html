@@ -124,9 +124,38 @@ h3{font-size:20px;line-height:1.2}
 .story{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;flex:1}.storyStep{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}.storyStep:not(:last-child):after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);font-size:24px;color:#a18eb3;z-index:3}.storyStep .num{width:30px;height:30px;border-radius:10px;background:#ece4f3;display:grid;place-items:center;font-weight:900;color:#6d5b7d}.storyStep p{font-size:13px;color:#73677d;line-height:1.45}
 .glossary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1}.g{border:1px solid var(--line);border-radius:18px;background:#fbfafd;padding:14px}.g b{color:#5d4c6f}.g p{font-size:13px;color:#796e81;line-height:1.45;margin-top:5px}
 .quiz{display:grid;gap:12px}.q{border:1px solid var(--line);border-radius:18px;background:#fbfafd;padding:15px}.q button{margin-top:10px;border:1px solid var(--line);border-radius:11px;background:#f0eaf5;color:#655471;padding:8px 11px;cursor:pointer;font-weight:800}.ans{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#f5f1f8;color:#6b5f73;line-height:1.45}.ans.show{display:block}
+
+/* --- enhanced signal animations --- */
+.signalJourney{position:relative;min-height:270px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fcfbfd,#f2edf7);overflow:hidden;padding:22px}
+.signalJourney .sjNode{position:absolute;z-index:3;min-width:118px;padding:13px 14px;border-radius:17px;background:white;border:1px solid var(--line);box-shadow:0 10px 26px rgba(72,55,90,.08);text-align:center;font-weight:900;color:#5e4e6d}
+.signalJourney .provider{left:5%;top:50%;transform:translateY(-50%)}.signalJourney .split{left:42%;top:50%;transform:translate(-50%,-50%)}.signalJourney .homeA{right:5%;top:16%}.signalJourney .homeB{right:5%;top:43%}.signalJourney .homeC{right:5%;top:70%}
+.signalPath{position:absolute;height:6px;border-radius:99px;background:#ded4e7;transform-origin:left center;z-index:1}.spMain{left:15%;top:50%;width:29%}.spA{left:45%;top:50%;width:45%;transform:rotate(-25deg)}.spB{left:45%;top:50%;width:43%}.spC{left:45%;top:50%;width:45%;transform:rotate(25deg)}
+.lightDot{position:absolute;z-index:4;width:16px;height:16px;border-radius:50%;background:#88729e;box-shadow:0 0 0 8px rgba(136,114,158,.12),0 0 24px rgba(136,114,158,.45)}
+.dotMain{left:15%;top:calc(50% - 5px);animation:mainToSplit 2.8s ease-in-out infinite}
+.dotA{left:45%;top:calc(50% - 5px);animation:splitToA 2.8s ease-in-out infinite}.dotB{left:45%;top:calc(50% - 5px);animation:splitToB 2.8s ease-in-out infinite}.dotC{left:45%;top:calc(50% - 5px);animation:splitToC 2.8s ease-in-out infinite}
+@keyframes mainToSplit{0%{left:15%;opacity:0}8%{opacity:1}45%{left:42%;opacity:1}52%,100%{left:42%;opacity:0}}
+@keyframes splitToA{0%,46%{left:45%;top:calc(50% - 5px);opacity:0}52%{opacity:1}100%{left:84%;top:22%;opacity:0}}
+@keyframes splitToB{0%,46%{left:45%;opacity:0}52%{opacity:1}100%{left:84%;opacity:0}}
+@keyframes splitToC{0%,46%{left:45%;top:calc(50% - 5px);opacity:0}52%{opacity:1}100%{left:84%;top:76%;opacity:0}}
+.processHint{position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:5;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);font-size:12px;color:#73677d;font-weight:800;white-space:nowrap}
+
+.dualSignal{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}
+.sigCard{border:1px solid var(--line);border-radius:24px;background:#fbfafd;padding:18px;min-height:310px;overflow:hidden}
+.sigMini{position:relative;height:205px;margin-top:12px;border-radius:18px;background:#f3eef7;border:1px solid #e0d7e8;overflow:hidden}
+.sigMini .box{position:absolute;z-index:3;padding:9px 11px;border-radius:12px;background:white;border:1px solid var(--line);font-size:12px;font-weight:900;color:#625171;text-align:center}
+.sigMini .box.oltB{left:4%;top:43%}.sigMini .box.splitB{left:43%;top:43%;transform:translateX(-50%)}.sigMini .box.u1{right:4%;top:10%}.sigMini .box.u2{right:4%;top:42%}.sigMini .box.u3{right:4%;top:74%}
+.sigMini .wire{position:absolute;height:4px;background:#d9cfe3;border-radius:99px;z-index:1;transform-origin:left center}.sigMini .wM{left:17%;top:50%;width:29%}.sigMini .w1{left:45%;top:50%;width:43%;transform:rotate(-27deg)}.sigMini .w2{left:45%;top:50%;width:42%}.sigMini .w3{left:45%;top:50%;width:43%;transform:rotate(27deg)}
+.downPulse,.upPulse{position:absolute;z-index:4;width:13px;height:13px;border-radius:50%;background:#816b98;box-shadow:0 0 0 6px rgba(129,107,152,.12)}
+.downPulse{left:17%;top:calc(50% - 4px);animation:downMini 2.5s linear infinite}.upPulse.uA{right:9%;top:16%;animation:upMiniA 3s linear infinite}.upPulse.uB{right:9%;top:48%;animation:upMiniB 3s linear infinite 1s}.upPulse.uC{right:9%;top:80%;animation:upMiniC 3s linear infinite 2s}
+@keyframes downMini{0%{left:17%;top:calc(50% - 4px);opacity:0}10%{opacity:1}46%{left:43%;top:calc(50% - 4px)}72%{left:67%;top:17%}100%{left:86%;top:17%;opacity:0}}
+@keyframes upMiniA{0%{right:9%;top:16%;opacity:0}10%{opacity:1}45%{right:50%;top:48%}75%{right:72%;top:48%}100%{right:84%;top:48%;opacity:0}}
+@keyframes upMiniB{0%{right:9%;top:48%;opacity:0}10%{opacity:1}45%{right:50%;top:48%}75%{right:72%;top:48%}100%{right:84%;top:48%;opacity:0}}
+@keyframes upMiniC{0%{right:9%;top:80%;opacity:0}10%{opacity:1}45%{right:50%;top:48%}75%{right:72%;top:48%}100%{right:84%;top:48%;opacity:0}}
+
+.quizChoice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.quizChoice button{margin:0;text-align:left;background:#faf8fc}.quizChoice button.correct{background:#e9f2ec;border-color:#b8d0bf;color:#456653}.quizChoice button.wrong{background:#f7e9ec;border-color:#d9b8c0;color:#8a4f5d}.quizFeedback{min-height:22px;margin-top:8px;font-size:13px;font-weight:800;color:#6a5d74}.quizScore{padding:12px 15px;border-radius:15px;background:#f0eaf5;border:1px solid var(--line);font-weight:900;color:#604f70}
 @media(max-width:900px){
   body{overflow:auto}.app{height:auto;min-height:100vh}.deck{display:block;padding:10px}.slide{position:relative;display:none;width:100%;height:auto;min-height:calc(100vh - 82px);margin:0 auto;overflow:visible}.slide.active{display:block}.inner{padding:28px 22px 80px}
-  .grid2,.grid3,.grid4,.heroRow,.fiberWrap,.compare,.fttxStage,.ponStage,.coexist,.lossDemo{grid-template-columns:1fr}.termBox,.specGrid,.story,.glossary{grid-template-columns:1fr 1fr}.route{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.nav{bottom:8px}.progress{width:90px}.ponDiagram{min-height:430px}
+  .grid2,.grid3,.grid4,.heroRow,.fiberWrap,.compare,.fttxStage,.ponStage,.coexist,.lossDemo{grid-template-columns:1fr}.termBox,.specGrid,.story,.glossary{grid-template-columns:1fr 1fr}.route{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.nav{bottom:8px}.progress{width:90px}.ponDiagram{min-height:430px}.dualSignal{grid-template-columns:1fr}.signalJourney{min-height:330px}.quizChoice{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .termBox,.specGrid,.story,.glossary{grid-template-columns:1fr}.heroVisual{min-height:310px}.fiberDiagram{min-height:300px}.inner{padding:24px 16px 82px}
@@ -240,14 +269,19 @@ h3{font-size:20px;line-height:1.2}
   <div class="inner">
     <div class="top"><span class="badge"><span class="dot"></span>5. Весь шлях інтернету</span><span class="count">05</span></div>
     <h2>Від обладнання провайдера до вашого Wi‑Fi</h2>
-    <div class="route">
-      <div class="node"><div class="ico">🏢</div><strong>Вузол провайдера</strong><small>Тут стоїть активне обладнання, яке підключає абонентську оптичну мережу.</small></div>
-      <div class="arrow">→</div>
-      <div class="node"><div class="ico">〽️</div><strong>Оптичне волокно</strong><small>Передає світловий сигнал від провайдера у район або будинок.</small></div>
-      <div class="arrow">→</div>
-      <div class="node"><div class="ico">⑂</div><strong>Сплітер</strong><small>Пасивно ділить один оптичний сигнал між кількома абонентськими лініями.</small></div>
-      <div class="arrow">→</div>
-      <div class="node"><div class="ico">📶</div><strong>ONT + роутер</strong><small>ONT перетворює оптичний сигнал на Ethernet, а роутер роздає мережу вашим пристроям.</small></div>
+    <div class="signalJourney">
+      <div class="sjNode provider">🏢<br>OLT провайдера</div>
+      <div class="sjNode split">⑂<br>сплітер</div>
+      <div class="sjNode homeA">🏠 ONT 1</div><div class="sjNode homeB">🏠 ONT 2</div><div class="sjNode homeC">🏠 ONT 3</div>
+      <div class="signalPath spMain"></div><div class="signalPath spA"></div><div class="signalPath spB"></div><div class="signalPath spC"></div>
+      <div class="lightDot dotMain"></div><div class="lightDot dotA"></div><div class="lightDot dotB"></div><div class="lightDot dotC"></div>
+      <div class="processHint">світловий сигнал → сплітер → кілька абонентських гілок</div>
+    </div>
+    <div class="grid4">
+      <div class="card"><b>1. OLT</b><p>Створює оптичний сигнал для абонентської мережі.</p></div>
+      <div class="card"><b>2. Волокно</b><p>Проводить світлові імпульси до району або будинку.</p></div>
+      <div class="card"><b>3. Сплітер</b><p>Розділяє сигнал на кілька оптичних гілок без живлення.</p></div>
+      <div class="card"><b>4. ONT</b><p>Приймає світло й перетворює його на Ethernet для роутера.</p></div>
     </div>
     <div class="footer"><span>Ключове: сплітер не “створює інтернет”, він лише розділяє світловий потік.</span><strong>5 / 19</strong></div>
   </div>
@@ -308,42 +342,53 @@ h3{font-size:20px;line-height:1.2}
   <div class="inner">
     <div class="top"><span class="badge"><span class="dot"></span>8. Як один порт працює з багатьма абонентами?</span><span class="count">08</span></div>
     <h2>Вниз — “для всіх”, вгору — <span class="accent">по черзі</span></h2>
-    <div class="grid2">
-      <div class="flowBox">
-        <div class="kicker">Downstream — від OLT до абонентів</div>
-        <h3 style="margin:8px 0">OLT надсилає потік у напрямку всіх ONT</h3>
-        <p style="color:#766b7f;line-height:1.5">Кожен ONT отримує потік, але обробляє лише ті дані, які призначені саме йому.</p>
-        <div class="flowLine" style="margin-top:18px"><span class="tag">OLT</span> → <span class="tag">сплітер</span> → <span class="tag">ONT 1</span><span class="tag">ONT 2</span><span class="tag">ONT 3</span></div>
+    <div class="dualSignal">
+      <div class="sigCard">
+        <div class="kicker">Downstream ↓</div>
+        <h3 style="margin:7px 0">OLT надсилає сигнал до абонентів</h3>
+        <p style="color:#766b7f;line-height:1.45">Сигнал іде від OLT до сплітера, а сплітер фізично розділяє його на кілька гілок.</p>
+        <div class="sigMini">
+          <div class="box oltB">OLT</div><div class="box splitB">сплітер</div><div class="box u1">ONT 1</div><div class="box u2">ONT 2</div><div class="box u3">ONT 3</div>
+          <div class="wire wM"></div><div class="wire w1"></div><div class="wire w2"></div><div class="wire w3"></div>
+          <div class="downPulse"></div>
+        </div>
       </div>
-      <div class="flowBox">
-        <div class="kicker">Upstream — від абонентів до OLT</div>
-        <h3 style="margin:8px 0">ONT передають не одночасно, а у свої часові вікна</h3>
-        <p style="color:#766b7f;line-height:1.5">OLT розподіляє час передачі, щоб сигнали різних абонентів не “зіткнулися”.</p>
-        <div class="flowLine" style="margin-top:18px"><span class="tag">ONT 1</span> → <span class="tag">ONT 2</span> → <span class="tag">ONT 3</span> → <span class="tag">OLT</span></div>
+      <div class="sigCard">
+        <div class="kicker">Upstream ↑</div>
+        <h3 style="margin:7px 0">ONT передають до OLT по черзі</h3>
+        <p style="color:#766b7f;line-height:1.45">Кожному ONT виділяється свій короткий момент передачі. Тому їхні сигнали не накладаються один на одного.</p>
+        <div class="sigMini">
+          <div class="box oltB">OLT</div><div class="box splitB">сплітер</div><div class="box u1">ONT 1</div><div class="box u2">ONT 2</div><div class="box u3">ONT 3</div>
+          <div class="wire wM"></div><div class="wire w1"></div><div class="wire w2"></div><div class="wire w3"></div>
+          <div class="upPulse uA"></div><div class="upPulse uB"></div><div class="upPulse uC"></div>
+        </div>
       </div>
     </div>
-    <div class="note"><b>Аналогія:</b> вниз — викладач говорить до всієї аудиторії. Вгору — студенти відповідають по черзі, щоб усі не говорили одночасно.</div>
-    <div class="footer"><span>Такий розподіл часу у висхідному напрямку — одна з ключових ідей PON.</span><strong>8 / 19</strong></div>
+    <div class="note"><b>Аналогія:</b> downstream — викладач одночасно звертається до всієї аудиторії. Upstream — студенти відповідають по черзі, щоб голоси не накладалися.</div>
+    <div class="footer"><span>Стрілки прибрані з текстової частини: напрямок тепер видно безпосередньо в анімованій схемі.</span><strong>8 / 19</strong></div>
   </div>
 </section>
 
 <section class="slide">
   <div class="inner">
-    <div class="top"><span class="badge"><span class="dot"></span>9. Міні-симуляція</span><span class="count">09</span></div>
-    <h2>Подивіться, як “рухаються” дані</h2>
+    <div class="top"><span class="badge"><span class="dot"></span>9. Міні-симуляція сигналу</span><span class="count">09</span></div>
+    <h2>Натисніть режим і простежте шлях сигналу</h2>
     <div class="toggleRow">
-      <button class="active" data-mode="down">Downstream ↓</button>
-      <button data-mode="up">Upstream ↑</button>
+      <button class="active" data-mode="down">Показати Downstream ↓</button>
+      <button data-mode="up">Показати Upstream ↑</button>
     </div>
     <div class="card" style="flex:1">
-      <div class="lanes" id="lanes">
-        <div class="lane"><span>Абонент 1</span><div class="packet">дані</div></div>
-        <div class="lane"><span>Абонент 2</span><div class="packet p2x">дані</div></div>
-        <div class="lane"><span>Абонент 3</span><div class="packet p3x">дані</div></div>
+      <div class="signalJourney" id="interactiveJourney">
+        <div class="sjNode provider">🏢<br>OLT</div>
+        <div class="sjNode split">⑂<br>сплітер</div>
+        <div class="sjNode homeA">🏠 ONT 1</div><div class="sjNode homeB">🏠 ONT 2</div><div class="sjNode homeC">🏠 ONT 3</div>
+        <div class="signalPath spMain"></div><div class="signalPath spA"></div><div class="signalPath spB"></div><div class="signalPath spC"></div>
+        <div class="lightDot dotMain simDot"></div><div class="lightDot dotA simDot"></div><div class="lightDot dotB simDot"></div><div class="lightDot dotC simDot"></div>
+        <div class="processHint" id="journeyHint">OLT → сплітер → ONT: сигнал рухається до абонентів</div>
       </div>
-      <div class="reveal" id="modeText" style="margin-top:18px">У downstream дані йдуть від провайдера до абонентів. Сплітер фізично розділяє оптичний сигнал.</div>
+      <div class="reveal" id="modeText" style="margin-top:14px"><b>Downstream:</b> OLT передає дані до абонентів. Сплітер розділяє оптичний сигнал між гілками.</div>
     </div>
-    <div class="footer"><span>У реальній мережі процес набагато швидший — тут анімація лише показує принцип.</span><strong>9 / 19</strong></div>
+    <div class="footer"><span>Анімація сповільнена спеціально, щоб було видно послідовність.</span><strong>9 / 19</strong></div>
   </div>
 </section>
 
@@ -511,16 +556,16 @@ h3{font-size:20px;line-height:1.2}
 <section class="slide">
   <div class="inner">
     <div class="top"><span class="badge"><span class="dot"></span>19. Самоперевірка</span><span class="count">19</span></div>
-    <h2>5 питань після лекції</h2>
-    <p class="lead">Спочатку дайте відповідь самі, потім натисніть “Показати відповідь”.</p>
+    <h2>5 тестових питань після лекції</h2>
+    <p class="lead">Оберіть один варіант. Після натискання одразу побачите, чи відповідь правильна.</p>
     <div class="quiz">
-      <div class="q"><b>1. Чим оптичне волокно принципово відрізняється від мідного кабелю під час передачі даних?</b><br><button>Показати відповідь</button><div class="ans">Оптика передає інформацію світловими імпульсами, а мідний кабель — електричним сигналом.</div></div>
-      <div class="q"><b>2. Що означає FTTH?</b><br><button>Показати відповідь</button><div class="ans">Fiber To The Home — оптичне волокно доходить безпосередньо до житла абонента.</div></div>
-      <div class="q"><b>3. Які три основні елементи PON потрібно знати?</b><br><button>Показати відповідь</button><div class="ans">OLT у оператора, пасивний оптичний сплітер і ONT/ONU у абонента.</div></div>
-      <div class="q"><b>4. У чому головна різниця між GPON та XGS‑PON за швидкістю?</b><br><button>Показати відповідь</button><div class="ans">GPON має приблизно 2,5 Гбіт/с вниз і 1,25 Гбіт/с вгору, а XGS‑PON — близько 10 Гбіт/с у кожному напрямку.</div></div>
-      <div class="q"><b>5. Для чого потрібен WDM?</b><br><button>Показати відповідь</button><div class="ans">Щоб передавати кілька оптичних сигналів по одному волокну, розділяючи їх за різними довжинами хвиль.</div></div>
+      <div class="q" data-correct="1"><b>1. Чим оптичне волокно відрізняється від мідного кабелю під час передачі даних?</b><div class="quizChoice"><button data-choice="0">Передає дані лише радіохвилями</button><button data-choice="1">Передає дані світловими імпульсами</button><button data-choice="2">Працює тільки бездротово</button><button data-choice="3">Не передає цифрові дані</button></div><div class="quizFeedback"></div></div>
+      <div class="q" data-correct="2"><b>2. Що означає FTTH?</b><div class="quizChoice"><button data-choice="0">Оптика тільки між містами</button><button data-choice="1">Оптика доходить до вуличної шафи</button><button data-choice="2">Оптика доходить до квартири або будинку</button><button data-choice="3">Оптика закінчується лише у провайдера</button></div><div class="quizFeedback"></div></div>
+      <div class="q" data-correct="3"><b>3. Які три основні елементи PON?</b><div class="quizChoice"><button data-choice="0">Роутер, Wi‑Fi, сервер</button><button data-choice="1">Комутатор, коаксіальний кабель, антена</button><button data-choice="2">OLT, мідний кабель, модем</button><button data-choice="3">OLT, сплітер, ONT/ONU</button></div><div class="quizFeedback"></div></div>
+      <div class="q" data-correct="0"><b>4. Яка головна відмінність XGS‑PON від GPON за швидкістю?</b><div class="quizChoice"><button data-choice="0">XGS‑PON має близько 10 Гбіт/с в обидва боки</button><button data-choice="1">GPON завжди швидший</button><button data-choice="2">XGS‑PON працює тільки на 100 Мбіт/с</button><button data-choice="3">Між ними немає різниці</button></div><div class="quizFeedback"></div></div>
+      <div class="q" data-correct="2"><b>5. Для чого потрібен WDM?</b><div class="quizChoice"><button data-choice="0">Щоб живити сплітер електрикою</button><button data-choice="1">Щоб перетворювати оптику на Wi‑Fi</button><button data-choice="2">Щоб передавати кілька оптичних каналів одним волокном на різних довжинах хвиль</button><button data-choice="3">Щоб замінити OLT</button></div><div class="quizFeedback"></div></div>
     </div>
-    <div class="note"><b>Підсумок:</b> FTTx описує, докуди йде оптика; PON — як побудована пасивна мережа; GPON і XGS‑PON — конкретні покоління PON; WDM дозволяє ефективно використовувати одне волокно для різних оптичних каналів.</div>
+    <div class="quizScore" id="quizScore">Результат: 0 / 5 правильних</div>
     <div class="footer"><span>Кінець лекції</span><strong>19 / 19</strong></div>
   </div>
 </section>
@@ -587,13 +632,18 @@ document.getElementById('splitterBtn').onclick=()=>{
 document.querySelectorAll('[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
   const up=btn.dataset.mode==='up';
-  document.querySelectorAll('.packet').forEach((p,i)=>{
-    p.style.animationDirection=up?'reverse':'normal';
-    p.textContent=up?'запит':'дані';
-  });
-  document.getElementById('modeText').textContent=up
-    ?'У upstream ONT передають до OLT у виділені для них часові вікна, щоб сигнали не накладалися.'
-    :'У downstream дані йдуть від провайдера до абонентів. Сплітер фізично розділяє оптичний сигнал.';
+  const journey=document.getElementById('interactiveJourney');
+  if(journey){
+    journey.querySelectorAll('.simDot').forEach(d=>{
+      d.style.animationDirection=up?'reverse':'normal';
+    });
+  }
+  const mt=document.getElementById('modeText');
+  const jh=document.getElementById('journeyHint');
+  if(mt) mt.innerHTML=up
+    ?'<b>Upstream:</b> ONT передають до OLT по черзі, кожен у своє коротке часове вікно.'
+    :'<b>Downstream:</b> OLT передає дані до абонентів. Сплітер розділяє оптичний сигнал між гілками.';
+  if(jh) jh.textContent=up?'ONT → сплітер → OLT: абоненти передають по черзі':'OLT → сплітер → ONT: сигнал рухається до абонентів';
 }));
 
 const lossInfo={
@@ -609,11 +659,25 @@ document.querySelectorAll('[data-loss]').forEach(btn=>btn.addEventListener('clic
   document.getElementById('lossText').textContent=lossInfo[v];
 }));
 
-document.querySelectorAll('.q button').forEach(btn=>btn.addEventListener('click',()=>{
-  const ans=btn.parentElement.querySelector('.ans');
-  ans.classList.toggle('show');
-  btn.textContent=ans.classList.contains('show')?'Сховати відповідь':'Показати відповідь';
-}));
+const quizState=new Map();
+document.querySelectorAll('.q[data-correct]').forEach((q,qi)=>{
+  q.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>{
+    if(quizState.has(qi)) return;
+    const correct=Number(q.dataset.correct);
+    const chosen=Number(btn.dataset.choice);
+    quizState.set(qi,chosen===correct);
+    q.querySelectorAll('[data-choice]').forEach(b=>{
+      const n=Number(b.dataset.choice);
+      if(n===correct)b.classList.add('correct');
+      else if(b===btn)b.classList.add('wrong');
+      b.disabled=true;
+    });
+    q.querySelector('.quizFeedback').textContent=chosen===correct?'✓ Правильно!':'✗ Неправильно. Правильний варіант позначено зеленим.';
+    const score=[...quizState.values()].filter(Boolean).length;
+    const scoreEl=document.getElementById('quizScore');
+    if(scoreEl) scoreEl.textContent='Результат: '+score+' / 5 правильних';
+  }));
+});
 
 show(0);
 </script>
