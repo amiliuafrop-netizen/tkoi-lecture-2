@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f4fb">
+<title>PON Operator — Перша зміна</title>
+<style>
+:root{
+  --bg:#f7f5fa;--panel:#ffffff;--soft:#f1ecf6;--soft2:#e9e1f0;--text:#352f3d;--muted:#776e80;
+  --accent:#7b688f;--accent2:#a290b5;--line:#ded5e7;--good:#547861;--goodbg:#eaf3ed;
+  --bad:#915967;--badbg:#f7e9ed;--warn:#9b754c;--warnbg:#f7f0e7;--shadow:0 22px 70px rgba(71,56,86,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);background:
+radial-gradient(circle at 12% 10%,rgba(158,140,177,.13),transparent 28%),
+radial-gradient(circle at 88% 82%,rgba(196,184,209,.16),transparent 34%),
+linear-gradient(145deg,#f8f6fb,#fcfbfd 46%,#f1edf5)}
+button{font:inherit}
+button:focus-visible{outline:3px solid rgba(123,104,143,.28);outline-offset:2px}
+.app{min-height:100vh}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,248,252,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(124,105,145,.12)}
+.topin{max-width:1240px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:-.03em}
+.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(145deg,#78668e,#aa99ba);display:grid;place-items:center;color:white;font-size:19px;box-shadow:0 8px 22px rgba(98,76,120,.18)}
+.stats{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.stat{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:white;font-size:12px;font-weight:850;color:#62576c}
+.xpbar{width:110px;height:7px;border-radius:99px;background:#e7dfed;overflow:hidden}.xpfill{height:100%;background:linear-gradient(90deg,#79678e,#b09dc1);width:0;transition:.35s}
+.wrap{max-width:1240px;margin:auto;padding:26px 18px 60px}
+.screen{display:none}.screen.active{display:block}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding:22px 0}
+.eyebrow{font-size:12px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:#8a789c}
+h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6vw,78px);line-height:.98;letter-spacing:-.055em}h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.04em}h3{font-size:20px}.lead{margin-top:16px;color:var(--muted);font-size:clamp(17px,2vw,22px);line-height:1.5;max-width:760px}
+.btn{border:1px solid var(--line);background:white;color:#5d5068;border-radius:14px;padding:12px 16px;font-weight:900;cursor:pointer;transition:.18s;min-height:46px}.btn:hover{transform:translateY(-2px);background:#f7f3fa}.btn.primary{background:#756286;color:white;border-color:#756286}.btn.primary:hover{background:#685677}.btn.good{background:var(--goodbg);border-color:#bed2c4;color:#476653}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.heroCard{min-height:420px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,#fff,#f1ebf6);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.office{position:absolute;left:8%;bottom:16%;font-size:78px}.house{position:absolute;right:8%;bottom:16%;font-size:82px}.heroCable{position:absolute;left:18%;right:18%;top:52%;height:18px;border-radius:99px;background:#ded4e7;box-shadow:inset 0 0 0 5px rgba(255,255,255,.7)}
+.heroPulse{position:absolute;top:calc(52% - 3px);left:19%;width:24px;height:24px;border-radius:50%;background:#7e6a93;box-shadow:0 0 0 10px rgba(126,106,147,.12),0 0 34px rgba(126,106,147,.3);animation:heroPulse 3.2s ease-in-out infinite}
+@keyframes heroPulse{0%{left:19%}50%{left:78%}100%{left:19%}}
+.heroText{position:absolute;top:12%;left:50%;transform:translateX(-50%);text-align:center;width:80%;color:#665671}.heroText b{display:block;font-size:24px}.heroText span{font-size:13px;color:#857a8d}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.missions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.missionCard{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.86);padding:18px;min-height:185px;position:relative}
+.missionCard.locked{opacity:.58}.missionCard.done{background:#f7faf8;border-color:#cbdccf}.mnum{width:34px;height:34px;border-radius:11px;background:#eee7f4;display:grid;place-items:center;font-weight:950;color:#6a577d}.missionCard h3{margin:12px 0 7px}.missionCard p{color:var(--muted);line-height:1.45;font-size:14px}.tag{display:inline-block;margin-top:12px;padding:6px 9px;border-radius:999px;background:#f0eaf5;border:1px solid var(--line);font-size:11px;font-weight:900;color:#766681}
+.gameHead{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.gameHead p{color:var(--muted);line-height:1.5;margin-top:7px;max-width:820px}
+.progressOuter{width:220px;height:9px;background:#e8e1ee;border-radius:99px;overflow:hidden;flex:0 0 auto}.progressInner{height:100%;background:linear-gradient(90deg,#7e6c91,#aa98ba);width:0;transition:.35s}
+.panel{border:1px solid var(--line);border-radius:26px;background:rgba(255,255,255,.9);box-shadow:var(--shadow);padding:22px}
+.subtle{color:var(--muted);line-height:1.5}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:950;color:#8b789c}
+.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.choice{border:1px solid var(--line);border-radius:16px;background:#fbfafd;color:#5e5268;text-align:left;padding:14px;cursor:pointer;font-weight:800;min-height:54px}.choice:hover{background:#f3eef7}.choice.selected{border-color:#ae9cbe;background:#eee7f4}.choice.correct{background:var(--goodbg);border-color:#bbd3c2;color:#446451}.choice.wrong{background:var(--badbg);border-color:#d9b9c2;color:#864f5d}
+.feedback{min-height:48px;margin-top:14px;padding:12px 14px;border-radius:14px;background:#f6f2f8;color:#695d72;line-height:1.45}.feedback.good{background:var(--goodbg);color:#496755}.feedback.bad{background:var(--badbg);color:#844f5c}
+.sequence{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}.slot{min-height:94px;border:2px dashed #d9cfe3;border-radius:18px;background:#faf8fc;display:grid;place-items:center;text-align:center;padding:10px;color:#887b91;font-weight:900}.slot.filled{border-style:solid;background:#f2ecf7;color:#62516e}
+.componentTray{display:flex;gap:9px;flex-wrap:wrap}.component{border:1px solid var(--line);background:white;border-radius:14px;padding:10px 13px;font-weight:900;cursor:pointer;color:#62536d}.component.used{opacity:.4}.component:hover{background:#f2edf6}
+.networkAnim{height:180px;border:1px solid var(--line);border-radius:22px;background:#faf8fc;position:relative;overflow:hidden;margin-top:16px}.nbox{position:absolute;top:60px;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:13px;font-size:12px;font-weight:900;z-index:3}.nb1{left:3%}.nb2{left:22%}.nb3{left:43%}.nb4{left:65%}.nb5{right:3%}.nline{position:absolute;top:83px;height:5px;background:#d4c9de;border-radius:99px;z-index:1}.nl1{left:10%;width:14%}.nl2{left:29%;width:16%}.nl3{left:50%;width:17%}.nl4{left:72%;width:15%}.npulse{display:none;position:absolute;top:77px;left:9%;width:16px;height:16px;border-radius:50%;background:#7d6992;box-shadow:0 0 0 7px rgba(125,105,146,.12),0 0 22px rgba(125,105,146,.3);z-index:4}.networkAnim.run .npulse{display:block;animation:networkRun 3.4s linear forwards}@keyframes networkRun{from{left:9%}to{left:88%}}
+.signalBoard{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.scenario{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:17px}.scenario .big{font-size:42px}.scenario p{color:var(--muted);line-height:1.45;margin:7px 0 13px}
+.signalMap{height:250px;border:1px solid var(--line);border-radius:22px;background:#faf8fc;position:relative;overflow:hidden;margin-top:16px}.sigNode{position:absolute;z-index:4;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:13px;font-weight:900;font-size:12px}.sigOlt{left:4%;top:43%}.sigSplit{left:43%;top:43%}.sigOnt1{right:4%;top:12%}.sigOnt2{right:4%;top:43%}.sigOnt3{right:4%;top:74%}.sigLine{position:absolute;height:5px;background:#d8cee1;border-radius:99px;z-index:1;transform-origin:left center}.sl0{left:13%;top:50%;width:33%}.sl1{left:51%;top:50%;width:39%;transform:rotate(-25deg)}.sl2{left:51%;top:50%;width:38%}.sl3{left:51%;top:50%;width:39%;transform:rotate(25deg)}.dot{position:absolute;width:14px;height:14px;border-radius:50%;background:#806c95;box-shadow:0 0 0 6px rgba(128,108,149,.12);z-index:5;opacity:0}.signalMap.down .dotMain{animation:downMain 2.7s linear infinite}.signalMap.down .dotA{animation:downA 2.7s linear infinite}.signalMap.down .dotB{animation:downB 2.7s linear infinite}.signalMap.down .dotC{animation:downC 2.7s linear infinite}.signalMap.up .dotMain{animation:upMain 2.7s linear infinite}.signalMap.up .dotA{animation:upA 2.7s linear infinite}.signalMap.up .dotB{animation:upB 2.7s linear infinite 1s}.signalMap.up .dotC{animation:upC 2.7s linear infinite 2s}
+@keyframes downMain{0%{left:13%;top:48%;opacity:0}10%{opacity:1}45%{left:47%;top:48%;opacity:1}52%,100%{left:47%;top:48%;opacity:0}}
+@keyframes downA{0%,48%{left:51%;top:48%;opacity:0}55%{opacity:1}100%{left:88%;top:18%;opacity:0}}
+@keyframes downB{0%,48%{left:51%;top:48%;opacity:0}55%{opacity:1}100%{left:88%;top:48%;opacity:0}}
+@keyframes downC{0%,48%{left:51%;top:48%;opacity:0}55%{opacity:1}100%{left:88%;top:80%;opacity:0}}
+@keyframes upMain{0%,50%{left:47%;top:48%;opacity:0}56%{opacity:1}100%{left:13%;top:48%;opacity:0}}
+@keyframes upA{0%{left:88%;top:18%;opacity:0}10%{opacity:1}45%{left:51%;top:48%;opacity:1}51%,100%{opacity:0}}
+@keyframes upB{0%{left:88%;top:48%;opacity:0}10%{opacity:1}45%{left:51%;top:48%;opacity:1}51%,100%{opacity:0}}
+@keyframes upC{0%{left:88%;top:80%;opacity:0}10%{opacity:1}45%{left:51%;top:48%;opacity:1}51%,100%{opacity:0}}
+.ticket{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.phone{border:1px solid var(--line);border-radius:24px;background:#f7f3fa;padding:18px}.chat{padding:13px;border-radius:16px 16px 16px 4px;background:white;border:1px solid var(--line);line-height:1.5;color:#62576c}.ontBox{margin-top:16px;background:#332d3a;color:white;border-radius:18px;padding:16px}.ledrow{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.1);padding:8px 0}.ledrow:last-child{border:0}.led{width:12px;height:12px;border-radius:50%;background:#717171}.led.green{background:#70b887;box-shadow:0 0 12px rgba(112,184,135,.7)}.led.red{background:#d66d7e;box-shadow:0 0 12px rgba(214,109,126,.7)}
+.caseList{display:grid;gap:12px}.case{border:1px solid var(--line);border-radius:19px;background:#fbfafd;padding:16px}.caseTop{display:flex;gap:12px;align-items:flex-start}.avatar{width:42px;height:42px;border-radius:14px;background:#eee7f4;display:grid;place-items:center;font-size:22px}.case p{color:var(--muted);line-height:1.45;margin-top:5px}
+.wdmLab{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}.wControls{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:18px}.waveCheck{display:flex;align-items:center;gap:10px;margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:14px;background:white}.waveCheck input{width:20px;height:20px}.fiberLab{position:relative;min-height:330px;border:1px solid var(--line);border-radius:22px;background:#faf8fc;overflow:hidden}.mux{position:absolute;left:8%;top:42%;padding:13px;border-radius:14px;background:white;border:1px solid var(--line);font-weight:900;z-index:3}.demux{position:absolute;right:8%;top:42%;padding:13px;border-radius:14px;background:white;border:1px solid var(--line);font-weight:900;z-index:3}.fiberTube{position:absolute;left:20%;right:20%;top:48%;height:28px;border-radius:99px;background:#e4ddea;border:1px solid #d4c9dd}.wDot{display:none;position:absolute;left:20%;width:15px;height:15px;border-radius:50%;z-index:4}.fiberLab.run .wDot.active{display:block;animation:wdmRun 2.6s linear forwards}.wd1{top:46%;background:#78668e}.wd2{top:49%;background:#aa96b9}.wd3{top:52%;background:#54485f}@keyframes wdmRun{from{left:20%}to{left:79%}}
+.shiftWrap{display:grid;grid-template-columns:260px 1fr;gap:18px}.queue{border:1px solid var(--line);border-radius:20px;background:#fbfafd;padding:14px}.queueItem{padding:11px;border-radius:13px;background:white;border:1px solid var(--line);margin-bottom:8px;font-size:13px;font-weight:850;color:#675a70}.queueItem.active{background:#ede6f3;border-color:#c8bad5}.queueItem.done{background:var(--goodbg);border-color:#c4d7c8}.resultHero{text-align:center;padding:34px 20px}.trophy{font-size:78px}.scoreBig{font-size:clamp(52px,9vw,96px);font-weight:950;letter-spacing:-.06em;color:#665475}.badgeGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.badgeCard{border:1px solid var(--line);border-radius:18px;background:#fbfafd;padding:15px;text-align:center}.badgeCard .i{font-size:34px}.badgeCard b{display:block;margin-top:5px}.badgeCard span{font-size:12px;color:var(--muted)}
+.toast{position:fixed;right:18px;bottom:18px;z-index:100;max-width:320px;padding:13px 15px;border-radius:15px;background:#372f3f;color:white;box-shadow:0 18px 50px rgba(0,0,0,.18);transform:translateY(120px);opacity:0;transition:.3s}.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:900px){.hero,.ticket,.wdmLab,.shiftWrap{grid-template-columns:1fr}.missions{grid-template-columns:1fr 1fr}.signalBoard{grid-template-columns:1fr}.badgeGrid{grid-template-columns:1fr 1fr}.gameHead{flex-direction:column}.progressOuter{width:100%}.sequence{grid-template-columns:1fr}.slot{min-height:58px}.networkAnim{min-height:250px}.nbox{position:relative;left:auto!important;right:auto!important;top:auto!important;margin:9px;display:inline-block}.nline,.npulse{display:none!important}.stats .stat.hideSm{display:none}.signalMap{height:300px}}
+@media(max-width:560px){.missions,.choiceGrid,.badgeGrid{grid-template-columns:1fr}.topin{align-items:flex-start}.stats{gap:6px}.stat{padding:7px 9px}.heroCard{min-height:330px}.office{font-size:55px}.house{font-size:58px}.signalMap{height:340px}.sigOlt{left:3%;top:44%}.sigSplit{left:38%;top:44%}.sigOnt1{right:2%;top:13%}.sigOnt2{right:2%;top:44%}.sigOnt3{right:2%;top:75%}.sl0{left:18%;width:24%}.sl1,.sl2,.sl3{left:49%;width:35%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="topin">
+    <div class="brand"><div class="logo">◈</div><div>PON Operator<br><span style="font-size:11px;color:#8b7f94;font-weight:800">навчальний тренажер</span></div></div>
+    <div class="stats">
+      <div class="stat">⭐ XP: <span id="xpTop">0</span></div>
+      <div class="stat hideSm">🏅 Досягнення: <span id="badgeTop">0</span>/4</div>
+      <div class="stat">Місія <span id="missionTop">0</span>/6</div>
+      <div class="xpbar" aria-label="Загальний прогрес"><div class="xpfill" id="xpFill"></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+<section class="screen active" id="startScreen">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Симулятор роботи провайдера</div>
+      <h1>PON Operator:<br><span style="color:#79658d">Перша зміна</span></h1>
+      <p class="lead">Ви — новий оператор технічної підтримки інтернет-провайдера. Побудуйте PON-лінію, простежте рух сигналу, знайдіть несправність, підберіть технологію клієнту та завершіть першу зміну.</p>
+      <div class="actions">
+        <button class="btn primary" id="startBtn">▶ Розпочати зміну</button>
+        <button class="btn" id="howBtn">Що тут буде?</button>
+      </div>
+      <div id="howText" class="feedback" style="display:none;margin-top:14px">6 місій • практичні ситуації • анімації світлового сигналу • XP • 4 досягнення • фінальний результат. Усі нові терміни пояснюються одразу в грі.</div>
+    </div>
+    <div class="heroCard" aria-label="Анімація оптичного сигналу">
+      <div class="heroText"><b>Світло переносить дані</b><span>від мережі провайдера до абонента</span></div>
+      <div class="office">🏢</div><div class="house">🏠</div><div class="heroCable"></div><div class="heroPulse"></div>
+    </div>
+  </div>
+
+  <div class="missions" id="missionCards">
+    <div class="missionCard" data-card="1"><div class="mnum">1</div><h3>Побудуй PON-лінію</h3><p>Розстав обладнання у правильному порядку.</p><span class="tag">архітектура мережі</span></div>
+    <div class="missionCard locked" data-card="2"><div class="mnum">2</div><h3>Куди йде сигнал?</h3><p>Розрізни downstream та upstream.</p><span class="tag">рух даних</span></div>
+    <div class="missionCard locked" data-card="3"><div class="mnum">3</div><h3>Червоний LOS</h3><p>Прийми перший дзвінок від абонента.</p><span class="tag">діагностика</span></div>
+    <div class="missionCard locked" data-card="4"><div class="mnum">4</div><h3>Підбери технологію</h3><p>GPON чи XGS-PON? Розбери заявки.</p><span class="tag">робота з клієнтом</span></div>
+    <div class="missionCard locked" data-card="5"><div class="mnum">5</div><h3>WDM-лабораторія</h3><p>Запусти кілька світлових каналів одним волокном.</p><span class="tag">WDM</span></div>
+    <div class="missionCard locked" data-card="6"><div class="mnum">6</div><h3>Перша зміна</h3><p>5 заявок без підказок. Фінальний іспит.</p><span class="tag">фінал</span></div>
+  </div>
+</section>
+
+<section class="screen" id="gameScreen">
+  <div class="gameHead">
+    <div><div class="eyebrow" id="missionEyebrow">Місія 1</div><h2 id="missionTitle">Побудуй PON-лінію</h2><p id="missionDesc"></p></div>
+    <div class="progressOuter"><div class="progressInner" id="missionProgress"></div></div>
+  </div>
+  <div id="missionArea"></div>
+</section>
+
+<section class="screen" id="resultScreen">
+  <div class="panel resultHero">
+    <div class="trophy">🏆</div>
+    <div class="eyebrow">Зміну завершено</div>
+    <h2 id="rankTitle">Молодший оператор PON</h2>
+    <div class="scoreBig" id="finalScore">0 / 1000</div>
+    <p class="lead" style="margin:10px auto 0;max-width:700px" id="finalText"></p>
+    <div class="badgeGrid" id="badgeGrid"></div>
+    <div class="actions" style="justify-content:center"><button class="btn primary" id="restartBtn">↻ Пройти зміну ще раз</button></div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast" aria-live="polite"></div>
+</div>
+
+<script>
+(function(){
+  const state={mission:0,xp:0,completed:new Set(),badges:new Set(),finalCorrect:0,mission4Correct:0};
+  const startScreen=document.getElementById('startScreen');
+  const gameScreen=document.getElementById('gameScreen');
+  const resultScreen=document.getElementById('resultScreen');
+  const area=document.getElementById('missionArea');
+  const toast=document.getElementById('toast');
+
+  function showToast(msg){
+    toast.textContent=msg;toast.classList.add('show');
+    clearTimeout(showToast.t);showToast.t=setTimeout(function(){toast.classList.remove('show')},2200);
+  }
+  function updateTop(){
+    document.getElementById('xpTop').textContent=state.xp;
+    document.getElementById('badgeTop').textContent=state.badges.size;
+    document.getElementById('missionTop').textContent=state.mission;
+    document.getElementById('xpFill').style.width=Math.min(100,(state.xp/900)*100)+'%';
+    document.querySelectorAll('[data-card]').forEach(function(card){
+      const n=Number(card.dataset.card);
+      card.classList.toggle('locked',n>state.mission+1 && !state.completed.has(n));
+      card.classList.toggle('done',state.completed.has(n));
+    });
+  }
+  function award(xp,badge){
+    state.xp+=xp;
+    if(badge){state.badges.add(badge);showToast('🏅 Досягнення: '+badge)}
+    else showToast('+'+xp+' XP');
+    updateTop();
+  }
+  function setScreen(el){
+    [startScreen,gameScreen,resultScreen].forEach(function(s){s.classList.remove('active')});
+    el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function beginMission(n){
+    state.mission=n;updateTop();setScreen(gameScreen);
+    document.getElementById('missionEyebrow').textContent='Місія '+n+' з 6';
+    document.getElementById('missionProgress').style.width=((n-1)/6*100)+'%';
+    renderMission(n);
+  }
+  function nextMission(n,xp,badge){
+    if(!state.completed.has(n)){state.completed.add(n);award(xp,badge)}
+    document.getElementById('missionProgress').style.width=(n/6*100)+'%';
+    if(n<6){
+      const b=document.createElement('button');b.className='btn primary';b.textContent='Наступна місія →';b.style.marginTop='16px';
+      b.addEventListener('click',function(){beginMission(n+1)});
+      area.appendChild(b);
+    }else finishGame();
+  }
+
+  document.getElementById('startBtn').addEventListener('click',function(){beginMission(1)});
+  document.getElementById('howBtn').addEventListener('click',function(){
+    const e=document.getElementById('howText');e.style.display=e.style.display==='none'?'block':'none';
+  });
+  document.getElementById('restartBtn').addEventListener('click',function(){location.reload()});
+
+  function renderMission(n){
+    area.innerHTML='';
+    if(n===1) mission1();
+    if(n===2) mission2();
+    if(n===3) mission3();
+    if(n===4) mission4();
+    if(n===5) mission5();
+    if(n===6) mission6();
+  }
+
+  function mission1(){
+    document.getElementById('missionTitle').textContent='Побудуй PON-лінію';
+    document.getElementById('missionDesc').textContent='Натискайте компоненти у тому порядку, в якому сигнал проходить від мережі провайдера до домашнього роутера.';
+    area.innerHTML='<div class="panel"><div class="kicker">Завдання</div><h3 style="margin-top:6px">Розставте 5 компонентів</h3><div class="sequence" id="seqSlots"></div><div class="componentTray" id="tray"></div><div class="actions"><button class="btn" id="resetSeq">Очистити</button><button class="btn primary" id="checkSeq">Перевірити</button></div><div class="feedback" id="seqFeedback">Підказка: почніть з обладнання, яке знаходиться у провайдера.</div><div class="networkAnim" id="netAnim"><div class="nbox nb1">OLT</div><div class="nbox nb2">волокно</div><div class="nbox nb3">сплітер</div><div class="nbox nb4">ONT</div><div class="nbox nb5">роутер</div><div class="nline nl1"></div><div class="nline nl2"></div><div class="nline nl3"></div><div class="nline nl4"></div><div class="npulse"></div></div></div>';
+    const items=[['OLT','🏢'],['ONT','📟'],['Роутер','📶'],['Сплітер','⑂'],['Оптичне волокно','〰️']];
+    const answer=['OLT','Оптичне волокно','Сплітер','ONT','Роутер'];
+    let picked=[];
+    const slots=document.getElementById('seqSlots'),tray=document.getElementById('tray'),fb=document.getElementById('seqFeedback');
+    function draw(){
+      slots.innerHTML='';
+      for(let i=0;i<5;i++){const d=document.createElement('div');d.className='slot'+(picked[i]?' filled':'');d.innerHTML=picked[i]?'<span>'+picked[i]+'</span>':'<span>'+(i+1)+'</span>';slots.appendChild(d)}
+      tray.innerHTML='';
+      items.forEach(function(it){
+        const b=document.createElement('button');b.className='component'+(picked.includes(it[0])?' used':'');b.disabled=picked.includes(it[0]);b.textContent=it[1]+' '+it[0];
+        b.addEventListener('click',function(){if(picked.length<5){picked.push(it[0]);draw()}});
+        tray.appendChild(b);
+      });
+    }
+    draw();
+    document.getElementById('resetSeq').onclick=function(){picked=[];fb.className='feedback';fb.textContent='Спробуйте ще раз.';document.getElementById('netAnim').classList.remove('run');draw()};
+    document.getElementById('checkSeq').onclick=function(){
+      const ok=picked.length===5 && picked.every(function(v,i){return v===answer[i]});
+      if(ok){
+        fb.className='feedback good';fb.innerHTML='<b>Правильно.</b> OLT створює оптичний сигнал → волокно переносить його → сплітер розгалужує → ONT приймає оптику → роутер роздає мережу пристроям.';
+        const anim=document.getElementById('netAnim');anim.classList.remove('run');void anim.offsetWidth;anim.classList.add('run');
+        this.disabled=true;document.getElementById('resetSeq').disabled=true;setTimeout(function(){nextMission(1,120,'Світло пішло!')},700);
+      }else{fb.className='feedback bad';fb.textContent='Порядок ще неправильний. Згадайте: OLT знаходиться у провайдера, а роутер — уже після ONT у користувача.'}
+    };
+  }
+
+  function mission2(){
+    document.getElementById('missionTitle').textContent='Куди рухається сигнал?';
+    document.getElementById('missionDesc').textContent='Downstream — дані від провайдера до абонента. Upstream — дані від абонента до мережі провайдера.';
+    area.innerHTML='<div class="panel"><div class="signalBoard"><div class="scenario"><div class="big">▶️</div><h3>Абонент дивиться відео</h3><p>Відео надходить з інтернету до телефону користувача. Який це напрямок?</p><div class="choiceGrid"><button class="choice" data-s2="down" data-q="a">Downstream ↓</button><button class="choice" data-s2="up" data-q="a">Upstream ↑</button></div><div class="feedback" id="f2a">Оберіть напрямок.</div></div><div class="scenario"><div class="big">☁️</div><h3>Абонент завантажує фото у хмару</h3><p>Файл рухається від користувача до інтернет-сервісу. Який це напрямок?</p><div class="choiceGrid"><button class="choice" data-s2="down" data-q="b">Downstream ↓</button><button class="choice" data-s2="up" data-q="b">Upstream ↑</button></div><div class="feedback" id="f2b">Оберіть напрямок.</div></div></div><div class="signalMap" id="signalMap"><div class="sigNode sigOlt">OLT</div><div class="sigNode sigSplit">сплітер</div><div class="sigNode sigOnt1">ONT 1</div><div class="sigNode sigOnt2">ONT 2</div><div class="sigNode sigOnt3">ONT 3</div><div class="sigLine sl0"></div><div class="sigLine sl1"></div><div class="sigLine sl2"></div><div class="sigLine sl3"></div><div class="dot dotMain"></div><div class="dot dotA"></div><div class="dot dotB"></div><div class="dot dotC"></div></div><div class="feedback" id="sigExplain">Після правильної відповіді тут запуститься відповідна анімація.</div></div>';
+    const answers={a:'down',b:'up'};const done={a:false,b:false};
+    document.querySelectorAll('[data-s2]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        const q=btn.dataset.q, val=btn.dataset.s2, ok=val===answers[q], f=document.getElementById('f2'+q);
+        btn.parentElement.querySelectorAll('button').forEach(function(x){x.disabled=true;if(x.dataset.s2===answers[q])x.classList.add('correct')});
+        if(!ok)btn.classList.add('wrong');
+        f.className='feedback '+(ok?'good':'bad');f.textContent=ok?'Правильно.':'Неправильно. Правильний напрямок підсвічено.';
+        done[q]=true;
+        const map=document.getElementById('signalMap');map.className='signalMap '+answers[q];
+        document.getElementById('sigExplain').innerHTML=answers[q]==='down'?'<b>Downstream:</b> OLT → сплітер → ONT. Дані йдуть до абонента.':'<b>Upstream:</b> ONT → сплітер → OLT. Абонентські ONT передають у свої часові вікна.';
+        if(done.a&&done.b){setTimeout(function(){nextMission(2,120,'Напрямок зрозумілий')},500)}
+      })
+    });
+  }
+
+  function mission3(){
+    document.getElementById('missionTitle').textContent='Абонент каже: “Немає інтернету”';
+    document.getElementById('missionDesc').textContent='LOS = Loss Of Signal, тобто втрата оптичного сигналу. Подивіться на індикатори ONT і виберіть найімовірнішу причину.';
+    area.innerHTML='<div class="panel ticket"><div class="phone"><div class="kicker">Вхідний дзвінок</div><div class="chat" style="margin-top:10px">👩 <b>Абонент:</b><br>Добрий день. Інтернет зник. На коробочці біля роутера світиться червона лампочка LOS.</div><div class="ontBox"><b>ONT — абонентський оптичний термінал</b><div class="ledrow"><span>POWER</span><span class="led green"></span></div><div class="ledrow"><span>PON</span><span class="led"></span></div><div class="ledrow"><span>LOS</span><span class="led red"></span></div><div class="ledrow"><span>LAN</span><span class="led green"></span></div></div></div><div><div class="kicker">Ваше рішення</div><h3 style="margin-top:6px">Що означає червоний LOS?</h3><div class="choiceGrid" id="losChoices"><button class="choice" data-ok="0">Проблема тільки з паролем Wi‑Fi</button><button class="choice" data-ok="1">ONT не отримує нормальний оптичний сигнал</button><button class="choice" data-ok="0">Телефон абонента розряджений</button><button class="choice" data-ok="0">Потрібно перейти з GPON на XGS-PON</button></div><div class="feedback" id="losFb">LOS буквально означає Loss Of Signal.</div></div></div>';
+    document.querySelectorAll('#losChoices .choice').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        const ok=btn.dataset.ok==='1';document.querySelectorAll('#losChoices .choice').forEach(function(x){x.disabled=true;if(x.dataset.ok==='1')x.classList.add('correct')});if(!ok)btn.classList.add('wrong');
+        const f=document.getElementById('losFb');f.className='feedback '+(ok?'good':'bad');f.innerHTML=ok?'<b>Правильно.</b> Червоний LOS означає втрату оптичного сигналу. Перевіряють волокно, конектор, зварювання, сплітер та оптичний рівень.':'Не зовсім. Червоний LOS стосується саме оптичного сигналу, а не Wi‑Fi.';
+        setTimeout(function(){nextMission(3,140,'Де сигнал?')},650);
+      })
+    });
+  }
+
+  function mission4(){
+    document.getElementById('missionTitle').textContent='Підбери рішення клієнту';
+    document.getElementById('missionDesc').textContent='GPON і XGS-PON побудовані за схожою логікою PON, але мають різну пропускну здатність. XGS-PON дає приблизно 10 Гбіт/с у кожному напрямку.';
+    const cases=[
+      {t:'Домашній клієнт',p:'Потрібен звичайний домашній інтернет. Надвисокої швидкості не вимагає.',opts:['GPON','XGS-PON обов’язково','ADSL'],a:0,why:'GPON цілком підходить для багатьох звичайних домашніх тарифів.'},
+      {t:'Дизайн-студія',p:'Щодня завантажує великі відеофайли у хмару. Потрібна висока швидкість і вниз, і вгору.',opts:['GPON 100 Мбіт/с','XGS-PON','Тільки Wi‑Fi без провайдера'],a:1,why:'XGS-PON має близько 10 Гбіт/с у downstream та upstream на рівні PON-інтерфейсу.'},
+      {t:'Пояснення клієнту',p:'Клієнт питає, чи отримує кожен абонент усі 2,5 Гбіт/с GPON.',opts:['Так, завжди кожен','Ні, ресурс PON-порту спільно використовує група абонентів','GPON не передає дані'],a:1,why:'Сумарна пропускна здатність PON-порту розподіляється між активними абонентами.'}
+    ];
+    area.innerHTML='<div class="panel"><div class="caseList" id="caseList"></div><div class="feedback" id="m4fb">Вирішіть усі три заявки.</div></div>';
+    const list=document.getElementById('caseList');let completed=0;
+    cases.forEach(function(c,idx){
+      const el=document.createElement('div');el.className='case';el.innerHTML='<div class="caseTop"><div class="avatar">'+(idx===0?'🏠':idx===1?'🎬':'💬')+'</div><div><h3>'+c.t+'</h3><p>'+c.p+'</p></div></div><div class="choiceGrid"></div><div class="feedback" style="display:none"></div>';
+      const grid=el.querySelector('.choiceGrid'),fb=el.querySelector('.feedback');
+      c.opts.forEach(function(o,oi){const b=document.createElement('button');b.className='choice';b.textContent=o;b.addEventListener('click',function(){
+        if(el.dataset.done)return;el.dataset.done='1';const ok=oi===c.a;if(ok)state.mission4Correct++;
+        grid.querySelectorAll('button').forEach(function(x,j){x.disabled=true;if(j===c.a)x.classList.add('correct')});if(!ok)b.classList.add('wrong');
+        fb.style.display='block';fb.className='feedback '+(ok?'good':'bad');fb.textContent=(ok?'Правильно. ':'Не зовсім. ')+c.why;completed++;
+        if(completed===cases.length){document.getElementById('m4fb').className='feedback good';document.getElementById('m4fb').textContent='Заявки завершено: '+state.mission4Correct+' / 3 правильних.';setTimeout(function(){nextMission(4,120,state.mission4Correct===3?'10 Gigabit':'')},650)}
+      });grid.appendChild(b)});list.appendChild(el);
+    });
+  }
+
+  function mission5(){
+    document.getElementById('missionTitle').textContent='WDM-лабораторія';
+    document.getElementById('missionDesc').textContent='WDM = Wavelength Division Multiplexing. Різні довжини хвиль світла можуть одночасно передавати різні оптичні канали одним волокном.';
+    area.innerHTML='<div class="panel wdmLab"><div class="wControls"><div class="kicker">Крок 1</div><h3 style="margin:6px 0 10px">Оберіть світлові канали</h3><label class="waveCheck"><input type="checkbox" value="1" checked> λ1 — канал 1</label><label class="waveCheck"><input type="checkbox" value="2" checked> λ2 — канал 2</label><label class="waveCheck"><input type="checkbox" value="3" checked> λ3 — канал 3</label><button class="btn primary" id="sendWdm" style="margin-top:8px">Передати через одне волокно →</button><div class="feedback" id="wdmFb" style="margin-top:12px">λ — грецька літера “лямбда”, якою позначають довжину хвилі.</div></div><div><div class="fiberLab" id="fiberLab"><div class="mux">MUX<br><small>об’єднує</small></div><div class="fiberTube"></div><div class="demux">DEMUX<br><small>розділяє</small></div><div class="wDot wd1"></div><div class="wDot wd2"></div><div class="wDot wd3"></div></div><div class="kicker" style="margin-top:16px">Крок 2</div><h3 style="margin:5px 0">Що щойно показала анімація?</h3><div class="choiceGrid" id="wdmChoices"><button class="choice" data-ok="0">Кожному каналу потрібне окреме волокно</button><button class="choice" data-ok="1">Кілька оптичних каналів можуть використовувати одне волокно на різних довжинах хвиль</button><button class="choice" data-ok="0">WDM перетворює оптику на Wi‑Fi</button><button class="choice" data-ok="0">WDM живить сплітер електрикою</button></div></div></div>';
+    let launched=false;
+    document.getElementById('sendWdm').onclick=function(){
+      const checks=[...document.querySelectorAll('.waveCheck input')];if(!checks.some(function(x){return x.checked})){document.getElementById('wdmFb').className='feedback bad';document.getElementById('wdmFb').textContent='Оберіть хоча б один канал.';return}
+      const lab=document.getElementById('fiberLab');lab.classList.remove('run');document.querySelectorAll('.wDot').forEach(function(d,i){d.classList.toggle('active',checks[i].checked)});void lab.offsetWidth;lab.classList.add('run');launched=true;
+      document.getElementById('wdmFb').className='feedback good';document.getElementById('wdmFb').textContent='Сигнали різних довжин хвиль одночасно рухаються одним фізичним волокном.';
+    };
+    document.querySelectorAll('#wdmChoices .choice').forEach(function(btn){btn.onclick=function(){
+      if(!launched){document.getElementById('wdmFb').className='feedback bad';document.getElementById('wdmFb').textContent='Спочатку запустіть передачу.';return}
+      const ok=btn.dataset.ok==='1';document.querySelectorAll('#wdmChoices .choice').forEach(function(x){x.disabled=true;if(x.dataset.ok==='1')x.classList.add('correct')});if(!ok)btn.classList.add('wrong');
+      document.getElementById('wdmFb').className='feedback '+(ok?'good':'bad');document.getElementById('wdmFb').textContent=ok?'Правильно. Це і є головна ідея WDM.':'Неправильно. WDM саме дозволяє кільком оптичним каналам використовувати одне волокно.';
+      setTimeout(function(){nextMission(5,140,'Майстер WDM')},600);
+    }};
+  }
+
+  function mission6(){
+    document.getElementById('missionTitle').textContent='Перша зміна';
+    document.getElementById('missionDesc').textContent='Фінал: 5 заявок без додаткових підказок. За кожну правильну відповідь — 100 балів.';
+    const qs=[
+      {t:'Заявка №1',p:'На ONT горить червоний LOS. Що перевіряємо насамперед?',o:['Оптичну лінію та конектор','Пароль Instagram','Колір роутера','Частоту монітора'],a:0},
+      {t:'Заявка №2',p:'Клієнт завантажує резервну копію у хмару. Це…',o:['Downstream','Upstream','WDM','FTTB'],a:1},
+      {t:'Заявка №3',p:'Бізнесу потрібна висока симетрична швидкість приблизно 10 Гбіт/с на PON.',o:['GPON','XGS-PON','ADSL','Мідний телефонний кабель'],a:1},
+      {t:'Заявка №4',p:'Який елемент пасивно ділить оптичний сигнал на кілька гілок?',o:['OLT','Роутер','Сплітер','Ноутбук'],a:2},
+      {t:'Заявка №5',p:'Для чого потрібен WDM?',o:['Передавати кілька оптичних каналів одним волокном','Замінити ONT','Живити сплітер','Створити пароль Wi‑Fi'],a:0}
+    ];
+    let idx=0,correct=0;
+    area.innerHTML='<div class="panel shiftWrap"><div class="queue" id="queue"></div><div id="shiftCase"></div></div>';
+    const queue=document.getElementById('queue');
+    qs.forEach(function(q,i){const x=document.createElement('div');x.className='queueItem'+(i===0?' active':'');x.textContent=q.t;x.dataset.i=i;queue.appendChild(x)});
+    function renderQ(){
+      const q=qs[idx],wrap=document.getElementById('shiftCase');wrap.innerHTML='<div class="kicker">'+q.t+'</div><h3 style="font-size:28px;margin:7px 0">'+q.p+'</h3><div class="choiceGrid" id="finalChoices"></div><div class="feedback" id="finalFb">Оберіть одну відповідь.</div>';
+      q.o.forEach(function(o,oi){const b=document.createElement('button');b.className='choice';b.textContent=o;b.onclick=function(){
+        const ok=oi===q.a;if(ok)correct++;document.querySelectorAll('#finalChoices .choice').forEach(function(x,j){x.disabled=true;if(j===q.a)x.classList.add('correct')});if(!ok)b.classList.add('wrong');
+        const fb=document.getElementById('finalFb');fb.className='feedback '+(ok?'good':'bad');fb.textContent=ok?'✓ Заявку вирішено правильно.':'✗ Неправильно. Правильний варіант підсвічено.';
+        document.querySelector('.queueItem[data-i="'+idx+'"]').classList.remove('active');document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('done');
+        setTimeout(function(){idx++;if(idx<qs.length){document.querySelector('.queueItem[data-i="'+idx+'"]').classList.add('active');renderQ()}else{state.finalCorrect=correct;state.xp+=correct*100;state.completed.add(6);updateTop();finishGame()}},650);
+      };document.getElementById('finalChoices').appendChild(b)});
+    }
+    renderQ();
+  }
+
+  function finishGame(){
+    setScreen(resultScreen);
+    const score=state.finalCorrect*100 + Math.round((state.xp-state.finalCorrect*100)/400*500);
+    const capped=Math.max(0,Math.min(1000,score));
+    let rank='Стажер PON';
+    if(capped>=550)rank='Молодший оператор PON';
+    if(capped>=750)rank='Оператор PON';
+    if(capped>=900)rank='Майстер оптичної мережі';
+    document.getElementById('rankTitle').textContent=rank;
+    document.getElementById('finalScore').textContent=capped+' / 1000';
+    document.getElementById('finalText').textContent='Фінальні заявки: '+state.finalCorrect+' / 5 правильних. Ви пройшли повний шлях від побудови PON-лінії до діагностики LOS, вибору GPON/XGS-PON та роботи з WDM.';
+    const all=[
+      ['Світло пішло!','💡'],['Де сигнал?','🔎'],['10 Gigabit','⚡'],['Майстер WDM','🌈']
+    ],grid=document.getElementById('badgeGrid');grid.innerHTML='';
+    all.forEach(function(b){const got=state.badges.has(b[0]);const d=document.createElement('div');d.className='badgeCard';d.style.opacity=got?'1':'.42';d.innerHTML='<div class="i">'+b[1]+'</div><b>'+b[0]+'</b><span>'+(got?'отримано':'ще не отримано')+'</span>';grid.appendChild(d)});
+    document.getElementById('missionProgress').style.width='100%';
+  }
+  updateTop();
+})();
+</script>
+</body>
+</html>
