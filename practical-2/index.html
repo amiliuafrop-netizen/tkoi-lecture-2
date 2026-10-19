@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#132348">
+<meta name="description" content="Інтерактивна практична робота №2: аналіз даних цифрових комунікацій та маркетингової кампанії.">
+<title>Практична робота №2 — Digital Analytics Lab</title>
+<style>
+:root{--ink:#172746;--muted:#64738a;--line:#e1e9f4;--main:#285ad9;--sky:#4a9dff;--bg:#f5f7fb;--good:#087b55;--warn:#b24538;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;line-height:1.55}a{color:var(--main)}button,input,textarea{font:inherit}button{cursor:pointer}h1,h2,h3,p{margin-top:0}h2{font-size:clamp(1.24rem,3vw,1.55rem);line-height:1.28}p{margin-bottom:12px}
+.hero{background:radial-gradient(circle at 85% 4%,#436edb 0,transparent 35%),linear-gradient(130deg,#112047,#17396e);color:#fff}
+.hero-inner{max-width:1100px;margin:auto;padding:42px 20px 44px}.kicker{text-transform:uppercase;font-size:12px;font-weight:750;letter-spacing:.16em;color:#b8d9ff}
+h1{font-size:clamp(2rem,5.5vw,3.45rem);letter-spacing:-.035em;line-height:1.13;margin:12px 0;max-width:820px}
+.hero p{max-width:760px;color:#d8e5fd;font-size:1.04rem}.tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.tags span{padding:6px 11px;border:1px solid #7797cf;border-radius:20px;font-size:12px;color:#edf4ff}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 18px 75px}
+.card{border:1px solid var(--line);background:#fff;border-radius:19px;padding:clamp(18px,3vw,28px);box-shadow:0 10px 30px #23466c0c;margin-bottom:18px}
+.sectiontop{display:flex;gap:12px;align-items:flex-start}.step{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#eaf1ff;color:#245ad4;font-weight:800}
+.sectiontop h2{margin:3px 0 8px}.sectiontop p{color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+label{display:block;font-weight:700;font-size:14px;margin:12px 0 6px}
+input[type=text],input[type=number],textarea{width:100%;padding:12px 13px;border:1px solid #bdcce0;background:#fff;border-radius:10px;outline:none;color:var(--ink)}
+input:focus,textarea:focus{border-color:#447adb;box-shadow:0 0 0 3px #447adb22}
+textarea{min-height:105px;resize:vertical;line-height:1.55}input[type=number]{text-align:right}
+.note{background:#eef4ff;border-left:4px solid #4684f2;padding:13px 16px;border-radius:8px;font-size:14px}
+.muted,small{color:var(--muted)}.formula{display:inline-block;background:#f0f4fa;border:1px solid #e0e9f5;padding:4px 9px;border-radius:6px;margin:2px 3px 2px 0;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{padding:18px;background:#f2f6fe;border:1px solid #e4ebfa;border-radius:13px}.metric span{display:block;color:#5a6d8e;font-size:12px}.metric strong{display:block;font-size:clamp(1.25rem,2.5vw,1.75rem);margin-top:5px;letter-spacing:-.025em}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:16px}
+table{border-collapse:collapse;width:100%;min-width:850px;font-size:13px}th,td{text-align:right;padding:12px 10px;border-bottom:1px solid #e9eef6;white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left;font-weight:700}thead th{background:#eaf1fd;color:#344d79}tbody tr:last-child td{border-bottom:0}tbody tr:hover td{background:#f6f9ff}
+.chart{display:grid;gap:12px}.bar{display:grid;grid-template-columns:125px minmax(0,1fr) 56px;align-items:center;gap:13px;font-size:13px}.bar label{margin:0}.track{height:19px;background:#eaf0fa;border-radius:6px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#2758cf,#64bdff);border-radius:6px}.bar span{text-align:right;font-variant-numeric:tabular-nums}
+.callout{padding:14px 17px;background:#fbfcff;border:1px dashed #bac9e5;border-radius:12px}
+.budgets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.budgetitem{background:#f7f9fd;border:1px solid #e2eaf5;border-radius:13px;padding:13px}
+.budgetitem label{margin:0 0 9px;min-height:40px}.budgetitem input{background:#fff}.cash{font-size:12px;color:var(--muted);margin-top:7px;text-align:right}
+.total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px;padding:14px 17px;border-radius:10px;background:#f0f4fa}
+.total strong{font-size:19px;font-variant-numeric:tabular-nums}
+.good{color:var(--good)}.bad{color:var(--warn)}.checks{display:grid;gap:8px;margin:15px 0}
+.check{display:flex;align-items:flex-start;gap:9px;font-size:14px}.check .dot{font-size:18px;font-weight:800}
+.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}
+.btn{border:none;background:#285ad9;color:#fff;border-radius:11px;padding:12px 18px;font-weight:750}
+.btn:hover{background:#1948bb}.btn.secondary{background:#eaf1ff;color:#2452bd}.btn.secondary:hover{background:#dce8ff}.btn.danger{background:#fff0ec;color:#a63e31}
+footer{max-width:1100px;margin:0 auto;padding:0 18px 30px;text-align:center;color:#75839a;font-size:12px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.budgets{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.three{grid-template-columns:1fr}.bar{grid-template-columns:94px minmax(0,1fr) 48px;gap:7px}.hero-inner{padding:34px 18px}.metric{padding:12px}.budgetitem label{min-height:0}.card{border-radius:15px}.actions .btn{flex:1}}
+@media(max-width:390px){.budgets{grid-template-columns:1fr}.bar{grid-template-columns:90px minmax(0,1fr) 42px}.tags span{font-size:11px}}
+@media print{.hero{background:#fff;color:#172746}.hero p,.kicker{color:#172746}.btn{display:none}.card{break-inside:avoid;box-shadow:none}.wrap{padding-top:0}}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-inner">
+<div class="kicker">Практична робота №2 · Інтерактивний кейс</div>
+<h1>Digital Analytics Lab: рішення на основі даних</h1>
+<p>Інтерпретація та застосування даних у цифрових комунікаціях, маркетингових стратегіях та медіасередовищі</p>
+<div class="tags"><span>90 хвилин</span><span>5 рекламних каналів</span><span>Дані та візуалізація</span><span>Маркетингова стратегія</span><span>12 балів</span></div>
+</div>
+</header>
+<main class="wrap">
+<section class="card" id="intro">
+<div class="sectiontop"><span class="step">01</span><div><h2>Початок роботи</h2><p>Уявіть, що ви цифровий аналітик бренду UrbanWave. Компанія рекламує товар одразу в п'яти каналах. Ваше завдання — визначити результативність кампанії та розподілити наступний бюджет.</p></div></div>
+<div class="two">
+<div><label for="student">Прізвище та ім'я студента</label><input id="student" type="text" maxlength="100" placeholder="Наприклад, Петренко Олександр" autocomplete="name"></div>
+<div><label for="group">Навчальна група</label><input id="group" type="text" maxlength="40" placeholder="Наприклад, ЕК-21"></div>
+</div>
+<div class="note" style="margin-top:15px">Працюйте безпосередньо на цій сторінці. Реєстрація на GitHub не потрібна. Відповіді автоматично зберігаються <strong>лише у браузері цього пристрою</strong>. Для здачі роботи завантажте персональний звіт і надішліть його викладачу.</div>
+</section>
+<section class="card" id="data">
+<div class="sectiontop"><span class="step">02</span><div><h2>Ознайомтеся з показниками</h2><p>Нижче наведено змодельовані навчальні дані рекламної кампанії за місяць. «Конверсія» означає покупку, а «дохід» — виручку з покупок.</p></div></div>
+<div class="kpis" id="kpis"></div>
+<div class="tablebox" role="region" aria-label="Таблиця рекламних показників" tabindex="0"><table><thead><tr><th>Канал</th><th>Покази</th><th>Кліки</th><th>Покупки</th><th>Витрати, грн</th><th>Дохід, грн</th><th>CTR</th><th>CR</th><th>CPA, грн</th><th>ROAS</th></tr></thead><tbody id="channels"></tbody></table></div>
+<p class="muted" style="margin-top:10px;font-size:13px">На телефоні таблицю можна прокручувати горизонтально.</p>
+<div style="margin-top:15px"><span class="formula">CTR = кліки / покази × 100%</span><span class="formula">CR = покупки / кліки × 100%</span><span class="formula">CPA = витрати / покупки</span><span class="formula">ROAS = дохід / витрати</span></div>
+</section>
+<section class="card" id="visual">
+<div class="sectiontop"><span class="step">03</span><div><h2>Візуалізуйте результат</h2><p>Діаграма показує ROAS: скільки гривень виручки припадає на 1 грн рекламних витрат. ROAS не є чистим прибутком.</p></div></div>
+<div class="chart" id="bars"></div>
+<div class="callout" style="margin-top:18px"><strong>Зверніть увагу:</strong> канал із найвищим ROAS не обов'язково приніс найбільше покупок. Це важливо для управлінського рішення.</div>
+</section>
+<section class="card" id="analysis">
+<div class="sectiontop"><span class="step">04</span><div><h2>Завдання аналітика</h2><p>Дайте власні аргументовані відповіді. Використовуйте значення з таблиці, а не лише загальні фрази.</p></div></div>
+<label for="answer1">1. Який канал має найвищий ROAS? Поясніть, чому це ще не означає, що йому слід віддати весь бюджет.</label>
+<textarea id="answer1" placeholder="Назвіть канал, конкретне значення ROAS та можливе обмеження…"></textarea>
+<label for="answer2">2. Який канал дав найбільшу кількість покупок? Який забезпечив найнижчий CPA? Порівняйте ці показники.</label>
+<textarea id="answer2" placeholder="Порівняйте обсяг покупок і вартість однієї покупки…"></textarea>
+<label for="answer3">3. Який канал ви оптимізували б насамперед? Запропонуйте дві конкретні дії для покращення результатів.</label>
+<textarea id="answer3" placeholder="Наприклад, змінити креативи, сегмент аудиторії, посадкову сторінку або бюджет…"></textarea>
+</section>
+<section class="card" id="decision">
+<div class="sectiontop"><span class="step">05</span><div><h2>Прийміть маркетингове рішення</h2><p>Компанія виділила <strong>20 000 грн</strong> на новий місяць. Розподіліть бюджет між п'ятьма каналами так, щоб сума дорівнювала 100%.</p></div></div>
+<div class="budgets" id="budgets"></div>
+<div class="total"><div><strong id="budgetState">Разом: 100%</strong><div id="budgetHint" class="muted" style="font-size:13px">Бюджет розподілено коректно</div></div><strong id="budgetUAH">20 000 грн</strong></div>
+<label for="strategy">Обґрунтуйте вибір щонайменше трьома аргументами.</label>
+<textarea id="strategy" placeholder="Я збільшую частку…, оскільки…; зменшую…, тому що…; для перевірки гіпотези…"></textarea>
+</section>
+<section class="card" id="results">
+<div class="sectiontop"><span class="step">06</span><div><h2>Перевірте та здайте роботу</h2><p>Перевірка оцінює заповнення форми, а не правильність ваших аналітичних висновків — їх перевірить викладач.</p></div></div>
+<div class="checks">
+<div class="check" id="statusStudent"><span class="dot">○</span><span>ПІБ студента та група заповнені</span></div>
+<div class="check" id="statusAnswers"><span class="dot">○</span><span>Три аналітичні відповіді заповнені</span></div>
+<div class="check" id="statusBudget"><span class="dot">○</span><span>Бюджет розподілений на 100%</span></div>
+<div class="check" id="statusStrategy"><span class="dot">○</span><span>Стратегія обґрунтована</span></div>
+</div>
+<div class="actions"><button class="btn" id="download" type="button">Завантажити мій звіт (.txt)</button><button class="btn secondary" id="check" type="button">Перевірити заповнення</button><button class="btn danger" id="reset" type="button">Очистити відповіді</button></div>
+<p id="message" role="status" style="margin-top:12px" class="muted"></p>
+<div class="note" style="margin-top:12px"><strong>Що надіслати викладачу:</strong> завантажений файл «Практична-2_Прізвище.txt». За потреби додайте скриншот сторінки з розподілом бюджету. Кожен студент працює з власними відповідями у своєму браузері.</div>
+</section>
+</main>
+<footer>Digital Analytics Lab · Практична робота №2 · Навчальні дані, без реальної статистики компанії</footer>
+<script>
+(function(){
+'use strict';
+var data=[
+{name:'Instagram',impressions:120000,clicks:3600,conversions:144,spend:7200,revenue:21600},
+{name:'TikTok',impressions:180000,clicks:4500,conversions:90,spend:6300,revenue:13500},
+{name:'Google Search',impressions:65000,clicks:3900,conversions:234,spend:11700,revenue:35100},
+{name:'Telegram',impressions:50000,clicks:1000,conversions:40,spend:1600,revenue:6000},
+{name:'YouTube',impressions:140000,clicks:2100,conversions:42,spend:4200,revenue:6300}
+];
+var $=function(id){return document.getElementById(id)};
+var fmt=function(n){return new Intl.NumberFormat('uk-UA',{maximumFractionDigits:2}).format(n)};
+var total=function(key){return data.reduce(function(sum,d){return sum+d[key]},0)};
+var rows=data.map(function(d){return {name:d.name,impressions:d.impressions,clicks:d.clicks,conversions:d.conversions,spend:d.spend,revenue:d.revenue,ctr:d.clicks/d.impressions*100,cr:d.conversions/d.clicks*100,cpa:d.spend/d.conversions,roas:d.revenue/d.spend}});
+var kpis=[['Показів',total('impressions')],['Кліків',total('clicks')],['Покупок',total('conversions')],['Сукупний ROAS',total('revenue')/total('spend')]];
+$('kpis').innerHTML=kpis.map(function(item,i){return '<div class="metric"><span>'+item[0]+'</span><strong>'+fmt(item[1])+(i===3?'×':'')+'</strong></div>'}).join('');
+$('channels').innerHTML=rows.map(function(d){return '<tr><td>'+d.name+'</td><td>'+fmt(d.impressions)+'</td><td>'+fmt(d.clicks)+'</td><td>'+fmt(d.conversions)+'</td><td>'+fmt(d.spend)+'</td><td>'+fmt(d.revenue)+'</td><td>'+fmt(d.ctr)+'%</td><td>'+fmt(d.cr)+'%</td><td>'+fmt(d.cpa)+'</td><td>'+fmt(d.roas)+'×</td></tr>'}).join('');
+var maxROAS=Math.max.apply(null,rows.map(function(r){return r.roas}));
+$('bars').innerHTML=rows.map(function(d){return '<div class="bar"><label>'+d.name+'</label><div class="track"><div class="fill" style="width:'+(100*d.roas/maxROAS)+'%"></div></div><span>'+fmt(d.roas)+'×</span></div>'}).join('');
+var init=[30,15,35,15,5];
+$('budgets').innerHTML=rows.map(function(d,i){return '<div class="budgetitem"><label for="share'+i+'">'+d.name+'</label><input type="number" id="share'+i+'" data-share="'+i+'" value="'+init[i]+'" min="0" max="100" step="1" inputmode="numeric" aria-label="Відсоток бюджету для '+d.name+'"><div class="cash" id="cash'+i+'"></div></div>'}).join('');
+var ids=['student','group','answer1','answer2','answer3','strategy'].concat(rows.map(function(_,i){return 'share'+i}));
+var KEY='digital-analytics-practice-2-v1';
+function read(){var v={};ids.forEach(function(id){v[id]=$(id).value});return v}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(read()))}catch(e){}}
+function load(){try{var state=JSON.parse(localStorage.getItem(KEY)||'null');if(state&&typeof state==='object'){ids.forEach(function(id){if(Object.prototype.hasOwnProperty.call(state,id)){$(id).value=state[id]}})}}catch(e){}}
+function budget(){var nums=rows.map(function(_,i){var n=Number($('share'+i).value);return Number.isFinite(n)?n:0});var sum=nums.reduce(function(a,b){return a+b},0),valid=sum===100&&nums.every(function(n){return n>=0&&n<=100});nums.forEach(function(n,i){$('cash'+i).textContent=fmt(n*200)+' грн'});$('budgetState').textContent='Разом: '+fmt(sum)+'%';$('budgetState').className=valid?'good':'bad';$('budgetHint').textContent=valid?'Бюджет розподілено коректно':'Вкажіть частки від 0 до 100%, разом рівно 100%';$('budgetUAH').textContent=fmt(sum*200)+' грн';$('budgetUAH').className=valid?'good':'bad';return valid}
+function flags(){
+var a=$('student').value.trim().length>=3&&$('group').value.trim().length>=2;
+var b=['answer1','answer2','answer3'].every(function(id){return $(id).value.trim().length>=35});
+var c=budget();
+var d=$('strategy').value.trim().length>=80;
+[['statusStudent',a],['statusAnswers',b],['statusBudget',c],['statusStrategy',d]].forEach(function(pair){var el=$(pair[0]),dot=el.querySelector('.dot');dot.textContent=pair[1]?'✓':'○';dot.className='dot '+(pair[1]?'good':'muted')});
+return a&&b&&c&&d
+}
+function safeName(s){return (s||'Студент').trim().replace(/[^a-zA-Z0-9А-Яа-яІіЇїЄєҐґ _-]/g,'').replace(/\s+/g,'_').slice(0,60)||'Студент'}
+$('download').addEventListener('click',function(){
+var isOk=flags();if(!isOk){$('message').textContent='Спочатку заповніть ПІБ, групу та всі відповіді; перевірте суму 100%. Мінімум: 35 символів у кожній аналітичній відповіді та 80 — у стратегії.';$('message').className='bad';return}
+var lines=['ПРАКТИЧНА РОБОТА №2','Інтерпретація та застосування даних у цифрових комунікаціях, маркетингових стратегіях та медіасередовищі','', 'Студент: '+$('student').value.trim(),'Група: '+$('group').value.trim(),'Навчальний бренд: UrbanWave','','ВИХІДНІ ДАНІ'];
+rows.forEach(function(d){lines.push(d.name+': покази '+d.impressions+', кліки '+d.clicks+', покупки '+d.conversions+', витрати '+d.spend+' грн, дохід '+d.revenue+' грн, CTR '+fmt(d.ctr)+'%, CR '+fmt(d.cr)+'%, CPA '+fmt(d.cpa)+' грн, ROAS '+fmt(d.roas)+'×')});
+lines=lines.concat(['','АНАЛІТИЧНІ ВИСНОВКИ','1. Який канал має найвищий ROAS і які його обмеження?', $('answer1').value.trim(),'','2. Найбільша кількість покупок і найнижчий CPA:', $('answer2').value.trim(),'','3. Який канал оптимізувати і як?', $('answer3').value.trim(),'','РОЗПОДІЛ БЮДЖЕТУ 20 000 ГРН']);
+rows.forEach(function(d,i){var n=Number($('share'+i).value);lines.push(d.name+': '+n+'% = '+fmt(n*200)+' грн')});
+lines.push('Усього: 100% = 20 000 грн','','ОБҐРУНТУВАННЯ СТРАТЕГІЇ',$('strategy').value.trim(),'','Дата формування звіту: '+new Date().toLocaleString('uk-UA'));
+var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='Практична-2_'+safeName($('student').value)+'.txt';document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url)},5000);$('message').textContent='Звіт сформовано. Знайдіть файл у завантаженнях браузера й надішліть викладачу.';$('message').className='good'
+});
+$('check').addEventListener('click',function(){var ok=flags();$('message').textContent=ok?'Усі поля формально заповнено. Перевірте якість аргументів і завантажте звіт.':'Є незаповнені поля або сума бюджету не дорівнює 100%. Позначки вище підкажуть, що перевірити.';$('message').className=ok?'good':'bad'});
+$('reset').addEventListener('click',function(){if(!confirm('Очистити всі ваші відповіді на цьому пристрої?'))return;['student','group','answer1','answer2','answer3','strategy'].forEach(function(id){$(id).value=''});rows.forEach(function(_,i){$('share'+i).value=init[i]});save();flags();$('message').textContent='Відповіді очищено.';$('message').className='muted'});
+load();ids.forEach(function(id){$(id).addEventListener('input',function(){save();flags()})});flags();
+})();
+</script>
+</body>
+</html>
