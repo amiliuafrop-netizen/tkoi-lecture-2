@@ -44,6 +44,28 @@ footer{max-width:1100px;margin:0 auto;padding:0 18px 30px;text-align:center;colo
 @media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.budgets{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.three{grid-template-columns:1fr}.bar{grid-template-columns:94px minmax(0,1fr) 48px;gap:7px}.hero-inner{padding:34px 18px}.metric{padding:12px}.budgetitem label{min-height:0}.card{border-radius:15px}.actions .btn{flex:1}}
 @media(max-width:390px){.budgets{grid-template-columns:1fr}.bar{grid-template-columns:90px minmax(0,1fr) 42px}.tags span{font-size:11px}}
 @media print{.hero{background:#fff;color:#172746}.hero p,.kicker{color:#172746}.btn{display:none}.card{break-inside:avoid;box-shadow:none}.wrap{padding-top:0}}
+
+/* Теоретичні підказки та методичні пояснення */
+.theory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:17px 0}
+.theory-tile{border:1px solid #dfe8f7;background:#f7faff;border-radius:13px;padding:16px}
+.theory-tile h3{font-size:15px;margin:0 0 8px;color:#234a98}
+.theory-tile p{color:#4f6280;font-size:13px;margin:0}
+.guide{border:1px solid #dbe7f7;background:#f5f9ff;border-radius:12px;padding:14px 17px;margin:13px 0}
+.guide strong{display:block;margin-bottom:5px;color:#244b92}
+.guide p:last-child,.mini-steps li:last-child{margin-bottom:0}
+.mini-steps{padding-left:22px;margin:9px 0}.mini-steps li{padding:3px 0}
+.explain{background:#f5f8fd;border-left:4px solid #789ce5;border-radius:5px 11px 11px 5px;padding:11px 14px;color:#425773;margin:6px 0 13px;font-size:14px}
+.explain strong{color:#203e7e}
+.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:13px 0}
+.glossary-item{padding:12px 14px;border:1px solid #e0e8f3;border-radius:10px;font-size:14px}
+.glossary-item strong{display:block;color:#213f79;margin-bottom:3px}
+.example{padding:17px;border-radius:13px;background:#eaf3ff;border:1px solid #b9d7ff;margin:17px 0}
+.example h3{margin:0 0 8px;font-size:16px}
+.example p:last-child{margin-bottom:0}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.rules div{border-radius:10px;background:#f0f6ff;padding:11px;font-size:13px}
+.nice-list{padding-left:23px;margin:8px 0 0}.nice-list li{padding:4px 0}
+@media(max-width:760px){.theory-grid,.glossary,.rules{grid-template-columns:1fr}.theory-tile{padding:14px}.guide{padding:13px}}
 </style>
 </head>
 <body>
@@ -62,38 +84,94 @@ footer{max-width:1100px;margin:0 auto;padding:0 18px 30px;text-align:center;colo
 <div><label for="student">Прізвище та ім'я студента</label><input id="student" type="text" maxlength="100" placeholder="Наприклад, Петренко Олександр" autocomplete="name"></div>
 <div><label for="group">Навчальна група</label><input id="group" type="text" maxlength="40" placeholder="Наприклад, ЕК-21"></div>
 </div>
-<div class="note" style="margin-top:15px">Працюйте безпосередньо на цій сторінці. Реєстрація на GitHub не потрібна. Відповіді автоматично зберігаються <strong>лише у браузері цього пристрою</strong>. Для здачі роботи завантажте персональний звіт і надішліть його викладачу.</div>
+<div class="note" style="margin-top:15px"><strong>Важливо:</strong> Працюйте безпосередньо на цій сторінці. Реєстрація на GitHub не потрібна. Відповіді автоматично зберігаються <strong>лише у браузері цього пристрою</strong> — вони не передаються викладачу автоматично. Для здачі роботи завантажте свій звіт і надішліть його викладачу.</div>
+<div class="guide">
+<strong>Як виконувати практичну роботу</strong>
+<ol class="mini-steps">
+<li>Впишіть прізвище, ім’я та групу.</li>
+<li>Прочитайте теорію, перегляньте приклад розрахунків і з'ясуйте, що означають показники.</li>
+<li>Порівняйте п'ять рекламних каналів за даними таблиці та діаграми.</li>
+<li>Самостійно заповніть три аналітичні відповіді, посилаючись на конкретні числа.</li>
+<li>Розподіліть новий бюджет у 20 000 грн, поясніть рішення та завантажте звіт.</li>
+</ol>
+<p class="muted" style="font-size:13px;margin:6px 0 0"><strong>Орієнтовний час:</strong> теорія — 15 хв; дослідження таблиці — 15 хв; висновки — 25 хв; бюджет і стратегія — 25 хв; перевірка та здача — 10 хв.</p>
+</div>
+</section>
+
+<section class="card" id="theory">
+<div class="sectiontop"><span class="step">02</span><div><h2>Коротка теорія перед виконанням</h2><p>Прочитайте цей розділ до переходу до таблиці. Він допоможе розуміти показники і пояснювати свої рішення, а не просто обирати найбільші числа.</p></div></div>
+<h3>1. Навіщо аналізувати цифрові дані?</h3>
+<p>У цифрових комунікаціях кожна взаємодія з рекламою може залишати вимірюваний результат: перегляд, клік, покупку. <strong>Інтерпретація даних</strong> — це не переписування статистики, а пояснення, що означають показники та які дії потрібно виконати.</p>
+<div class="theory-grid">
+<div class="theory-tile"><h3>Спочатку — дані</h3><p>Скільки було показів, переходів, покупок і витрат? Перевіряємо цифри, одиниці виміру та період.</p></div>
+<div class="theory-tile"><h3>Далі — висновок</h3><p>Що спрацювало добре, а що — слабше? Порівнюємо декілька показників одночасно.</p></div>
+<div class="theory-tile"><h3>Наприкінці — рішення</h3><p>Що змінити у креативі, аудиторії чи бюджеті та як перевірити ефект?</p></div>
+</div>
+<h3>2. Як працює рекламна воронка?</h3>
+<p><strong>Покази → кліки → покупки → дохід.</strong> Людина може побачити рекламу, але не перейти за посиланням. Вона може перейти, але нічого не купити. Тому велика кількість показів або кліків сама собою ще не доводить успіх кампанії.</p>
+<div class="glossary">
+<div class="glossary-item"><strong>Покази (impressions)</strong>Кількість відображень реклами. Одна людина може побачити оголошення кілька разів, тому покази — це не обов'язково кількість унікальних людей.</div>
+<div class="glossary-item"><strong>Кліки (clicks)</strong>Кількість натискань на оголошення. Клік свідчить про інтерес, але не гарантує покупку.</div>
+<div class="glossary-item"><strong>Покупки / конверсії (conversions)</strong>Кількість цільових дій. У цій практичній цільова дія — саме покупка.</div>
+<div class="glossary-item"><strong>Витрати і дохід</strong>Витрати — кошти на рекламу; дохід — виручка від покупок. Дохід не дорівнює чистому прибутку, адже є ще собівартість та інші витрати.</div>
+</div>
+<h3>3. Чотири основні показники ефективності</h3>
+<div class="glossary">
+<div class="glossary-item"><strong>CTR — Click-Through Rate (клікабельність)</strong><span class="formula">CTR = кліки ÷ покази × 100%</span><p>Показує, який відсоток показів завершився кліком. За однакових умов вищий CTR може свідчити про привабливіше оголошення.</p></div>
+<div class="glossary-item"><strong>CR — Conversion Rate (коефіцієнт конверсії)</strong><span class="formula">CR = покупки ÷ кліки × 100%</span><p>Показує, яка частка кліків завершилась покупкою. Низький CR може сигналізувати про проблеми з пропозицією, аудиторією або сторінкою товару.</p></div>
+<div class="glossary-item"><strong>CPA — Cost Per Acquisition (вартість покупки)</strong><span class="formula">CPA = витрати ÷ покупки</span><p>Показує, скільки рекламних гривень витрачено на одну покупку. Якщо інші умови однакові, нижчий CPA вигідніший.</p></div>
+<div class="glossary-item"><strong>ROAS — Return on Ad Spend (окупність рекламних витрат за виручкою)</strong><span class="formula">ROAS = дохід ÷ витрати</span><p>ROAS 3× означає, що на кожну 1 грн рекламних витрат припало 3 грн виручки. Це не показник чистого прибутку.</p></div>
+</div>
+<div class="example">
+<h3>Розібраний приклад (умовна кампанія)</h3>
+<p>Припустимо, оголошення отримало <strong>10 000 показів</strong>, <strong>300 кліків</strong>, <strong>12 покупок</strong>. На рекламу витратили <strong>1 800 грн</strong>, а дохід склав <strong>5 400 грн</strong>.</p>
+<div class="rules">
+<div><strong>CTR:</strong> 300 ÷ 10 000 × 100% = <strong>3%</strong></div>
+<div><strong>CR:</strong> 12 ÷ 300 × 100% = <strong>4%</strong></div>
+<div><strong>CPA:</strong> 1 800 ÷ 12 = <strong>150 грн</strong></div>
+<div><strong>ROAS:</strong> 5 400 ÷ 1 800 = <strong>3×</strong></div>
+</div>
+<p style="margin-top:12px"><strong>Як прочитати результат:</strong> зі 100 показів у середньому отримуємо 3 кліки; зі 100 кліків — 4 покупки; одна покупка коштує 150 грн рекламного бюджету. Кожна рекламна гривня принесла 3 грн виручки. Це ще не дає достатньої інформації про чистий прибуток.</p>
+</div>
+<h3>4. Чому рекламні канали відрізняються?</h3>
+<p>Instagram, TikTok і YouTube часто допомагають привернути увагу через зображення та відео; Google Search охоплює людей, які вже щось шукають; Telegram може працювати через тематичні спільноти. Це <strong>можливі сценарії</strong>, а не гарантія результату. Остаточні висновки робіть на основі даних саме цієї кампанії.</p>
+<div class="note"><strong>Головне правило аналітика:</strong> не оцінюйте канал лише за одним числом. Порівнюйте кількість покупок, їхню вартість, ROAS, витрати та можливість залучити додаткових покупців. Сформулюйте висновок за схемою: <strong>«Показник → пояснення → запропонована дія»</strong>.</div>
 </section>
 <section class="card" id="data">
-<div class="sectiontop"><span class="step">02</span><div><h2>Ознайомтеся з показниками</h2><p>Нижче наведено змодельовані навчальні дані рекламної кампанії за місяць. «Конверсія» означає покупку, а «дохід» — виручку з покупок.</p></div></div>
+<div class="sectiontop"><span class="step">03</span><div><h2>Ознайомтеся з показниками</h2><p>Нижче наведено змодельовані навчальні дані рекламної кампанії за місяць. «Конверсія» означає покупку, а «дохід» — виручку з покупок.</p></div></div>
+<div class="guide"><strong>Як читати таблицю — 3 кроки</strong><ol class="mini-steps"><li>Порівняйте покази та кліки: який канал привернув більше уваги?</li><li>Знайдіть у стовпцях «Покупки», «CPA» і «ROAS» результати, важливі для бізнесу.</li><li>Визначте, які цифри підтверджують ваш висновок. Пам’ятайте: високий CTR не завжди означає високий обсяг продажів.</li></ol></div>
 <div class="kpis" id="kpis"></div>
 <div class="tablebox" role="region" aria-label="Таблиця рекламних показників" tabindex="0"><table><thead><tr><th>Канал</th><th>Покази</th><th>Кліки</th><th>Покупки</th><th>Витрати, грн</th><th>Дохід, грн</th><th>CTR</th><th>CR</th><th>CPA, грн</th><th>ROAS</th></tr></thead><tbody id="channels"></tbody></table></div>
 <p class="muted" style="margin-top:10px;font-size:13px">На телефоні таблицю можна прокручувати горизонтально.</p>
 <div style="margin-top:15px"><span class="formula">CTR = кліки / покази × 100%</span><span class="formula">CR = покупки / кліки × 100%</span><span class="formula">CPA = витрати / покупки</span><span class="formula">ROAS = дохід / витрати</span></div>
 </section>
 <section class="card" id="visual">
-<div class="sectiontop"><span class="step">03</span><div><h2>Візуалізуйте результат</h2><p>Діаграма показує ROAS: скільки гривень виручки припадає на 1 грн рекламних витрат. ROAS не є чистим прибутком.</p></div></div>
+<div class="sectiontop"><span class="step">04</span><div><h2>Візуалізуйте результат</h2><p>Діаграма показує ROAS: скільки гривень виручки припадає на 1 грн рекламних витрат. ROAS не є чистим прибутком.</p></div></div>
+<div class="explain"><strong>Пояснення:</strong> кожна смужка відповідає рекламному каналу. Довша смужка означає вищий ROAS. Знайдіть лідера, але потім поверніться до таблиці й перевірте кількість покупок та витрати. Усі порівняння мають стосуватися одного місяця.</div>
 <div class="chart" id="bars"></div>
 <div class="callout" style="margin-top:18px"><strong>Зверніть увагу:</strong> канал із найвищим ROAS не обов'язково приніс найбільше покупок. Це важливо для управлінського рішення.</div>
 </section>
 <section class="card" id="analysis">
-<div class="sectiontop"><span class="step">04</span><div><h2>Завдання аналітика</h2><p>Дайте власні аргументовані відповіді. Використовуйте значення з таблиці, а не лише загальні фрази.</p></div></div>
-<label for="answer1">1. Який канал має найвищий ROAS? Поясніть, чому це ще не означає, що йому слід віддати весь бюджет.</label>
+<div class="sectiontop"><span class="step">05</span><div><h2>Завдання аналітика</h2><p>Дайте власні аргументовані відповіді. Використовуйте значення з таблиці, а не лише загальні фрази.</p></div></div>
+<div class="guide"><strong>Як оформлювати кожну відповідь</strong><p>Напишіть 3–5 змістовних речень: <strong>(1)</strong> назвіть канал, <strong>(2)</strong> наведіть конкретну цифру, <strong>(3)</strong> порівняйте з іншим каналом, <strong>(4)</strong> поясніть, що це означає для кампанії. Саме пояснення показує вашу здатність інтерпретувати дані.</p></div>
+<label for="answer1">1. Який канал має найвищий ROAS? Поясніть, чому це ще не означає, що йому слід віддати весь бюджет.</label><div class="explain"><strong>Що робити:</strong> відкрийте стовпець ROAS, знайдіть найбільше значення та вкажіть його у відповіді. Далі порівняйте кількість покупок цього каналу з іншими. Поміркуйте, чи може канал із невеликою кількістю покупок ефективно використати значно більший бюджет. <strong>Не достатньо</strong> лише написати назву каналу.</div>
 <textarea id="answer1" placeholder="Назвіть канал, конкретне значення ROAS та можливе обмеження…"></textarea>
-<label for="answer2">2. Який канал дав найбільшу кількість покупок? Який забезпечив найнижчий CPA? Порівняйте ці показники.</label>
+<label for="answer2">2. Який канал дав найбільшу кількість покупок? Який забезпечив найнижчий CPA? Порівняйте ці показники.</label><div class="explain"><strong>Що робити:</strong> спочатку знайдіть найбільше число у стовпці «Покупки», потім — найменше у стовпці «CPA». Це можуть бути різні канали: перший характеризує обсяг продажів, другий — витрати на одну покупку. Назвіть обидві цифри й поясніть різницю.</div>
 <textarea id="answer2" placeholder="Порівняйте обсяг покупок і вартість однієї покупки…"></textarea>
-<label for="answer3">3. Який канал ви оптимізували б насамперед? Запропонуйте дві конкретні дії для покращення результатів.</label>
+<label for="answer3">3. Який канал ви оптимізували б насамперед? Запропонуйте дві конкретні дії для покращення результатів.</label><div class="explain"><strong>Що робити:</strong> оберіть канал, де показники свідчать про проблему. Наприклад, багато кліків, але мало покупок — привід перевірити посадкову сторінку; низький CTR — привід протестувати інший текст або відео. Запропонуйте <strong>дві вимірювані дії</strong> й назвіть показник, за яким оціните покращення.</div>
 <textarea id="answer3" placeholder="Наприклад, змінити креативи, сегмент аудиторії, посадкову сторінку або бюджет…"></textarea>
 </section>
 <section class="card" id="decision">
-<div class="sectiontop"><span class="step">05</span><div><h2>Прийміть маркетингове рішення</h2><p>Компанія виділила <strong>20 000 грн</strong> на новий місяць. Розподіліть бюджет між п'ятьма каналами так, щоб сума дорівнювала 100%.</p></div></div>
+<div class="sectiontop"><span class="step">06</span><div><h2>Прийміть маркетингове рішення</h2><p>Компанія виділила <strong>20 000 грн</strong> на новий місяць. Розподіліть бюджет між п'ятьма каналами так, щоб сума дорівнювала 100%.</p></div></div>
+<div class="guide"><strong>Порядок виконання</strong><ol class="mini-steps"><li>Оберіть головну мету: більше покупок, нижча вартість покупки чи баланс цих цілей.</li><li>Оцініть обсяги покупок, CPA і ROAS у кожному каналі. Не копіюйте минулий бюджет автоматично.</li><li>Вкажіть відсоток бюджету для кожного каналу (від 0 до 100). Сума п’яти часток має становити <strong>100%</strong>.</li><li>Перевірте суму в гривнях. Наприклад, якщо виділити каналу <strong>25%</strong>, це буде <strong>5 000 грн</strong> із 20 000.</li><li>Поясніть, чому ви збільшуєте, зменшуєте або зберігаєте частку кожного ключового каналу.</li></ol></div>
 <div class="budgets" id="budgets"></div>
 <div class="total"><div><strong id="budgetState">Разом: 100%</strong><div id="budgetHint" class="muted" style="font-size:13px">Бюджет розподілено коректно</div></div><strong id="budgetUAH">20 000 грн</strong></div>
-<label for="strategy">Обґрунтуйте вибір щонайменше трьома аргументами.</label>
+<label for="strategy">Обґрунтуйте вибір щонайменше трьома аргументами.</label><div class="explain"><strong>Підказка для стратегії:</strong> спробуйте структуру «збільшую частку X, тому що…; зменшую частку Y, оскільки…; для перевірки рішення запущу тест…». Спирайтеся на реальні показники кейсу. <strong>Важливо:</strong> майбутній результат невідомий; ви пропонуєте обґрунтовану гіпотезу, а не гарантуєте продажі.</div>
 <textarea id="strategy" placeholder="Я збільшую частку…, оскільки…; зменшую…, тому що…; для перевірки гіпотези…"></textarea>
 </section>
 <section class="card" id="results">
-<div class="sectiontop"><span class="step">06</span><div><h2>Перевірте та здайте роботу</h2><p>Перевірка оцінює заповнення форми, а не правильність ваших аналітичних висновків — їх перевірить викладач.</p></div></div>
+<div class="sectiontop"><span class="step">07</span><div><h2>Перевірте та здайте роботу</h2><p>Автоматична перевірка оцінює заповнення форми, а не правильність ваших аналітичних висновків — їх перевірить викладач.</p></div></div>
+<div class="explain"><strong>Як здати:</strong> переконайтеся, що написали ПІБ і групу; кожна з трьох відповідей містить принаймні 35 символів, а стратегія — принаймні 80; бюджет дорівнює рівно 100%. Натисніть «Перевірити заповнення», а потім «Завантажити мій звіт». Відкрийте збережений файл, переконайтеся, що всі відповіді є, і надішліть викладачу. Кнопка завантаження <strong>не відправляє роботу автоматично</strong>.</div>
 <div class="checks">
 <div class="check" id="statusStudent"><span class="dot">○</span><span>ПІБ студента та група заповнені</span></div>
 <div class="check" id="statusAnswers"><span class="dot">○</span><span>Три аналітичні відповіді заповнені</span></div>
@@ -103,6 +181,7 @@ footer{max-width:1100px;margin:0 auto;padding:0 18px 30px;text-align:center;colo
 <div class="actions"><button class="btn" id="download" type="button">Завантажити мій звіт (.txt)</button><button class="btn secondary" id="check" type="button">Перевірити заповнення</button><button class="btn danger" id="reset" type="button">Очистити відповіді</button></div>
 <p id="message" role="status" style="margin-top:12px" class="muted"></p>
 <div class="note" style="margin-top:12px"><strong>Що надіслати викладачу:</strong> завантажений файл «Практична-2_Прізвище.txt». За потреби додайте скриншот сторінки з розподілом бюджету. Кожен студент працює з власними відповідями у своєму браузері.</div>
+<h3 style="margin:22px 0 7px">Як оцінюватиметься робота (12 балів)</h3><div class="rules"><div><strong>3 бали:</strong> коректне використання числових показників та порівнянь.</div><div><strong>4 бали:</strong> три логічні й аргументовані аналітичні висновки.</div><div><strong>3 бали:</strong> розподіл бюджету та переконливе обґрунтування стратегії.</div><div><strong>2 бали:</strong> повнота, самостійність і правильне оформлення звіту.</div></div><p class="muted" style="margin-top:10px;font-size:13px">Успішне натискання кнопки «Перевірити заповнення» не означає автоматичного отримання 12 балів.</p>
 </section>
 </main>
 <footer>Digital Analytics Lab · Практична робота №2 · Навчальні дані, без реальної статистики компанії</footer>
