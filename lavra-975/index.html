@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a1525">
+<meta name="description" content="Інтерактивна виховна година на 10–15 хвилин до 975-річчя Києво-Печерської лаври та підготовки до її 1000-річчя. Історія, реальні фотографії, архівні зображення і вікторина.">
+<title>975 років Києво-Печерській лаврі • Виховна година</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#132036;--deep:#091526;--blue:#203b5b;--gold:#cba66d;--light:#fbfaf6;--sand:#f2eee6;--muted:#69768a;--line:#e2e2dd;--green:#21765f;--wrong:#b64c49;--radius:22px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--light);color:var(--ink);font:16px/1.7 Manrope,system-ui,sans-serif}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #d7a44c;outline-offset:3px}
+.progress{height:4px;background:var(--gold);transform-origin:left;transform:scaleX(0);position:fixed;left:0;right:0;top:0;z-index:99}
+.topbar{position:sticky;z-index:30;top:0;background:#fbfaf6ee;backdrop-filter:blur(16px);border-bottom:1px solid #e8e5df}
+.topinner{max-width:1180px;padding:13px 24px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.identity{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.identity .mark{height:35px;width:35px;display:grid;place-items:center;color:white;background:var(--deep);border-radius:11px;font-size:14px}
+nav{display:flex;align-items:center;gap:23px;white-space:nowrap;overflow:auto}
+nav a{font-size:12px;text-decoration:none;font-weight:800;color:#69768a}
+nav a:hover{color:var(--blue)}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:50px;font-weight:800;font-size:12px;letter-spacing:.055em;text-transform:uppercase}
+.pill.light{background:#ffffff18;border:1px solid #ffffff4c;color:#fff}
+.pill.dark{background:#e6ebed;color:#254663}
+.gold{color:var(--gold)}
+.wrap{width:min(1120px,calc(100% - 48px));margin:auto}
+.hero{color:white;min-height:min(780px,calc(100svh - 64px));position:relative;display:flex;align-items:end;background:#0a1525;isolation:isolate;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:url("https://commons.wikimedia.org/wiki/Special:FilePath/Kyiv%20Pechersk%20Lavra%20-%20detailed%20panoramic%20view.jpg?width=1920");background-position:center 50%;background-size:cover;filter:saturate(.77)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,16,32,.93),rgba(5,16,32,.56) 55%,rgba(5,16,32,.23)),linear-gradient(0deg,#091526ed,transparent 63%)}
+.heroContent{padding:100px 0 75px}
+.hero h1{font-size:clamp(44px,7.4vw,102px);line-height:1.02;letter-spacing:-.065em;max-width:980px;margin:23px 0 23px;font-weight:800}
+.hero h1 span{color:#e5bd7e}
+.heroSub{max-width:625px;font-size:clamp(16px,1.65vw,20px);color:#e5eaf2;line-height:1.65}
+.heroBtns{display:flex;gap:11px;flex-wrap:wrap;margin-top:35px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;border:1px solid transparent;padding:14px 22px;text-decoration:none;font-weight:800;font-size:14px;transition:.2s}
+.btn.primary{background:var(--gold);color:#171e2b}
+.btn.primary:hover{background:#e1be87;transform:translateY(-2px)}
+.btn.ghost{background:#ffffff13;border-color:#ffffff6a;color:#fff}
+.btn.ghost:hover{background:#ffffff27}
+.heroBottom{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-top:61px;flex-wrap:wrap}
+.years{display:flex;gap:30px}
+.years div{display:flex;flex-direction:column}
+.years strong{font-size:28px;line-height:1.2;letter-spacing:-.05em}
+.years small{font-size:11px;color:#e0d5c8;text-transform:uppercase;letter-spacing:.09em}
+.credit{font-size:11px;color:#d1d3db;max-width:260px;text-align:right}
+.section{padding:104px 0}
+.section.alt{background:var(--sand)}
+.section.dark{background:var(--deep);color:white}
+.eyebrow{display:flex;align-items:center;gap:11px;text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:#947449;font-weight:800}
+.eyebrow:before{content:"";height:2px;width:27px;background:var(--gold)}
+.section h2{font-size:clamp(31px,4.35vw,59px);letter-spacing:-.058em;line-height:1.15;margin:18px 0 21px}
+.lead{font-size:clamp(16px,1.5vw,19px);max-width:730px;line-height:1.85;color:#536178}
+.dark .lead{color:#c1cedd}
+.sectionhead{display:flex;align-items:start;justify-content:space-between;gap:28px;margin-bottom:34px}
+.minute{border:1px solid #d3cfca;padding:8px 15px;border-radius:50px;color:#6a7482;font-weight:800;font-size:12px;white-space:nowrap}
+.dark .minute{border-color:#657288;color:#bbcadc}
+.introgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center}
+.quote{font-size:clamp(23px,3vw,37px);line-height:1.4;letter-spacing:-.04em;font-weight:800;padding-left:27px;border-left:4px solid var(--gold);margin:33px 0}
+.factcard{padding:34px;background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 14px 35px #0a152508}
+.factcard .number{font-size:86px;font-weight:800;line-height:1;letter-spacing:-.08em;color:#af8549}
+.factcard p{margin-bottom:0}
+.note{padding:14px 18px;border:1px solid #e2dfd5;border-radius:12px;background:#fffdf7;font-size:13px;color:#657084;margin-top:25px}
+.note b{color:#24334d}
+.storygrid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.storygrid p{color:#c3cedb}
+.storygrid .eyebrow{color:var(--gold)}
+.storygrid .tip{display:inline-block;padding:9px 14px;color:#eddaaf;background:#ffffff12;border:1px solid #ffffff20;border-radius:9px;font-size:12px;font-weight:800;margin-bottom:15px}
+.recon{background:#efe4c9;border-radius:20px;overflow:hidden;color:#193044;box-shadow:0 20px 50px #0004}
+.recon svg{width:100%;display:block;height:auto}
+.recon p{color:#35465b;margin:0;background:#f5e7cc;padding:13px 17px;font-size:12px}
+.recon .relabel{background:#ded0af;font-weight:800;letter-spacing:.07em;font-size:11px;text-transform:uppercase;color:#6d5838}
+.items{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:27px}
+.minicard{background:#ffffff10;border:1px solid #ffffff25;padding:20px;border-radius:15px}
+.minicard strong{display:block;color:#f0d29f;font-size:22px}
+.minicard small{display:block;color:#c3cedb;margin-top:5px}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.timecard{background:#fff;border:1px solid #e6e1d8;border-radius:18px;padding:24px;position:relative;overflow:hidden;min-height:180px}
+.timecard:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--gold);right:19px;top:24px}
+.timecard strong{display:block;font-size:32px;color:#986d37;letter-spacing:-.06em}
+.timecard h3{font-size:15px;margin:7px 0;font-weight:800;line-height:1.5}
+.timecard p{color:#647084;font-size:12px;line-height:1.75;margin:0}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.photo{border-radius:19px;overflow:hidden;background:#e2e4e4;border:1px solid #dedfdc;position:relative;margin:0}
+.photo img{display:block;width:100%;height:305px;object-fit:cover}
+.photo.tall img{height:385px}
+.photo .caption{background:#fff;padding:18px 21px;min-height:107px}
+.photo .caption strong{display:block;font-size:15px}
+.photo .caption span{font-size:12px;color:#69768a;line-height:1.6}
+.photo .source{font-size:11px;text-decoration:underline;color:#607085}
+.photo figure{margin:0}
+.kicker{display:inline-block;background:#1a3757;color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:800;position:absolute;top:13px;left:13px}
+.storyrow{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center}
+.storyrow img{display:block;width:100%;height:360px;object-fit:cover;border-radius:20px}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0}
+.stat{padding:22px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.stat strong{font-size:32px;display:block;color:#34506c;letter-spacing:-.05em}
+.stat span{color:#647084;font-size:13px}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.darkcard{background:#fffdfb;color:#152338;border-radius:20px;padding:32px;border-top:5px solid var(--gold)}
+.darkcard h3{font-size:24px;letter-spacing:-.04em;margin-top:0}
+.darkcard li{margin-bottom:10px}
+.darkcard ul{padding-left:19px}
+.darkcard p,.darkcard li{color:#536178}
+.discussion{background:linear-gradient(120deg,#2b4a66,#14253e);padding:35px;border-radius:20px;color:#fff}
+.discussion .topic{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#f1d29d;font-weight:800}
+.discussion p{font-size:24px;line-height:1.45;font-weight:800;letter-spacing:-.04em;margin:13px 0}
+.reveal{border:1px solid #ffffff66;background:#ffffff18;padding:11px 15px;border-radius:10px;color:white;font-weight:700}
+.answer{display:none;color:#e4e9f3;font-size:14px;line-height:1.8;margin-top:20px}
+.answer.show{display:block}
+.quizpanel{background:#fff;padding:36px;border-radius:24px;box-shadow:0 25px 55px #00000017;color:var(--ink)}
+.quizheader{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:25px}
+.quizheader h3{font-size:25px;margin:0;letter-spacing:-.04em}
+.quizheader span{font-size:12px;color:#657289;font-weight:800}
+.qbox{padding:24px 0;border-top:1px solid var(--line)}
+.qbox h4{font-size:17px;line-height:1.5;margin:0 0 17px}
+.qbox h4 span{color:#a3845b}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{text-align:left;padding:13px 16px;border:1px solid #dfe4e9;background:#fbfcfd;border-radius:11px;color:#2b3e52;font-size:13px;font-weight:700;line-height:1.6;transition:.15s}
+.opt:hover:not(:disabled){border-color:#a2b6c9;background:#f1f6fb}
+.opt.correct{background:#e1f4eb;border-color:#64b594;color:#175b45}
+.opt.incorrect{background:#fbe8e5;border-color:#d98e8a;color:#88352f}
+.opt:disabled{cursor:default}
+.feedback{margin:12px 0 0;font-size:12px;font-weight:700;min-height:20px;color:#667589}
+.results{background:#f1f4f6;padding:23px;border-radius:17px;text-align:center;margin-top:23px}
+.results strong{font-size:33px;letter-spacing:-.05em;color:#1a4568}
+.results p{font-size:13px;color:#5a6a7b;margin:6px 0 15px}
+.reset{background:#183552;color:white;border:0;border-radius:10px;padding:10px 19px;font-size:12px;font-weight:800}
+details.teacher{background:#f7f4ec;border:1px solid #e8ddcc;border-radius:15px;padding:12px 20px;margin:25px 0}
+details.teacher summary{font-size:13px;font-weight:800;cursor:pointer;color:#5f4b2d}
+details.teacher p{font-size:13px;color:#536178;line-height:1.8}
+.dark details.teacher{background:#132942;border-color:#2c4b67}
+.dark details.teacher summary{color:#f0d29f}
+.dark details.teacher p{color:#c3cedb}
+.references{padding:38px 0 48px;background:#eae8e1}
+.references h3{font-size:18px}
+.references a{color:#21446d}
+.sources{display:grid;grid-template-columns:1fr 1fr;gap:11px;font-size:12px}
+.sources a{line-height:1.7}
+.footer{padding:34px 0;background:var(--deep);color:#c5cddd;text-align:center;font-size:12px}
+.footer strong{color:white}
+.print{border:1px solid #b7c5d2;color:#1d3c5c;background:white;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:800}
+.floatTop{position:fixed;right:20px;bottom:23px;z-index:20;display:none;border:0;border-radius:50%;height:45px;width:45px;background:var(--gold);color:#152339;font-weight:800;box-shadow:0 8px 20px #0003}
+.floatTop.show{display:block}
+@media(max-width:850px){.topinner{padding:12px 16px}.identity .brandTitle{font-size:12px}nav{gap:13px}.introgrid,.storygrid,.storyrow,.twocol{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr}.items{grid-template-columns:1fr 1fr}.storyrow img{height:310px}.heroContent{padding:80px 0 49px}.section{padding:68px 0}}
+@media(max-width:580px){.wrap{width:min(100% - 32px,1120px)}.topinner{flex-wrap:wrap}.identity{width:100%;justify-content:center}nav{width:100%;justify-content:space-between;gap:6px}nav a{font-size:10px}.hero{min-height:650px}.hero h1{font-size:46px}.heroBottom{margin-top:43px}.years{gap:19px}.years strong{font-size:23px}.credit{text-align:left}.sectionhead{display:block}.minute{display:inline-block;margin-top:10px}.gallery,.options,.statrow,.sources{grid-template-columns:1fr}.photo img,.photo.tall img{height:270px}.timeline{gap:9px}.timecard{padding:18px;min-height:190px}.timecard strong{font-size:28px}.timecard h3{font-size:13px}.quizpanel{padding:20px}.qbox{padding:19px 0}.discussion{padding:23px}.discussion p{font-size:19px}.items{gap:8px}.minicard{padding:15px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{.topbar,.heroBtns,.floatTop,.progress,.print,.reset{display:none!important}.hero{min-height:auto;color:black;background:white}.hero:before,.hero:after{display:none}.hero h1 span{color:#6a5434}.heroSub,.credit{color:#333}.section{padding:28px 0;break-inside:avoid}.dark{background:#fff!important;color:black!important}.storygrid p,.dark .lead{color:#333}.teacher{display:none}.quizpanel{box-shadow:none}.answer{display:block}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="topbar">
+ <div class="topinner">
+  <a class="identity" href="#home"><span class="mark">975</span><span class="brandTitle">КИЄВО-ПЕЧЕРСЬКА ЛАВРА</span></a>
+  <nav aria-label="Навігація розділами">
+   <a href="#start">Початок</a><a href="#beginning">Історія</a><a href="#archive">Архів</a><a href="#anniversary">Ювілей</a><a href="#quiz">Вікторина</a>
+  </nav>
+ </div>
+</header>
+<main>
+<section class="hero" id="home">
+ <div class="wrap heroContent">
+  <span class="pill light">Виховна година · 10–15 хвилин · 2026</span>
+  <h1>975 років <span>живої історії</span> України.</h1>
+  <p class="heroSub">Києво-Печерська лавра: від маленької печери на київському пагорбі до святині світового значення. Чому ми відзначаємо її ювілей і що повинні зберегти до 2051 року?</p>
+  <div class="heroBtns">
+   <a class="btn primary" href="#start">Розпочати заняття ↓</a>
+   <a class="btn ghost" href="#archive">Переглянути історичні зображення ↗</a>
+  </div>
+  <div class="heroBottom">
+   <div class="years">
+    <div><strong>1051</strong><small>заснування</small></div>
+    <div><strong>2026</strong><small>975 років</small></div>
+    <div><strong>2051</strong><small>1000 років</small></div>
+   </div>
+   <div class="credit">На фото — справжня панорама Лаври, 2020 р. Фото: Alexey laa / Wikimedia Commons, CC BY-SA 4.0</div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="start">
+ <div class="wrap">
+  <div class="sectionhead">
+   <div><div class="eyebrow">01 / Вступ</div><h2>Чому одна пам’ятка — це історія цілої країни?</h2></div>
+   <span class="minute">1 хв</span>
+  </div>
+  <div class="introgrid">
+   <div>
+    <p class="lead">Сьогодні ми говоритимемо не просто про старовинні будівлі. Ми поговоримо про місце, де протягом майже тисячі років розвивалися духовні традиції, освіта, книжна культура, мистецтво й пам’ять українського народу.</p>
+    <div class="quote">«Чи уявляєте ви, що історія такого величезного комплексу почалася з однієї печери?»</div>
+    <p>У 2026 році Україні є що відзначати — і що захищати. Ювілей Лаври нагадує: культурна спадщина належить не лише минулому, а й наступним поколінням.</p>
+   </div>
+   <aside class="factcard"><div class="number">975</div><b>років із часу заснування</b><p>Це майже десять століть історії, архітектури та культури Києва.</p></aside>
+  </div>
+  <details class="teacher"><summary>✦ Підказка викладачеві · як почати</summary><p>Запитайте студентів: «Як ви думаєте, навіщо сучасній Україні берегти споруди, які виникли ще в XI столітті?» Вислухайте 1–2 відповіді. Далі перейдіть до розповіді про Антонія і печери.</p></details>
+ </div>
+</section>
+
+<section class="section dark" id="beginning">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">02 / XI століття</div><h2>Спочатку були печери.</h2></div><span class="minute">2 хв</span></div>
+  <div class="storygrid">
+   <div>
+    <span class="tip">1051 РІК · КИЇВСЬКА РУСЬ</span>
+    <p class="lead">За літописною традицією, чернець <strong style="color:white">Антоній Печерський</strong>, уродженець Любеча, оселився в печері на київських схилах. До нього поступово приєднувалися інші ченці. Одним із творців монастирської спільноти став <strong style="color:white">Феодосій Печерський</strong>.</p>
+    <p>Коли громада збільшилася, над печерами виникли келії й перші наземні споруди, зокрема дерев’яна церква. Так сформувався монастир, який згодом дістав назву «Києво-Печерська лавра».</p>
+    <p><strong style="color:#f0d29f">Назва «Печерська»</strong> походить від печер, з яких і почалася історія обителі.</p>
+   </div>
+   <div class="recon">
+    <div class="relabel" style="padding:13px 18px">Історична візуалізація · XI століття</div>
+    <svg viewBox="0 0 700 460" role="img" aria-label="Умовна художня схема печерного монастиря XI століття: дерев'яна церква на пагорбі, земля і печерні ходи">
+     <defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#d8e4dd"/><stop offset="1" stop-color="#f0e1bc"/></linearGradient><linearGradient id="hill" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#a49b73"/><stop offset="1" stop-color="#746b4f"/></linearGradient></defs>
+     <rect width="700" height="460" fill="url(#sky)"/>
+     <circle cx="550" cy="72" r="38" fill="#dec08b" opacity=".7"/>
+     <path d="M0 213Q160 152 282 191T700 160V460H0Z" fill="#9d9975"/>
+     <path d="M0 269Q189 199 340 239T700 225V460H0Z" fill="url(#hill)"/>
+     <path d="M0 328 Q210 272 352 294 T700 270V460H0Z" fill="#8b795b"/>
+     <path d="M0 350Q190 304 350 324 T700 299V460H0Z" fill="#6d5f49" opacity=".5"/>
+     <path d="M15 390C128 375 189 345 286 365S460 390 539 364" fill="none" stroke="#d8c6a1" stroke-width="25" stroke-linecap="round" opacity=".75"/>
+     <path d="M15 390C128 375 189 345 286 365S460 390 539 364" fill="none" stroke="#6a543a" stroke-width="2" stroke-dasharray="6 5"/>
+     <path d="M310 367Q321 321 346 324Q369 323 378 358V392H310Z" fill="#3f3429"/>
+     <path d="M311 369Q328 341 347 346Q363 350 369 369" fill="none" stroke="#c0a578" stroke-width="3"/>
+     <path d="M225 195V139L281 103L343 141V195" fill="#b17e4a" stroke="#775338" stroke-width="5"/>
+     <path d="M207 144L281 89L363 145" fill="none" stroke="#61442d" stroke-width="15" stroke-linejoin="round"/>
+     <path d="M274 93V69M263 75H285" stroke="#6c5135" stroke-width="5"/>
+     <path d="M250 190V151Q250 146 257 146H276Q283 146 283 153V190" fill="#4c3c2d"/>
+     <path d="M305 148H326V170H305Z" fill="#e9d6a6" stroke="#755438" stroke-width="4"/>
+     <path d="M175 212L187 177L199 212" fill="#526c51"/><path d="M475 198L489 157L504 198" fill="#526c51"/><path d="M514 197L529 144L545 197" fill="#577254"/>
+     <path d="M420 235L432 218L445 235" fill="#40352d"/><circle cx="432" cy="214" r="7" fill="#40352d"/><path d="M430 236L421 254M434 236L443 255" stroke="#40352d" stroke-width="4"/>
+     <path d="M60 300L78 276L96 300" fill="#4c6549"/><path d="M101 282L116 250L131 282" fill="#4c6549"/>
+     <text x="28" y="35" font-size="17" font-weight="800" fill="#514637">УМОВНА РЕКОНСТРУКЦІЯ</text>
+     <text x="28" y="57" font-size="12" fill="#786d5c">Не автентичне зображення XI століття</text>
+     <path d="M381 365L420 338" stroke="#edd9ae" stroke-width="2"/><rect x="417" y="313" width="220" height="42" rx="8" fill="#f3e9d3"/>
+     <text x="428" y="332" font-size="15" font-weight="800" fill="#5c472e">Печерні ходи</text><text x="428" y="346" font-size="10" fill="#645945">перші келії та молитовні місця</text>
+     <path d="M344 122L416 91" stroke="#74573c" stroke-width="2"/><rect x="410" y="55" width="246" height="41" rx="8" fill="#f3e9d3"/>
+     <text x="422" y="72" font-size="15" font-weight="800" fill="#5c472e">Дерев’яна церква</text><text x="422" y="87" font-size="11" fill="#645945">перші наземні споруди</text>
+    </svg>
+    <p>Схема показує загальну ідею раннього печерного поселення. Точний вигляд монастиря 1051 року невідомий; це <strong>не фотографія і не документальна реконструкція</strong>.</p>
+   </div>
+  </div>
+  <div class="items">
+   <div class="minicard"><strong>Антоній</strong><small>початок печерного життя</small></div>
+   <div class="minicard"><strong>Феодосій</strong><small>розвиток чернечої громади</small></div>
+   <div class="minicard"><strong>Печери</strong><small>підземні келії та храми</small></div>
+   <div class="minicard"><strong>Київ</strong><small>духовний і культурний осередок</small></div>
+  </div>
+  <details class="teacher"><summary>✦ Підказка викладачеві</summary><p>Поясніть простими словами: «Спочатку тут не було золотих бань і великих храмів. Кілька людей жили в печерах і створили громаду. Лише згодом виникли споруди, які ми бачимо сьогодні». Наголосіть, що схема ілюстративна.</p></details>
+ </div>
+</section>
+
+<section class="section alt" id="timeline">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">03 / Хронологія</div><h2>Як монастир став Лаврою.</h2><p class="lead">Його сучасний вигляд формувався століттями. Найвідоміші споруди з’явилися не одночасно.</p></div><span class="minute">2 хв</span></div>
+  <div class="timeline">
+   <article class="timecard"><strong>1051</strong><h3>Заснування монастиря</h3><p>Початок печерної обителі Антонія.</p></article>
+   <article class="timecard"><strong>1073</strong><h3>Початок будівництва собору</h3><p>Закладання головного Успенського собору.</p></article>
+   <article class="timecard"><strong>1089</strong><h3>Освячення собору</h3><p>Успенський собор стає центральним храмом.</p></article>
+   <article class="timecard"><strong>1106</strong><h3>Троїцька надбрамна церква</h3><p>Одна з найдавніших збережених лаврських споруд.</p></article>
+   <article class="timecard"><strong>XVII–XVIII ст.</strong><h3>Розквіт архітектури</h3><p>Українське бароко, мури, храми, дзвіниці.</p></article>
+   <article class="timecard"><strong>1990</strong><h3>Світова спадщина</h3><p>Лавра — складова об’єкта ЮНЕСКО.</p></article>
+   <article class="timecard"><strong>2026</strong><h3>975 років</h3><p>Державне відзначення та початок підготовки до тисячоліття.</p></article>
+   <article class="timecard"><strong>2051</strong><h3>1000 років</h3><p>Мета — зберегти й передати спадщину далі.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="archive">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">04 / Архів і фотографії</div><h2>Побачити історію на власні очі.</h2><p class="lead">Ці матеріали справжні: давні плани, гравюри та архівні світлини. Їх створили через багато століть після заснування Лаври, тож вони не є знімками будівництва XI століття.</p></div><span class="minute">2 хв</span></div>
+  <div class="gallery">
+   <figure class="photo">
+    <span class="kicker">АВТЕНТИЧНИЙ ПЛАН · 1638</span>
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Near%20Caves%20%28Pechersk%20Lavra%29%20Plan%20%281638%29.jpg?width=950" alt="Старовинний план Ближніх печер Києво-Печерської лаври, 1638 рік">
+    <figcaption class="caption"><strong>План Ближніх печер, 1638 рік</strong><span>Одна з найдавніших відомих схем печерного комплексу. Вона дозволяє уявити систему підземних ходів. <a class="source" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:Near_Caves_(Pechersk_Lavra)_Plan_(1638).jpg">Джерело: Wikimedia Commons</a></span></figcaption>
+   </figure>
+   <figure class="photo">
+    <span class="kicker">ІСТОРИЧНА ГРАВЮРА · XVII СТ.</span>
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%B8%D1%94%D0%B2%D0%BE-%D0%9F%D0%B5%D1%87%D0%B5%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D0%BD%D0%B0%D1%81%D1%82%D0%B8%D1%80.%20%D0%93%D1%80%D0%B0%D0%B2%D1%8E%D1%80%D0%B0%2017%20%D1%81%D1%82..jpg?width=1120" alt="Гравюра Києво-Печерського монастиря XVII століття">
+    <figcaption class="caption"><strong>Києво-Печерський монастир у XVII столітті</strong><span>Графічне свідчення того, як виглядав монастирський ансамбль у ранньомодерну добу. <a class="source" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%B8%D1%94%D0%B2%D0%BE-%D0%9F%D0%B5%D1%87%D0%B5%D1%80%D1%81%D1%8C%D0%BA%D0%B8%D0%B9_%D0%BC%D0%BE%D0%BD%D0%B0%D1%81%D1%82%D0%B8%D1%80._%D0%93%D1%80%D0%B0%D0%B2%D1%8E%D1%80%D0%B0_17_%D1%81%D1%82..jpg">Джерело: Wikimedia Commons</a></span></figcaption>
+   </figure>
+   <figure class="photo">
+    <span class="kicker">ІСТОРИЧНА ФОТОЛІТОГРАФІЯ · 1890–1905</span>
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/19th-century%20Kiev%20Pechersk%20Lavra.jpg?width=1100" alt="Кольоровий фотохром Києво-Печерської лаври, кінець XIX або початок XX століття">
+    <figcaption class="caption"><strong>Лавра понад століття тому</strong><span>Фотохромний відбиток кінця XIX — початку XX ст. З фондів Бібліотеки Конгресу США; суспільне надбання. <a class="source" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:19th-century_Kiev_Pechersk_Lavra.jpg">Переглянути оригінал</a></span></figcaption>
+   </figure>
+   <figure class="photo">
+    <span class="kicker">СПРАВЖНЯ ФОТОГРАФІЯ · 2010</span>
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Kyiv%20Pechersk%20Lavra%20View%20from%20the%20Dnieper%20River.jpg?width=1200" alt="Реальна фотографія Києво-Печерської лаври з боку Дніпра">
+    <figcaption class="caption"><strong>Лавра в сучасному Києві</strong><span>Вигляд з Дніпра: масштабний ансамбль, що виріс із печерного монастиря. Фото: Ввласенко, CC BY 4.0. <a class="source" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:Kyiv_Pechersk_Lavra_View_from_the_Dnieper_River.jpg">Джерело</a></span></figcaption>
+   </figure>
+  </div>
+  <div class="note"><b>Зверніть увагу:</b> у XI столітті фотографії ще не існувало. Старовинні зображення допомагають досліджувати пізніші етапи існування Лаври, а схематична ілюстрація вище лише пояснює, як могли розміщуватися перші споруди й печери.</div>
+  <details class="teacher"><summary>✦ Підказка викладачеві</summary><p>Покажіть 2–3 архівні зображення й запитайте: «Чим старовинна гравюра відрізняється від сучасної фотографії? Чи можемо ми приймати художній малюнок за точний знімок минулого?» Це хороша вправа з медіаграмотності.</p></details>
+ </div>
+</section>
+
+<section class="section alt" id="culture">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">05 / Цінність спадщини</div><h2>Не лише храми, а й культура.</h2><p class="lead">Лавра стала важливим місцем розвитку літописання, книги, іконопису, освіти та духовного життя.</p></div><span class="minute">2 хв</span></div>
+  <div class="storyrow">
+   <div>
+    <div class="statrow">
+     <div class="stat"><strong>1990</strong><span>рік внесення до списку ЮНЕСКО</span></div>
+     <div class="stat"><strong>XI–XIX</strong><span>століття створення ансамблю</span></div>
+     <div class="stat"><strong>1731–1745</strong><span>будівництво Великої дзвіниці</span></div>
+    </div>
+    <p>З Лаврою пов’язана традиція <strong>Києво-Печерського патерика</strong> — збірки оповідей про ченців. Тут працювали книжники й митці, діяла відома друкарня. Чернець Аліпій Печерський знаний у традиції як один із ранніх майстрів іконопису.</p>
+    <p>Унікальність Лаври — у поєднанні підземних печер, давніх храмів та пам’яток <strong>українського бароко</strong>. Це не одна будівля, а великий культурний ландшафт.</p>
+   </div>
+   <div>
+    <img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Great%20Lavra%20Bell%20Tower%20with%20its%20four%20tiers%20%288600783053%29.jpg?width=1000" alt="Реальна фотографія Великої лаврської дзвіниці">
+    <p style="font-size:12px;color:#647084">На фото: Велика лаврська дзвіниця (1731–1745) — пам’ятка архітектури XVIII ст. <a href="https://commons.wikimedia.org/wiki/File:Great_Lavra_Bell_Tower_with_its_four_tiers_(8600783053).jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section dark" id="anniversary">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">06 / 2026 → 2051</div><h2>Ювілей — це відповідальність за майбутнє.</h2><p class="lead">28 червня 2026 року Указом Президента України № 560/2026 передбачено відзначення 975-річчя Лаври та підготовку до її тисячоліття.</p></div><span class="minute">2 хв</span></div>
+  <div class="twocol">
+   <div class="darkcard"><h3>Що важливо зробити до 2051 року?</h3>
+    <ul><li><strong>Зберігати й реставрувати</strong> історичні споруди та музейні колекції.</li><li><strong>Досліджувати</strong> архіви й пам’ятки, підтримувати наукові проєкти.</li><li><strong>Розвивати музейну доступність</strong> і сучасні освітні формати.</li><li><strong>Розповідати світові</strong> про українську спадщину через культурну дипломатію.</li></ul>
+   </div>
+   <div class="darkcard"><h3>Чому це особливо важливо зараз?</h3>
+    <p>Успенський собор було зруйновано 1941 року й відбудовано у 1999–2000 роках. У червні 2026 року Лавра знову постраждала від російської атаки.</p>
+    <p>Збереження культурних пам’яток — це захист нашої історичної пам’яті. Кожне покоління відповідає за те, у якому стані передасть її наступному.</p>
+    <p style="font-size:12px"><a target="_blank" rel="noopener noreferrer" href="https://zakon.rada.gov.ua/laws/show/560/2026">Читати Указ № 560/2026 ↗</a> · <a target="_blank" rel="noopener noreferrer" href="https://whc.unesco.org/en/list/527">Сторінка ЮНЕСКО ↗</a></p>
+   </div>
+  </div>
+  <div class="discussion" style="margin-top:22px">
+   <div class="topic">Питання для обговорення · 40 секунд</div>
+   <p>Як ви вважаєте, що можуть зробити молоді люди для збереження культурної спадщини, навіть не будучи істориками чи реставраторами?</p>
+   <button class="reveal" onclick="toggleAnswer()" aria-controls="ideaAnswer" aria-expanded="false" id="ideaBtn">Показати можливі відповіді ↓</button>
+   <div class="answer" id="ideaAnswer">Дізнаватися історію; не поширювати неправдиві факти; підтримувати культурні музеї та виставки; поважати правила відвідування пам’яток; створювати освітній контент; брати участь у волонтерських і просвітницьких проєктах.</div>
+  </div>
+  <details class="teacher"><summary>✦ Підказка викладачеві</summary><p>Прочитайте чотири напрями підготовки до 2051 року. Запропонуйте студентам назвати одну дію, яку може виконати людина їхнього віку для збереження пам’яток культури.</p></details>
+ </div>
+</section>
+
+<section class="section alt" id="quiz">
+ <div class="wrap">
+  <div class="sectionhead"><div><div class="eyebrow">07 / Перевіримо себе</div><h2>4 запитання на завершення.</h2><p class="lead">Оберіть відповідь. Правильний варіант і коротке пояснення з’являться одразу після натискання.</p></div><span class="minute">2–3 хв</span></div>
+  <div class="quizpanel">
+   <div class="quizheader"><h3>Міні-вікторина</h3><span id="counter">0 з 4 відповідей</span></div>
+   <div class="qbox" data-q="0" data-correct="1">
+    <h4><span>01.</span> У якому році засновано Києво-Печерську лавру?</h4>
+    <div class="options"><button class="opt" data-a="0">988</button><button class="opt" data-a="1">1051</button><button class="opt" data-a="2">1240</button><button class="opt" data-a="3">1700</button></div>
+    <p class="feedback" aria-live="polite"></p>
+   </div>
+   <div class="qbox" data-q="1" data-correct="2">
+    <h4><span>02.</span> З чого почалася історія монастиря?</h4>
+    <div class="options"><button class="opt" data-a="0">З великої дзвіниці</button><button class="opt" data-a="1">З кам’яної фортеці</button><button class="opt" data-a="2">З печерного поселення</button><button class="opt" data-a="3">З музею</button></div>
+    <p class="feedback" aria-live="polite"></p>
+   </div>
+   <div class="qbox" data-q="2" data-correct="3">
+    <h4><span>03.</span> Яка міжнародна організація визнала Лавру частиною світової спадщини?</h4>
+    <div class="options"><button class="opt" data-a="0">НАТО</button><button class="opt" data-a="1">МВФ</button><button class="opt" data-a="2">ОБСЄ</button><button class="opt" data-a="3">ЮНЕСКО</button></div>
+    <p class="feedback" aria-live="polite"></p>
+   </div>
+   <div class="qbox" data-q="3" data-correct="0">
+    <h4><span>04.</span> У якому році відзначатимемо 1000-річчя Лаври?</h4>
+    <div class="options"><button class="opt" data-a="0">2051</button><button class="opt" data-a="1">2031</button><button class="opt" data-a="2">2076</button><button class="opt" data-a="3">2100</button></div>
+    <p class="feedback" aria-live="polite"></p>
+   </div>
+   <div class="results" role="status"><strong id="score">0 / 4</strong><p id="resultMessage">Оберіть варіанти, щоб перевірити свої знання.</p><button class="reset" onclick="resetQuiz()">Пройти ще раз ↻</button></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="end">
+ <div class="wrap" style="max-width:830px;text-align:center">
+  <div class="eyebrow" style="justify-content:center">08 / Підсумок · 1 хв</div>
+  <h2>Майбутнє спадщини залежить від нас.</h2>
+  <p class="lead" style="margin:auto">975 років тому історія Лаври почалася з маленької печери. Сьогодні вона є частиною світової культурної спадщини. А в 2051 році відзначатиме своє тисячоліття — і наше завдання зробити так, щоб наступні покоління могли побачити й зрозуміти цю історію.</p>
+  <p style="font-size:22px;font-weight:800;letter-spacing:-.04em;color:#9e783f;margin:32px 0">Бережімо те, що розповідає світові про Україну.</p>
+  <a class="btn primary" href="#home">Повернутися до початку ↑</a>
+  <button class="print" onclick="window.print()" style="margin:12px">Версія для друку</button>
+ </div>
+</section>
+
+<section class="references" id="sources"><div class="wrap">
+ <h3>Історичні джерела та авторство зображень</h3>
+ <p style="font-size:12px;color:#5e6878">Інформацію звірено з офіційними державними та музейними матеріалами. Фото й архівні матеріали використано з посиланнями на оригінальні сторінки; права та ліцензії належать зазначеним авторам. При використанні матеріалів із ліцензіями CC BY / CC BY-SA необхідно зберігати атрибуцію.</p>
+ <div class="sources">
+  <a href="https://zakon.rada.gov.ua/laws/show/560/2026" target="_blank" rel="noopener noreferrer">Указ Президента України № 560/2026 від 28.06.2026</a>
+  <a href="https://www.niss.gov.ua/news/statti/kyyevo-pecherska-lavra-v-istoriyi-ukrayinskoho-narodu-do-975-richchya-zasnuvannya" target="_blank" rel="noopener noreferrer">Національний інститут стратегічних досліджень: до 975-річчя Лаври</a>
+  <a href="https://whc.unesco.org/en/list/527" target="_blank" rel="noopener noreferrer">UNESCO World Heritage Centre: Kyiv-Pechersk Lavra</a>
+  <a href="https://mincult.gov.ua/news/vid-975-richchya-do-tysyacholittya-u-kyyevo-pecherskij-lavri-rozpochaly-pidgotovku-do-velykogo-yuvileyu/" target="_blank" rel="noopener noreferrer">Міністерство культури України: підготовка до тисячоліття, 2026</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Kyiv_Pechersk_Lavra_-_detailed_panoramic_view.jpg" target="_blank" rel="noopener noreferrer">Фото панорами: Alexey laa / CC BY-SA 4.0</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Kyiv_Pechersk_Lavra_View_from_the_Dnieper_River.jpg" target="_blank" rel="noopener noreferrer">Фото з Дніпра: Ввласенко / CC BY 4.0</a>
+  <a href="https://commons.wikimedia.org/wiki/File:19th-century_Kiev_Pechersk_Lavra.jpg" target="_blank" rel="noopener noreferrer">Фотохром XIX–XX ст.: Library of Congress / Public Domain</a>
+  <a href="https://commons.wikimedia.org/wiki/Category:Historical_images_of_the_Kyiv_Pechersk_Lavra" target="_blank" rel="noopener noreferrer">Архівна гравюра та план печер: Wikimedia Commons</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Great_Lavra_Bell_Tower_with_its_four_tiers_(8600783053).jpg" target="_blank" rel="noopener noreferrer">Фото Великої дзвіниці: Wikimedia Commons</a>
+ </div>
+ </div></section>
+</main>
+<footer class="footer"><div class="wrap"><strong>Києво-Печерська лавра · 975 років</strong><p>Інтерактивна виховна година для студентів · Україна, 2026</p></div></footer>
+<button class="floatTop" id="up" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Повернутися нагору">↑</button>
+<script>
+(function(){
+ var bar=document.getElementById('progress');var up=document.getElementById('up');
+ function updateProgress(){var total=document.documentElement.scrollHeight-window.innerHeight;var value=total>0?window.scrollY/total:0;bar.style.transform='scaleX('+value+')';up.classList.toggle('show',window.scrollY>700)}
+ window.addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+})();
+var answers=[null,null,null,null];
+function renderScore(){var filled=answers.filter(function(x){return x!==null}).length;var right=answers.filter(function(x){return x===true}).length;document.getElementById('counter').textContent=filled+' з 4 відповідей';document.getElementById('score').textContent=right+' / 4';document.getElementById('resultMessage').textContent=filled<4?'Дайте відповіді на всі чотири запитання.':right===4?'Чудово! Усі відповіді правильні.':right>=2?'Добрий результат! Можна спробувати ще раз.':'Перегляньте історію ще раз і повторіть спробу.'}
+var reasons=['Лавру засновано 1051 року.','Першою була саме печерна обитель.','Лавра є складовою об’єкта Світової спадщини ЮНЕСКО з 1990 року.','1000 років від 1051 року — це 2051 рік.'];
+document.querySelectorAll('.qbox').forEach(function(box){
+ box.querySelectorAll('.opt').forEach(function(button){
+  button.addEventListener('click',function(){
+   var n=Number(box.dataset.q);if(answers[n]!==null)return;
+   var selected=Number(button.dataset.a);var correct=Number(box.dataset.correct);answers[n]=selected===correct;
+   box.querySelectorAll('.opt').forEach(function(b){b.disabled=true;if(Number(b.dataset.a)===correct)b.classList.add('correct');else if(Number(b.dataset.a)===selected)b.classList.add('incorrect')});
+   box.querySelector('.feedback').textContent=(answers[n]?'✓ Правильно! ':'↳ Не зовсім. ')+reasons[n];renderScore();
+  });
+ });
+});
+function resetQuiz(){answers=[null,null,null,null];document.querySelectorAll('.qbox').forEach(function(box){box.querySelectorAll('.opt').forEach(function(b){b.disabled=false;b.classList.remove('correct','incorrect')});box.querySelector('.feedback').textContent=''});renderScore()}
+function toggleAnswer(){var el=document.getElementById('ideaAnswer');var btn=document.getElementById('ideaBtn');var showing=el.classList.toggle('show');btn.textContent=showing?'Сховати можливі відповіді ↑':'Показати можливі відповіді ↓';btn.setAttribute('aria-expanded',String(showing))}
+</script>
+</body>
+</html>
