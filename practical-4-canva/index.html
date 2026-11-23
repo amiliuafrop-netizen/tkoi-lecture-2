@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#151818">
+<meta name="description" content="Практична робота №4 з ТКОІ: Canva, створення афіші, робота з фотографією, скриншоти і автоматичне оформлення звіту у PDF.">
+<title>Практична робота №4 · GRAPHIC LAB / Canva · ТКОІ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#intro">До основного змісту</a>
+<div class="progress-line" id="readingLine" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="logo" href="#intro"><span class="logo-icon">✳</span> GRAPHIC <span class="logo-outline">LAB.</span></a>
+  <div class="header-middle"><span class="online-dot"></span> ТКОІ / ПРАКТИЧНА №04</div>
+  <div class="header-actions">
+    <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer" class="header-canva">Відкрити Canva <span>↗</span></a>
+    <button class="mobile-nav" id="menuButton" type="button" aria-controls="siteNav" aria-expanded="false">☰ <span class="sr">Відкрити навігацію</span></button>
+  </div>
+</header>
+<div class="site-layout">
+ <aside id="siteNav" class="site-nav" aria-label="Розділи практичної роботи">
+   <span class="nav-kicker">НАВЧАЛЬНИЙ МАРШРУТ</span>
+   <p class="nav-course">Графічні редактори та візуальна комунікація</p>
+   <nav class="nav-list">
+     <a href="#intro" class="nav-item active"><span>00</span> Старт</a>
+     <a href="#brief" class="nav-item"><span>01</span> Завдання та вимоги</a>
+     <a href="#stage-1" class="nav-item"><span>02</span> Інструменти Canva</a>
+     <a href="#stage-2" class="nav-item"><span>03</span> Обробка фото</a>
+     <a href="#stage-3" class="nav-item"><span>04</span> Створення афіші</a>
+     <a href="#stage-4" class="nav-item"><span>05</span> Експорт і аналіз</a>
+     <a href="#report" class="nav-item"><span>06</span> Звіт і скриншоти</a>
+     <a href="#rubric" class="nav-item"><span>07</span> Оцінювання</a>
+   </nav>
+   <div class="side-progress">
+      <div class="side-status"><span>Заповнено обов'язкових полів</span><strong id="overallPercent">0%</strong></div>
+      <div class="side-track"><div id="overallFill"></div></div>
+      <p>Чернетка тексту зберігається в цьому браузері. Скриншоти можна зберегти у файлі чернетки.</p>
+   </div>
+ </aside>
+
+ <main id="intro">
+   <section class="hero">
+     <div class="container hero-grid">
+       <div class="hero-content">
+         <span class="eyebrow eyebrow-hero"><span class="tiny-dot"></span> ПРАКТИЧНА РОБОТА 04 / ТКОІ</span>
+         <h1>ДИЗАЙН —<br>ЦЕ <span>ДІЯ</span><em>.</em></h1>
+         <h2>Від інструментів Canva до власної афіші.</h2>
+         <p>Досліди редактор, оброби фотографію, створи графічний продукт і оформи звіт із доказами кожного етапу виконання.</p>
+         <div class="hero-buttons"><a class="button button-lime" href="#brief">Почати практичну <span>↗</span></a><a class="button button-dark-outline" href="#report">До оформлення звіту ↓</a></div>
+         <div class="hero-specs"><span><strong>04</strong> етапи</span><span><strong>75</strong> хвилин орієнтовно</span><span><strong>12</strong> балів максимум</span></div>
+       </div>
+       <div class="hero-display" aria-label="Демонстраційна афіша в стилі графічного дизайну">
+         <div class="display-grid"></div>
+         <div class="display-rotate"><span>◌ VISUAL COMMUNICATION</span><span>CANVA / PRACTICE 04</span></div>
+         <div class="design-surface">
+           <div class="design-dot"></div>
+           <span class="design-top">ТКОІ · КРЕАТИВНА ЛАБОРАТОРІЯ</span>
+           <span class="design-big">THINK<br><i>BIGGER</i><b>✳</b></span>
+           <span class="design-small">ТВОЇ ІДЕЇ<br>МАЮТЬ ФОРМУ.</span>
+           <div class="design-curve"></div>
+           <span class="design-bottom">1080 × 1350 PX <span>↗</span></span>
+         </div>
+         <div class="floating-label">01 <span>CANVA</span> / CREATE</div>
+       </div>
+     </div>
+     <div class="hero-marquee"><span>EXPERIMENT ✳ CREATE ✳ EDIT ✳ EXPORT ✳ EXPLAIN ✳ EXPERIMENT ✳ CREATE ✳ EDIT ✳ EXPORT ✳ EXPLAIN ✳</span></div>
+   </section>
+
+   <section id="brief" class="section neutral-section">
+     <div class="container">
+       <div class="section-head"><span class="section-count">01 / ЗАВДАННЯ</span><h2>Що саме <em>створюємо?</em></h2><p>Не копіюй готовий шаблон без змін — твоє завдання показати, що ти вмієш обирати інструменти, працювати з графікою та пояснювати власні дизайнерські рішення.</p></div>
+       <div class="brief-grid">
+         <div class="brief-main">
+           <span class="eyebrow">ГОЛОВНИЙ ПРОЄКТ</span>
+           <h3>Афіша «Цифрова грамотність: навички майбутнього»</h3>
+           <p>Створи в Canva вертикальну інформаційну афішу розміром <strong>1080 × 1350 px</strong> для студентської аудиторії.</p>
+           <div class="chip-row"><span>Заголовок</span><span>Фотографія</span><span>Текст</span><span>Фігури</span><span>Колір</span><span>Композиція</span></div>
+           <div class="brief-note"><strong>Обов'язковий зміст:</strong> заголовок теми; три навички — «Медіаграмотність», «Кібербезпека», «Цифрова творчість»; короткий заклик до дії; одне відредаговане фото; щонайменше дві геометричні фігури та два рівні текстової ієрархії.</div>
+         </div>
+         <div class="brief-side">
+           <span class="eyebrow">ТЕМА ПРАКТИЧНОЇ</span>
+           <h4>Дослідження інструментарію графічних редакторів та їх використання для базової візуальної комунікації.</h4>
+           <span class="eyebrow">МЕТА</span>
+           <p>Ознайомитися з основними інструментами Canva; набути навичок кадрування та корекції фотографій, роботи з текстом, формами, кольором і композицією; навчитися експортувати графічні матеріали й документувати виконання роботи.</p>
+           <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer" class="button button-dark">Перейти до Canva ↗</a>
+         </div>
+       </div>
+       <div class="prep-bar">
+         <div><strong>Перед початком</strong><span>Відкрий Canva в окремій вкладці. Можна використовувати безплатні інструменти та власне фото або зображення з дозволеним використанням.</span></div>
+         <div><strong>Звіт</strong><span>Після кожного етапу зроби скриншот і додай його в цю сторінку. В кінці збережи звіт як PDF.</span></div>
+       </div>
+     </div>
+   </section>
+
+   <section class="section section-dark" id="stage-1" data-stage="1">
+     <div class="container">
+       <div class="stage-header"><span class="stage-kicker">ЕТАП 01 / ДОСЛІДЖЕННЯ</span><span class="stage-duration">≈ 10 ХВ</span></div>
+       <div class="section-head"><h2>Знайомство з <em>Canva.</em></h2><p>Вивчи базові панелі інструментів і поясни, для чого вони потрібні під час створення графічного контенту.</p></div>
+       <div class="stage-layout">
+         <div class="instructions">
+           <h3>Покрокова інструкція</h3>
+           <ol class="steps">
+             <li>Перейди на <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer">canva.com ↗</a> та відкрий редактор.</li>
+             <li>Створи новий дизайн із власними розмірами <strong>1080 × 1350 px</strong>.</li>
+             <li>Знайди панелі <strong>Текст, Елементи, Завантаження</strong> та можливості зміни кольору й розташування об'єктів.</li>
+             <li>Додай тестовий заголовок, прямокутник і коло. Зміни їхні кольори, розмір і розташування.</li>
+             <li>Зроби скриншот робочої області, на якому видно створені елементи та інструменти Canva.</li>
+           </ol>
+           <div class="mini-table"><div><b>Текст</b><span>Заголовки, підписи, шрифти</span></div><div><b>Елементи</b><span>Фігури, ілюстрації, лінії</span></div><div><b>Завантаження</b><span>Власні фото та файли</span></div><div><b>Розташування</b><span>Шари, порядок об'єктів</span></div></div>
+           <label class="checkline"><input type="checkbox" data-task="1-a"> Створено дизайн потрібного розміру</label>
+           <label class="checkline"><input type="checkbox" data-task="1-b"> Знайдено базові інструменти</label>
+           <label class="checkline"><input type="checkbox" data-task="1-c"> Додано та змінено фігури й текст</label>
+         </div>
+         <div class="stage-entry">
+           <div class="entry-top"><span>МОЇ РЕЗУЛЬТАТИ</span><span class="entry-number">01</span></div>
+           <label class="input-label" for="note1">Які інструменти ти дослідив(-ла) і для чого вони потрібні?</label>
+           <textarea id="note1" data-field="note1" rows="4" placeholder="Наприклад: інструмент «Текст» — для заголовків; «Елементи» — для геометричних форм..."></textarea>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 1 <span>Інтерфейс Canva та перші елементи</span></div>
+             <label class="upload-target" for="shot1"><span class="upload-symbol">+</span><strong>Додати скриншот</strong><small>PNG, JPG або WebP</small><input id="shot1" data-shot="shot1" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot1" class="upload-preview" hidden></div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   <section class="section neutral-section" id="stage-2" data-stage="2">
+     <div class="container">
+       <div class="stage-header light-head"><span class="stage-kicker">ЕТАП 02 / РЕДАГУВАННЯ</span><span class="stage-duration">≈ 15 ХВ</span></div>
+       <div class="section-head"><h2>Фотографія: <em>до / після.</em></h2><p>Навчися покращувати зображення так, щоб воно підтримувало зміст афіші, а не відволікало глядача.</p></div>
+       <div class="stage-layout">
+         <div class="instructions">
+           <h3>Покрокова інструкція</h3>
+           <ol class="steps">
+             <li>Додай своє фото або безплатну фотографію, яку можна використовувати в навчальному проєкті. Не використовуй чужі фото без дозволу.</li>
+             <li>Зроби <strong>скриншот оригіналу до обробки</strong>.</li>
+             <li>Виділи фотографію та відкрий інструменти її редагування (назви кнопок залежать від версії Canva).</li>
+             <li>Спробуй <strong>кадрування, яскравість, контраст і насиченість</strong>. Уникай надмірного посилення кольору.</li>
+             <li>Зроби <strong>скриншот після обробки</strong>. Використай цю фотографію для афіші.</li>
+           </ol>
+           <div class="tip"><span>ПІДКАЗКА</span><p>У Canva для фотографій передбачені інструменти редагування та вкладка налаштувань. Якщо меню виглядає інакше, знайди функції «Редагувати фото» / «Налаштувати». <a href="https://www.canva.com/help/image-settings/" target="_blank" rel="noopener noreferrer">Довідка Canva ↗</a></p></div>
+           <label class="checkline"><input type="checkbox" data-task="2-a"> Є фото до редагування</label>
+           <label class="checkline"><input type="checkbox" data-task="2-b"> Виконано мінімум три корекції</label>
+           <label class="checkline"><input type="checkbox" data-task="2-c"> Є фото після редагування</label>
+         </div>
+         <div class="stage-entry stage-entry-light">
+           <div class="entry-top"><span>МОЇ РЕЗУЛЬТАТИ</span><span class="entry-number">02</span></div>
+           <label class="input-label" for="note2">Що ти змінив(-ла) у фотографії та чому?</label>
+           <textarea id="note2" data-field="note2" rows="4" placeholder="Я обрізав(-ла) фото, трохи збільшив(-ла) контраст і змінив(-ла) насиченість, щоб..."></textarea>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 2 <span>Оригінальна фотографія «до»</span></div>
+             <label class="upload-target" for="shot2"><span class="upload-symbol">+</span><strong>Додати скриншот</strong><small>PNG, JPG або WebP</small><input id="shot2" data-shot="shot2" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot2" class="upload-preview" hidden></div>
+           </div>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 3 <span>Фотографія після обробки</span></div>
+             <label class="upload-target" for="shot3"><span class="upload-symbol">+</span><strong>Додати скриншот</strong><small>PNG, JPG або WebP</small><input id="shot3" data-shot="shot3" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot3" class="upload-preview" hidden></div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   <section class="section section-dark" id="stage-3" data-stage="3">
+     <div class="container">
+       <div class="stage-header"><span class="stage-kicker">ЕТАП 03 / ТВОРЧА РОБОТА</span><span class="stage-duration">≈ 35 ХВ</span></div>
+       <div class="section-head"><h2>Створи афішу,<br><em>яка працює.</em></h2><p>Поєднай текст, оброблену фотографію, форми та кольори в єдине зрозуміле візуальне повідомлення.</p></div>
+       <div class="stage-layout">
+         <div class="instructions">
+           <h3>Покрокова інструкція</h3>
+           <ol class="steps">
+             <li>Визнач головний акцент афіші. Найбільшим має бути заголовок <strong>«Цифрова грамотність»</strong>.</li>
+             <li>Розмісти підзаголовок <strong>«Навички майбутнього»</strong> і три тематичні блоки: медіаграмотність, кібербезпека, цифрова творчість.</li>
+             <li>Додай відредаговану фотографію. Використай щонайменше <strong>дві геометричні фігури</strong> для структури чи акценту.</li>
+             <li>Обери узгоджену палітру з <strong>2–4 основних кольорів</strong> та не більше двох сімейств шрифтів.</li>
+             <li>Перевір поля, контраст, читабельність і візуальну ієрархію. Зроби скриншот процесу редагування.</li>
+           </ol>
+           <div class="requirements"><span>КОНТРОЛЬНИЙ СПИСОК АФІШІ</span><div>✓ Головний заголовок</div><div>✓ Три інформаційні блоки</div><div>✓ Фото після обробки</div><div>✓ Фігури та візуальні акценти</div><div>✓ Читабельний контраст</div><div>✓ Авторський макет, а не незмінений шаблон</div></div>
+           <label class="checkline"><input type="checkbox" data-task="3-a"> На афіші є всі обов'язкові елементи</label>
+           <label class="checkline"><input type="checkbox" data-task="3-b"> Дотримано візуальної ієрархії</label>
+           <label class="checkline"><input type="checkbox" data-task="3-c"> Я перевірив(-ла) кольори та читабельність</label>
+         </div>
+         <div class="stage-entry">
+           <div class="entry-top"><span>МОЇ РЕЗУЛЬТАТИ</span><span class="entry-number">03</span></div>
+           <label class="input-label" for="note3">Опиши створення афіші: які елементи, кольори та інструменти використано?</label>
+           <textarea id="note3" data-field="note3" rows="5" placeholder="Основний заголовок виділено... Фігури створено інструментом... Для фону обрано..."></textarea>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 4 <span>Процес створення афіші в Canva</span></div>
+             <label class="upload-target" for="shot4"><span class="upload-symbol">+</span><strong>Додати скриншот</strong><small>PNG, JPG або WebP</small><input id="shot4" data-shot="shot4" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot4" class="upload-preview" hidden></div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   <section class="section neutral-section" id="stage-4" data-stage="4">
+     <div class="container">
+       <div class="stage-header light-head"><span class="stage-kicker">ЕТАП 04 / ФІНАЛІЗАЦІЯ</span><span class="stage-duration">≈ 15 ХВ</span></div>
+       <div class="section-head"><h2>Експорт та <em>самоаналіз.</em></h2><p>Графічний продукт має не лише добре виглядати в редакторі, а й правильно зберігатися для подальшого використання.</p></div>
+       <div class="stage-layout">
+         <div class="instructions">
+           <h3>Покрокова інструкція</h3>
+           <ol class="steps">
+             <li>Переконайся, що розмір дизайну — <strong>1080 × 1350 px</strong>.</li>
+             <li>Відкрий у Canva меню <strong>«Поділитися» → «Завантажити»</strong> (назви можуть трохи відрізнятися).</li>
+             <li>Обери <strong>PNG</strong> і завантаж готову афішу. Платні функції, наприклад прозорий фон, для цієї роботи не потрібні.</li>
+             <li>Зроби скриншот <strong>готової афіші</strong>, а також <strong>налаштувань експорту PNG</strong>.</li>
+             <li>Перевір збережений файл: чи не обрізаний текст, чи немає розмиття та випадково залишених об'єктів.</li>
+           </ol>
+           <div class="tip"><span>ВАЖЛИВО</span><p>Підсумковий звіт у PDF створюється <strong>на цьому навчальному сайті</strong>, а не в Canva. Фінальну афішу в Canva експортуй окремо у PNG. <a href="https://www.canva.com/help/download-or-purchase/" target="_blank" rel="noopener noreferrer">Довідка Canva ↗</a></p></div>
+           <label class="checkline"><input type="checkbox" data-task="4-a"> Афішу завантажено у PNG</label>
+           <label class="checkline"><input type="checkbox" data-task="4-b"> Перевірено якість і формат</label>
+           <label class="checkline"><input type="checkbox" data-task="4-c"> Зроблено скриншоти фінального результату та експорту</label>
+         </div>
+         <div class="stage-entry stage-entry-light">
+           <div class="entry-top"><span>МОЇ РЕЗУЛЬТАТИ</span><span class="entry-number">04</span></div>
+           <label class="input-label" for="note4">У якому форматі збережено афішу? Чому саме він? Що перевірив(-ла) після експорту?</label>
+           <textarea id="note4" data-field="note4" rows="4" placeholder="Я зберіг(-ла) дизайн у PNG, оскільки... Перевірив(-ла)..."></textarea>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 5 <span>Готова афіша</span></div>
+             <label class="upload-target" for="shot5"><span class="upload-symbol">+</span><strong>Додати скриншот або фінальний PNG</strong><small>PNG, JPG або WebP</small><input id="shot5" data-shot="shot5" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot5" class="upload-preview" hidden></div>
+           </div>
+           <div class="upload-block">
+             <div class="upload-title">Скриншот 6 <span>Налаштування експорту в Canva</span></div>
+             <label class="upload-target" for="shot6"><span class="upload-symbol">+</span><strong>Додати скриншот</strong><small>PNG, JPG або WebP</small><input id="shot6" data-shot="shot6" type="file" accept="image/png,image/jpeg,image/webp"></label>
+             <div id="preview-shot6" class="upload-preview" hidden></div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+   <section id="report" class="section report-section">
+     <div class="container">
+       <div class="section-head"><span class="section-count">06 / ДОКУМЕНТУВАННЯ</span><h2>Звіт, який <em>збереться сам.</em></h2><p>Заповни свої дані, пояснення та висновок. Скриншоти з попередніх етапів автоматично потраплять у звіт у правильному порядку.</p></div>
+       <div class="report-layout">
+         <div class="report-form">
+           <div class="form-heading"><span>01</span><h3>Дані студента</h3></div>
+           <label for="studentName">Прізвище, ім'я, по батькові <span>*</span></label>
+           <input id="studentName" data-field="studentName" placeholder="Наприклад: Петренко Олександр Сергійович" autocomplete="name">
+           <div class="two-inputs"><div><label for="studentGroup">Група</label><input id="studentGroup" data-field="studentGroup" placeholder="Наприклад: 25-172"></div><div><label for="studentDate">Дата виконання <span>*</span></label><input id="studentDate" data-field="studentDate" type="date"></div></div>
+           <div class="form-heading second-heading"><span>02</span><h3>Висновок</h3></div>
+           <p class="form-description">Напиши власний висновок на 4–6 речень: чого навчився(-лася), які інструменти використав(-ла), що вдалося найкраще, що було складно і де знадобляться ці навички.</p>
+           <label for="studentConclusion">Мій висновок <span>*</span></label>
+           <textarea id="studentConclusion" data-field="conclusion" rows="7" placeholder="Під час виконання практичної роботи я ознайомився(-лася) з... У Canva я навчився(-лася) ... Найскладніше було ... Набуті навички можна використати для ..."></textarea>
+           <div class="form-heading second-heading"><span>03</span><h3>Готовність звіту</h3></div>
+           <div class="completion-box"><div><span id="readyText">Заповніть обов'язкові поля</span><strong id="readyCount">0 / 12</strong></div><div class="complete-bar"><span id="completeFill"></span></div><p id="missingList">Потрібні: ПІБ, дата, 4 описи виконання, 6 скриншотів, висновок.</p></div>
+           <div class="privacy-note"><span>◈</span> Дані залишаються в браузері: сайт не надсилає ПІБ, відповіді чи скриншоти на сервер. Текст зберігається локально; щоб не втратити скриншоти після перезавантаження, збережіть файл чернетки.</div>
+           <div class="draft-actions">
+             <button type="button" id="saveDraft" class="text-button">↓ Зберегти чернетку</button>
+             <label class="text-button restore-button">↑ Відновити чернетку<input id="loadDraft" type="file" accept=".json,application/json"></label>
+           </div>
+         </div>
+         <div class="report-preview-card">
+           <span class="eyebrow">ПОПЕРЕДНІЙ ПЕРЕГЛЯД СТРУКТУРИ</span>
+           <div class="report-mini-page">
+             <span class="mini-document-mark">ТКОІ / 04</span>
+             <h3>ПРАКТИЧНА<br>РОБОТА № 4</h3>
+             <div class="mini-rule"></div>
+             <p><strong>Тема:</strong> Дослідження інструментарію графічних редакторів...</p>
+             <p><strong>Мета:</strong> Навчитися працювати з основними інструментами Canva...</p>
+             <p><strong>Студент:</strong> <span id="miniName">__________________</span></p>
+             <p><strong>Дата:</strong> <span id="miniDate">__________________</span></p>
+             <span class="mini-section">ХІД ВИКОНАННЯ РОБОТИ</span>
+             <div class="mini-stage">01 <span>Дослідження інструментів Canva</span></div>
+             <div class="mini-stage">02 <span>Обробка фотографії</span></div>
+             <div class="mini-stage">03 <span>Створення афіші</span></div>
+             <div class="mini-stage">04 <span>Експорт та аналіз</span></div>
+             <div class="mini-images">▦ &nbsp; СКРИНШОТИ ВИКОНАННЯ</div>
+             <span class="mini-section">ВИСНОВОК</span>
+             <div class="mini-lines"></div>
+           </div>
+           <p>У реальному PDF будуть повні описи дій та всі завантажені скриншоти — не лише ця схема.</p>
+           <button class="button button-lime report-create" id="generateReport" type="button">Переглянути готовий звіт ↗</button>
+         </div>
+       </div>
+       <div id="validationMessage" class="validation-message" role="status" aria-live="polite"></div>
+       <div class="pdf-instructions"><span>ЯК ОТРИМАТИ PDF</span><p>Натисни «Переглянути готовий звіт», перевір текст і зображення, потім обери «Зберегти як PDF». Браузер відкриє вікно друку: призначення — <strong>Зберегти як PDF</strong>. Назви файл <strong>Практична_4_Прізвище.pdf</strong> і надішли його разом із PNG афіші в Google Classroom.</p></div>
+     </div>
+   </section>
+
+   <section id="rubric" class="section rubric-section">
+     <div class="container">
+       <div class="section-head"><span class="section-count">07 / ОЦІНЮВАННЯ</span><h2>Як отримати <em>12 балів?</em></h2><p>Критерії прозорі. Оцінювання здійснює викладач за якістю роботи та повнотою звіту.</p></div>
+       <div class="rubric-table"><div class="rubric-row rubric-head"><span>Критерій</span><span>Максимум</span></div><div class="rubric-row"><span>Дослідження інструментів Canva</span><strong>2 бали</strong></div><div class="rubric-row"><span>Обробка фотографії (до / після)</span><strong>3 бали</strong></div><div class="rubric-row"><span>Афіша: зміст, композиція, текст і кольори</span><strong>5 балів</strong></div><div class="rubric-row"><span>Звіт, скриншоти, власний висновок</span><strong>2 бали</strong></div><div class="rubric-row rubric-total"><span>РАЗОМ</span><strong>12 балів</strong></div></div>
+       <div class="submission"><div><span class="eyebrow">ЩО ЗДАТИ В CLASSROOM</span><h3>Два файли.</h3><p>1. PDF-звіт з усіма етапами, скриншотами та висновком.<br>2. Готова афіша, експортована з Canva у PNG.</p></div><a href="#report" class="button button-lime">Оформити звіт ↑</a></div>
+     </div>
+   </section>
+   <footer><span>GRAPHIC LAB. / ТКОІ</span><span>ПРАКТИЧНА РОБОТА № 04</span><a href="#intro">До початку ↑</a></footer>
+ </main>
+</div>
+
+<div class="report-modal" id="reportModal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="report-modal-top"><div><span>GRAPHIC LAB. / ЗВІТ</span><h2 id="modalTitle">Попередній перегляд звіту</h2></div><div class="report-modal-actions"><button type="button" id="printReport" class="button button-lime">↓ Зберегти як PDF</button><button type="button" id="closeReport" class="modal-close" aria-label="Закрити перегляд">✕</button></div></div>
+  <div class="print-wrapper"><article class="report-document" id="reportDocument"></article></div>
+</div>
+</body>
+</html>
