@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="Інтерактивна лекція ТКОІ: растрова і векторна графіка, формати, колір, редагування фотографій, практика і тестування.">
+  <meta property="og:title" content="ТКОІ · Тема 2.1 · Графічний контент">
+  <meta property="og:description" content="Частина 1: растрова і векторна графіка та обробка фотографій.">
+  <title>ТКОІ · Тема 2.1 · Створення та обробка графічного контенту</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div id="readingProgress" class="reading-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Перейти до змісту</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#intro" class="brand" aria-label="До початку лекції"><span class="brand-mark">◈</span><span>ТКОІ<span class="brand-slash"> / </span><span class="brand-sub">MEDIA LAB</span></span></a>
+      <div class="topbar-center"><span class="status-dot"></span> ТЕМА 2.1 <span class="mid-dot">·</span> ЧАСТИНА 01</div>
+      <div class="top-actions">
+        <button class="icon-button" type="button" id="teacherMode" aria-pressed="false" title="Збільшити текст для демонстрації">Аа <span class="desktop-only">Для проєктора</span></button>
+        <button class="icon-button print-button" type="button" id="printLecture" title="Друк або збереження як PDF">↧ <span class="desktop-only">PDF / друк</span></button>
+        <button class="mobile-menu-toggle" type="button" id="menuToggle" aria-controls="sidebar" aria-expanded="false">☰ <span class="sr-only">Зміст лекції</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Навігація лекцією">
+      <div class="side-top"><span class="overline">Навігація</span><span class="tiny-indicator">01 / 02</span></div>
+      <p class="side-title">Створення та обробка графічного контенту</p>
+      <nav class="side-nav" id="sideNav">
+        <a class="navlink active" href="#intro"><span class="nav-num">00</span> Початок</a>
+        <a class="navlink" href="#objectives"><span class="nav-num">01</span> Навіщо це знати</a>
+        <a class="navlink" href="#raster-vector"><span class="nav-num">02</span> Растр vs вектор</a>
+        <a class="navlink" href="#resolution"><span class="nav-num">03</span> Пікселі та роздільність</a>
+        <a class="navlink" href="#color"><span class="nav-num">04</span> Колір</a>
+        <a class="navlink" href="#formats"><span class="nav-num">05</span> Формати файлів</a>
+        <a class="navlink" href="#software"><span class="nav-num">06</span> Графічні редактори</a>
+        <a class="navlink" href="#workflow"><span class="nav-num">07</span> Обробка фотографій</a>
+        <a class="navlink" href="#composition"><span class="nav-num">08</span> Композиція і ретуш</a>
+        <a class="navlink" href="#ethics"><span class="nav-num">09</span> Етика та авторство</a>
+        <a class="navlink" href="#practice"><span class="nav-num">10</span> Практичні кейси</a>
+        <a class="navlink" href="#quiz"><span class="nav-num">11</span> Самоперевірка</a>
+        <a class="navlink" href="#summary"><span class="nav-num">12</span> Підсумок</a>
+      </nav>
+      <div class="side-bottom">
+        <div class="side-progress-label"><span>Прочитано</span><strong id="sidePercent">0%</strong></div>
+        <div class="side-track"><span id="sideFill"></span></div>
+        <p>Лекція 2.1 · Частина 2 буде присвячена відео- та аудіомонтажу.</p>
+      </div>
+    </aside>
+    <main id="main">
+      <section class="hero section" id="intro">
+        <div class="hero-grid content-width">
+          <div class="hero-copy">
+            <span class="pill"><span class="pill-dot"></span> ЛЕКЦІЯ / РОЗДІЛ 02 / ЧАСТИНА 01</span>
+            <h1>ВІД <span class="lime">ПІКСЕЛЯ</span><br>ДО <em>ІДЕЇ.</em></h1>
+            <p class="hero-subhead">Створення та обробка графічного контенту</p>
+            <p class="hero-lead">Растрова і векторна графіка, якість зображення, формати файлів та професійна логіка обробки фотографій — від першого пікселя до готового результату.</p>
+            <div class="hero-actions"><a class="btn btn-lime" href="#objectives">Розпочати лекцію <span aria-hidden="true">↗</span></a><a class="btn btn-outline" href="#raster-vector">Відкрити демо ↓</a></div>
+            <div class="hero-meta"><span><b>13</b> навчальних блоків</span><span><b>4</b> інтерактивні демонстрації</span><span><b>10</b> тестових запитань</span></div>
+          </div>
+          <div class="hero-art" aria-label="Ілюстрація переходу від фотографії до піксельної сітки і векторних форм" role="img">
+            <div class="art-photo"></div><div class="art-sheen"></div><div class="art-grid"></div>
+            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+            <div class="art-sticker art-sticker-top">PIXEL<br><small>01 — 48px</small></div>
+            <div class="art-sticker art-sticker-bottom"><span class="tiny-square"></span> VECTOR / SVG</div>
+            <div class="art-cross">✳</div>
+            <div class="art-bottom-label">GRAPHIC<br>DESIGN <span>↗</span></div>
+          </div>
+        </div>
+        <div class="hero-ticker"><div>RASTER <span>✳</span> VECTOR <span>✳</span> COLOR <span>✳</span> COMPOSITION <span>✳</span> PHOTO EDITING <span>✳</span> EXPORT <span>✳</span></div></div>
+      </section>
+
+      <section class="section" id="objectives">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">01 / CONTEXT</span><h2>Графіка — це <span class="accent-italic">мова</span> цифрового світу.</h2><p>Майже кожен цифровий продукт містить візуальний контент: логотип, інтерфейс, фотографію, інфографіку, ілюстрацію або рекламний макет. Якість такого контенту впливає на зрозумілість інформації, швидкість завантаження та довіру аудиторії.</p></div>
+          <div class="purpose-grid">
+            <article class="purpose-card"><span class="purpose-icon">◉</span><h3>Для комунікації</h3><p>Візуальні елементи допомагають передавати складні ідеї швидше, формувати акценти та впізнаваний стиль.</p><span class="card-index">01</span></article>
+            <article class="purpose-card"><span class="purpose-icon">⌘</span><h3>Для цифрових сервісів</h3><p>Правильний формат і розмір зображення впливають на чіткість інтерфейсу, адаптивність і продуктивність сайту.</p><span class="card-index">02</span></article>
+            <article class="purpose-card"><span class="purpose-icon">✦</span><h3>Для контенту</h3><p>Редагування допомагає виправити експозицію, колір, композицію та підготувати фотографію до публікації.</p><span class="card-index">03</span></article>
+          </div>
+          <div class="learning-box"><div><span class="overline">Після лекції ви зможете</span><h3>6 конкретних результатів</h3></div><ul class="outcome-list"><li>Пояснити різницю між растром і вектором.</li><li>Розрахувати роздільність, мегапікселі та розмір друку.</li><li>Розрізняти RGB, CMYK і HEX.</li><li>Обрати формат зображення під конкретну задачу.</li><li>Описати послідовність обробки фотографії.</li><li>Підготувати графіку для вебу або друку з урахуванням авторства.</li></ul></div>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="raster-vector">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">02 / CORE IDEA</span><h2>Два світи графіки.<br><span class="accent-italic">Одна мета.</span></h2><p>Ключова відмінність — не в «красі» зображення, а у способі його представлення в цифровому файлі.</p></div>
+          <div class="split-cards">
+            <article class="graphic-type raster-type"><div class="type-top"><span class="type-icon">▦</span><span class="small-label">RASTER</span></div><h3>Растрова графіка</h3><p>Зображення складається із сітки пікселів. Кожен піксель зберігає інформацію про колір. Чим більше пікселів, тим більше деталей потенційно можна передати.</p><ul><li><b>Приклади:</b> фотографії, скриншоти, складні текстури.</li><li><b>Перевага:</b> реалістичні переходи кольорів і дрібні деталі.</li><li><b>Обмеження:</b> при сильному збільшенні стають помітними окремі пікселі.</li><li><b>Формати:</b> JPG, PNG, WebP, AVIF, TIFF.</li></ul></article>
+            <article class="graphic-type vector-type"><div class="type-top"><span class="type-icon">◇</span><span class="small-label">VECTOR</span></div><h3>Векторна графіка</h3><p>Об'єкти описані геометрично: точками, кривими, контурами, заливками і лініями. Редактор обчислює їхній вигляд під потрібний масштаб.</p><ul><li><b>Приклади:</b> логотипи, піктограми, схеми, іконки.</li><li><b>Перевага:</b> масштабування без втрати геометричної чіткості.</li><li><b>Обмеження:</b> складні фотореалістичні текстури незручно будувати вручну.</li><li><b>Формати:</b> SVG, AI, EPS, PDF (може містити вектори).</li></ul></article>
+          </div>
+          <div class="demo-panel" id="zoomDemo">
+            <div class="demo-top"><div><span class="eyebrow">LIVE DEMO 01</span><h3>Збільшуємо зображення</h3><p>Посувайте повзунок. Ліворуч пікселі збільшуються разом із зображенням; праворуч контури SVG перераховуються для нового масштабу.</p></div><div class="demo-control"><label for="zoomRange">Масштаб: <output id="zoomValue">3×</output></label><input id="zoomRange" type="range" min="1" max="6" step="0.5" value="3"></div></div>
+            <div class="demo-compare">
+              <div class="zoom-window"><span class="demo-badge">RASTER · 48 × 48 px</span><div class="zoom-stage"><canvas width="48" height="48" id="pixelCanvas" aria-label="Растрове зображення, яке стає піксельним при збільшенні" role="img"></canvas></div><span class="zoom-caption">Піксельна сітка видима на великому масштабі</span></div>
+              <div class="zoom-window"><span class="demo-badge">VECTOR · SVG PATH</span><div class="zoom-stage"><svg id="vectorDemo" viewBox="0 0 100 100" role="img" aria-label="Векторний символ із плавними контурами"><defs><linearGradient id="vectorG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9ff74"/><stop offset="1" stop-color="#8fd9bd"/></linearGradient></defs><path d="M50 5 C62 22 78 17 89 12 C81 30 84 45 97 50 C81 56 78 69 89 88 C67 82 58 83 50 97 C43 79 25 83 12 88 C19 69 17 57 3 50 C20 43 22 30 12 12 C29 18 41 23 50 5Z" fill="url(#vectorG)" stroke="#17251f" stroke-width="1.6"/><circle cx="50" cy="50" r="16" fill="#131a16"/><circle cx="50" cy="50" r="6" fill="#d9ff74"/></svg></div><span class="zoom-caption">Контур залишається чітким</span></div>
+            </div>
+            <div class="explain-bar"><strong>Висновок:</strong> вектор може масштабуватися без втрати точності форми, але після виведення на екран будь-яка графіка все одно відображається пікселями.</div>
+          </div>
+          <div class="fact-row"><div class="fact-mark">!</div><p><strong>Поширена помилка:</strong> збереження маленького JPG як SVG не перетворить його на справжній вектор. Для цього потрібне трасування або відтворення об'єктів геометричними контурами.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="resolution">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">03 / IMAGE QUALITY</span><h2>Пікселі, мегапікселі<br>та <span class="accent-italic">роздільність.</span></h2><p>Роздільність растрового зображення зазвичай виражають кількістю пікселів по ширині й висоті. Від неї залежать деталізація, можливості кадрування та розмір якісного відбитка.</p></div>
+          <div class="equation-grid"><div class="equation-card"><span>КІЛЬКІСТЬ ПІКСЕЛІВ</span><div class="formula">ширина × висота</div><p>Наприклад, 4000 × 3000 = 12 000 000 пікселів = <b>12 Мп</b>.</p></div><div class="equation-card dark-eq"><span>РОЗМІР ДРУКУ</span><div class="formula">px ÷ PPI × 2,54</div><p>Результат у сантиметрах для обраної щільності пікселів.</p></div></div>
+          <div class="calculator">
+            <div class="calculator-header"><div><span class="eyebrow">LIVE DEMO 02</span><h3>Калькулятор зображення</h3><p>Змініть розміри та PPI, щоб оцінити мегапікселі й фізичний розмір друку.</p></div><span class="calc-decor">12<span>MP</span></span></div>
+            <div class="calc-fields"><label>Ширина <small>пікселі</small><input id="imgWidth" type="number" min="1" max="100000" step="1" value="4000" inputmode="numeric"></label><label>Висота <small>пікселі</small><input id="imgHeight" type="number" min="1" max="100000" step="1" value="3000" inputmode="numeric"></label><label>Щільність друку <small>PPI</small><select id="imgPpi"><option value="72">72 PPI</option><option value="150">150 PPI</option><option value="240">240 PPI</option><option value="300" selected>300 PPI</option></select></label></div>
+            <div class="calc-results" aria-live="polite"><div><span>Мегапікселі</span><strong id="calcMp">12 Мп</strong></div><div><span>Орієнтовний друк</span><strong id="calcSize">33,9 × 25,4 см</strong></div><div><span>Співвідношення сторін</span><strong id="calcRatio">4 : 3</strong></div></div>
+            <p class="calculator-note">Оцінка друку залежить від PPI, відстані перегляду, якості вихідного фото та обладнання. Зміна метаданих PPI без зміни кількості пікселів не додає деталей.</p>
+          </div>
+          <div class="concept-grid"><article class="mini-concept"><h3>PX <span>пікселі</span></h3><p>Кількість дискретних елементів растрового зображення, наприклад 1920 × 1080 px.</p></article><article class="mini-concept"><h3>PPI <span>pixels per inch</span></h3><p>Щільність пікселів на один дюйм відбитка або дисплея. Для розрахунку розміру друку використовують PPI.</p></article><article class="mini-concept"><h3>DPI <span>dots per inch</span></h3><p>Щільність фізичних точок друкувального пристрою. DPI принтера — не те саме, що PPI файлу.</p></article></div>
+        </div>
+      </section>
+
+      <section class="section section-cream" id="color">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">04 / COLOR SYSTEMS</span><h2>Колір має <span class="accent-italic">систему.</span></h2><p>Екран випромінює світло, а друкована сторінка відбиває його. Тому для цифрових і друкованих матеріалів використовують різні колірні моделі.</p></div>
+          <div class="color-cards"><article class="color-card"><div class="color-symbol rgb-symbol"><i></i><i></i><i></i></div><h3>RGB</h3><p><b>Red · Green · Blue</b></p><p>Адитивна модель: кольори створюються поєднанням червоного, зеленого й синього світла. Використовується для дисплеїв і більшості вебзображень.</p></article><article class="color-card"><div class="color-symbol cmyk-symbol"><i></i><i></i><i></i><i></i></div><h3>CMYK</h3><p><b>Cyan · Magenta · Yellow · Key (Black)</b></p><p>Субтрактивна модель друку: фарби поглинають частину світла. Конвертацію та профіль кольору узгоджують із друкарнею.</p></article><article class="color-card"><div class="color-symbol hex-symbol">#</div><h3>HEX</h3><p><b>Шістнадцятковий запис</b></p><p>Це не окрема фізична колірна модель, а спосіб записати RGB-значення, наприклад <code>#D9FF74</code> для CSS.</p></article></div>
+          <div class="color-lab"><div class="color-lab-copy"><span class="eyebrow">LIVE DEMO 03</span><h3>Розбери колір на канали</h3><p>Виберіть колір. Подивіться, як HEX-код відповідає трьом числовим каналам RGB у діапазоні 0–255.</p><label class="picker-label" for="colorPicker">Обрати колір <input id="colorPicker" type="color" value="#d9ff74"></label></div><div class="color-sample" id="colorSample"><span id="colorHex">#D9FF74</span><span id="colorRgb">RGB(217, 255, 116)</span></div></div>
+          <div class="fact-row light-fact"><div class="fact-mark">↗</div><p><strong>Практичне правило:</strong> для сайту готуємо графіку у відповідному RGB-просторі (часто sRGB). Для поліграфії запитуємо в друкарні необхідний колірний профіль і вимоги до макета.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="formats">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">05 / FILE FORMATS</span><h2>Правильний формат =<br><span class="accent-italic">правильний результат.</span></h2><p>Під час збереження важливо враховувати прозорість, призначення, ступінь стиснення, потребу в редагуванні та підтримку формату платформою.</p></div>
+          <div class="table-scroll"><table class="format-table"><thead><tr><th>Формат</th><th>Тип</th><th>Ключова властивість</th><th>Коли обирати</th></tr></thead><tbody>
+            <tr><td><strong>JPG / JPEG</strong></td><td><span class="tag raster-tag">Растр</span></td><td>Стиснення із втратами; без альфа-прозорості</td><td>Фотографії, сумісність, звичайні публікації</td></tr>
+            <tr><td><strong>PNG</strong></td><td><span class="tag raster-tag">Растр</span></td><td>Стиснення без втрат; підтримка прозорості</td><td>Скриншоти, графіка з чіткими краями, прозорість</td></tr>
+            <tr><td><strong>WebP</strong></td><td><span class="tag raster-tag">Растр</span></td><td>Стиснення з/без втрат; прозорість і анімація</td><td>Оптимізовані зображення для вебу</td></tr>
+            <tr><td><strong>AVIF</strong></td><td><span class="tag raster-tag">Растр</span></td><td>Ефективне стиснення; сучасний формат</td><td>Вебфото, якщо підтримує цільовий сервіс</td></tr>
+            <tr><td><strong>TIFF</strong></td><td><span class="tag raster-tag">Растр</span></td><td>Якісне зберігання, різні режими та варіанти стиснення</td><td>Архів, поліграфія, спеціалізована обробка</td></tr>
+            <tr><td><strong>RAW</strong></td><td><span class="tag source-tag">Вихідні дані</span></td><td>Дані сенсора камери; потребує проявлення</td><td>Гнучка корекція знімка перед експортом</td></tr>
+            <tr><td><strong>SVG</strong></td><td><span class="tag vector-tag">Вектор</span></td><td>XML-опис геометрії; масштабується</td><td>Логотипи, іконки, схеми для вебу</td></tr>
+            <tr><td><strong>PSD / XCF</strong></td><td><span class="tag project-tag">Проєкт</span></td><td>Шари, маски й редаговані елементи</td><td>Зберегти процес редагування для продовження</td></tr>
+          </tbody></table></div>
+          <div class="format-bottom"><div class="format-callout"><span>01</span><h3>Стиснення з втратами</h3><p>Алгоритм відкидає частину інформації. Розмір файлу може зменшитися, але надмірне стиснення спричиняє артефакти. Повторне збереження JPG може додавати втрати.</p></div><div class="format-callout"><span>02</span><h3>Стиснення без втрат</h3><p>Після декодування дані відтворюються без втрат від цього стиснення. Водночас «без втрат» не означає, що раніше втрачена інформація відновиться.</p></div></div>
+          <p class="source-inline">Докладніше: <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types" target="_blank" rel="noopener">MDN — Image file type and format guide ↗</a></p>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="software">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">06 / TOOLKIT</span><h2>Який редактор<br><span class="accent-italic">для якої задачі?</span></h2><p>Універсальної програми для всього немає: вибір інструмента залежить від типу графіки, необхідних функцій і способу спільної роботи.</p></div>
+          <div class="tool-grid"><article class="tool"><span class="tool-glyph ps">Ps</span><div><h3>Adobe Photoshop</h3><span>Растр · фото</span><p>Шари, маски, корекція кольору, ретуш і композитинг.</p></div></article><article class="tool"><span class="tool-glyph gm">G</span><div><h3>GIMP</h3><span>Растр · безплатно</span><p>Редагування фотографій, виділення, шари, фільтри.</p></div></article><article class="tool"><span class="tool-glyph pp">P</span><div><h3>Photopea</h3><span>У браузері</span><p>Редагування растрових макетів і робота з поширеними проєктними файлами.</p></div></article><article class="tool"><span class="tool-glyph ai">Ai</span><div><h3>Adobe Illustrator</h3><span>Вектор</span><p>Ілюстрації, логотипи, контури, типографіка.</p></div></article><article class="tool"><span class="tool-glyph ik">✎</span><div><h3>Inkscape</h3><span>Вектор · безплатно</span><p>SVG, фігури, криві Безьє, інфографіка.</p></div></article><article class="tool"><span class="tool-glyph ca">C</span><div><h3>Canva / Figma</h3><span>Макети · спільна робота</span><p>Шаблони, дизайн для соцмереж, інтерфейсні й векторні елементи.</p></div></article></div>
+          <div class="editor-tip"><span>ВАЖЛИВО</span><p>«Редагований проєкт» і «готовий для публікації файл» — не одне й те саме. Зберігайте проєкт окремо, а результат експортуйте у формат для конкретного каналу використання.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">07 / PHOTO WORKFLOW</span><h2>Обробка фотографії:<br><span class="accent-italic">від RAW до WOW.</span></h2><p>Мета обробки — не обов'язково «максимально яскрава картинка». Добра обробка підсилює зміст кадру, зберігає природні деталі та відповідає задачі.</p></div>
+          <div class="workflow"><div class="work-step"><span>01</span><div><h3>Імпорт і резервна копія</h3><p>Перенесіть оригінали з камери або телефона. Не працюйте з єдиною копією; відсортуйте файли, за можливості збережіть метадані та назви.</p></div></div><div class="work-step"><span>02</span><div><h3>Відбір і кадрування</h3><p>Оберіть чіткий, композиційно сильний кадр. Вирівняйте горизонт, приберіть зайві об'єкти обрізанням, врахуйте майбутнє співвідношення сторін.</p></div></div><div class="work-step"><span>03</span><div><h3>Баланс білого та експозиція</h3><p>Виправте надмірно теплий або холодний відтінок, оцініть яскравість, світлі й темні ділянки, не допускайте небажаних втрат деталей.</p></div></div><div class="work-step"><span>04</span><div><h3>Тон і колір</h3><p>Налаштуйте контраст, насиченість, колірні відтінки, криві або локальні корекції. Працюйте послідовно, порівнюючи результат з оригіналом.</p></div></div><div class="work-step"><span>05</span><div><h3>Локальна ретуш і деталізація</h3><p>За потреби прибирайте випадкові дефекти, контролюйте шум і різкість. Для портретів важливо зберігати фактуру шкіри.</p></div></div><div class="work-step"><span>06</span><div><h3>Експорт і перевірка</h3><p>Оберіть колірний простір, розмір, формат, якість стиснення й перевірте результат на реальному екрані або пробному відбитку.</p></div></div></div>
+          <div class="photo-lab"><div class="photo-lab-head"><div><span class="eyebrow">LIVE DEMO 04</span><h3>Мініредактор фотографії</h3><p>Спробуйте змінити яскравість, контраст і насиченість. Це навчальна симуляція CSS-фільтрів, а не повноцінна корекція RAW.</p></div><button class="small-reset" type="button" id="photoReset">↺ Скинути</button></div>
+            <div class="photo-lab-grid">
+              <div class="photo-preview"><img id="photoPreview" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Пейзаж із горами та небом — приклад для корекції кольору" loading="lazy"><div class="photo-label">LIVE PREVIEW <span>●</span></div></div>
+              <div class="photo-controls">
+                <label for="brightnessRange"><span>Яскравість</span><output id="brightnessOut">100%</output></label><input id="brightnessRange" type="range" min="50" max="160" value="100">
+                <label for="contrastRange"><span>Контраст</span><output id="contrastOut">100%</output></label><input id="contrastRange" type="range" min="50" max="160" value="100">
+                <label for="saturationRange"><span>Насиченість</span><output id="saturationOut">100%</output></label><input id="saturationRange" type="range" min="0" max="180" value="100">
+                <div class="editing-hint"><strong>Зверніть увагу:</strong> надлишкові налаштування можуть «вибити» світлі ділянки, затемнити тіні або зробити кольори неприродними.</div>
+              </div>
+            </div>
+          </div>
+          <div class="definition-box"><div class="definition-word">NDE</div><div><h3>Неруйнівне редагування</h3><p>Редагуйте за допомогою коригувальних шарів, масок, параметричних налаштувань і копій. Так можна повернутися до оригіналу, змінити окремий ефект і не накопичувати зайвих втрат якості.</p></div></div>
+        </div>
+      </section>
+
+      <section class="section section-cream" id="composition">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">08 / VISUAL THINKING</span><h2>Кадр вирішує<br><span class="accent-italic">до фільтрів.</span></h2><p>Композиція спрямовує погляд глядача. Обробка не замінить вдало вибраного ракурсу, світла та змістового центру фотографії.</p></div>
+          <div class="composition-grid"><div class="composition-preview" id="compositionPreview"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Пейзаж для демонстрації правила третин" loading="lazy"><div class="thirds-grid" id="thirdsGrid" aria-hidden="true"></div><span class="composition-badge">COMPOSITION STUDY</span></div><div class="composition-copy"><h3>Правило третин</h3><p>Уявіть дві вертикальні й дві горизонтальні лінії, що ділять кадр на дев'ять частин. Значущі об'єкти часто розташовують поблизу їхніх перетинів, щоб зробити кадр динамічнішим.</p><p>Це <strong>орієнтир, а не закон</strong>: симетрія, центральна композиція чи негативний простір теж можуть бути вдалим рішенням.</p><label class="switch-row"><input type="checkbox" id="thirdsToggle" checked><span class="switch-ui"></span> Показати сітку третин</label></div></div>
+          <div class="retouch-trio"><div><b>Кадрування</b><span>Прибирає зайве, змінює акцент і співвідношення сторін.</span></div><div><b>Маски</b><span>Дає змогу змінювати окремі ділянки без впливу на весь кадр.</span></div><div><b>Ретуш</b><span>Виправляє локальні недоліки без обов'язкового перетворення зовнішності.</span></div></div>
+        </div>
+      </section>
+
+      <section class="section" id="ethics">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">09 / RESPONSIBLE DESIGN</span><h2>Техніка + <span class="accent-italic">відповідальність.</span></h2><p>Грамотна робота з графікою включає не лише редактор, а й авторські права, приватність, достовірність та доступність матеріалів.</p></div>
+          <div class="ethics-grid"><article><span>©</span><h3>Авторське право</h3><p>Використовуйте власні знімки або зображення з відповідною ліцензією. Перевіряйте умови використання, атрибуцію та обмеження на комерційне застосування.</p></article><article><span>◎</span><h3>Згода та приватність</h3><p>Для публікації портретів та чутливої інформації зважайте на згоду людей і не розкривайте персональні дані без підстав.</p></article><article><span>≠</span><h3>Достовірність</h3><p>Не видавайте суттєво змінений кадр за незмінний документальний доказ; відокремлюйте художню ретуш від фактичної фіксації.</p></article><article><span>Aa</span><h3>Доступність</h3><p>Додавайте змістовний альтернативний текст до інформативних зображень, забезпечуйте читабельність і достатній контраст тексту.</p></article></div>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="practice">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">10 / REAL CASES</span><h2>Тепер мисли<br><span class="accent-italic">як дизайнер.</span></h2><p>Прочитайте ситуацію, оберіть формат самостійно і відкрийте рекомендацію. У реальних проєктах вимоги платформи можуть змінити вибір.</p></div>
+          <div class="cases" id="cases">
+            <article class="case-card"><span class="case-no">CASE 01</span><h3>Логотип для сайту</h3><p>Потрібно зберегти чіткі краї на телефоні, ноутбуці й великому екрані.</p><button class="reveal-button" aria-expanded="false" type="button">Перевірити рішення <span>+</span></button><div class="case-answer" hidden><strong>SVG</strong> — якщо логотип складається з векторних фігур і сайт підтримує формат. Збережіть також альтернативний варіант за вимогами платформи.</div></article>
+            <article class="case-card"><span class="case-no">CASE 02</span><h3>Фотографія на вебсторінці</h3><p>Потрібно зберегти прийнятну якість, але мінімізувати обсяг передавання.</p><button class="reveal-button" aria-expanded="false" type="button">Перевірити рішення <span>+</span></button><div class="case-answer" hidden><strong>WebP / AVIF</strong> із потрібними розмірами й перевіркою підтримки. Для сумісності можливий резервний JPEG через <code>&lt;picture&gt;</code>.</div></article>
+            <article class="case-card"><span class="case-no">CASE 03</span><h3>Скриншот із дрібним текстом</h3><p>Потрібно зберегти чіткість літер і графічних елементів.</p><button class="reveal-button" aria-expanded="false" type="button">Перевірити рішення <span>+</span></button><div class="case-answer" hidden><strong>PNG</strong> — доречний для чітких контурів і тексту. Для вебу можна порівняти з безвтратним WebP.</div></article>
+            <article class="case-card"><span class="case-no">CASE 04</span><h3>Фото для великого друку</h3><p>Друкарня просить конкретний профіль кольору та високоякісний оригінал.</p><button class="reveal-button" aria-expanded="false" type="button">Перевірити рішення <span>+</span></button><div class="case-answer" hidden>Уточніть <strong>технічні вимоги друкарні</strong>. Часто застосовують TIFF або підготовлений PDF; розмір, PPI та ICC-профіль важливіші за назву розширення саму по собі.</div></article>
+          </div>
+          <div class="microtask"><div><span class="overline">МІНІЗАВДАННЯ · 5 ХВ</span><h3>Спроєктуйте власний графічний допис</h3></div><p>Для афіші освітньої події визначте: 1) які елементи краще зробити векторними, 2) які — растровими, 3) який формат використати для публікації, 4) як перевірити роздільність. Поясніть вибір двома-трьома реченнями.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="quiz">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">11 / KNOWLEDGE CHECK</span><h2>Перевір себе.<br><span class="accent-italic">10 запитань.</span></h2><p>Оберіть одну відповідь для кожного питання. Після перевірки сайт покаже результат і пояснення — це тренування, а не автоматична оцінка в журналі.</p></div>
+          <div class="quiz-shell"><div class="quiz-header"><div><span class="eyebrow">SELF-CHECK / 10</span><h3>Підсумковий мінітест</h3></div><div class="quiz-counter" id="quizCounter">0 / 10</div></div><div id="quizList" class="quiz-list"></div><div class="quiz-footer"><button class="btn btn-lime" type="button" id="checkQuiz">Перевірити відповіді ↗</button><button class="btn btn-outline-dark" type="button" id="resetQuiz">Спробувати знову</button><div id="quizResult" class="quiz-result" aria-live="polite"></div></div></div>
+        </div>
+      </section>
+
+      <section class="section section-end" id="summary">
+        <div class="content-width">
+          <div class="section-heading"><span class="section-index">12 / RECAP</span><h2>Збережи головне.<br><span class="accent-italic">Створюй свідомо.</span></h2></div>
+          <div class="summary-grid"><article><span>01</span><h3>Растр</h3><p>Пікселі; фото й текстури; має обмежену роздільність.</p></article><article><span>02</span><h3>Вектор</h3><p>Контури й фігури; логотипи та схеми; точне масштабування.</p></article><article><span>03</span><h3>Роздільність</h3><p>px і Мп показують деталізацію; PPI допомагає оцінити друк.</p></article><article><span>04</span><h3>Колір</h3><p>RGB для екрана, CMYK для друку, HEX — запис RGB.</p></article><article><span>05</span><h3>Формат</h3><p>Обираємо за призначенням, стисненням і сумісністю.</p></article><article><span>06</span><h3>Обробка</h3><p>Відбір → тон і колір → ретуш → контроль → експорт.</p></article></div>
+          <div class="final-banner"><div><span class="overline">NEXT / ЧАСТИНА 02</span><h3>Відео та звук —<br>наступний рівень.</h3><p>Основи відео- та аудіомонтажу, монтаж і експорт мультимедійних проєктів.</p></div><span class="final-banner-arrow">↗</span></div>
+          <div class="source-section"><div><h3>Джерела для поглибленого вивчення</h3><p>Технічні й навчальні матеріали, які допоможуть уточнити формати, інструменти та вимоги доступності.</p></div><ul><li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types">MDN Web Docs — Image file type and format guide ↗</a></li><li><a target="_blank" rel="noopener" href="https://www.adobe.com/creativecloud/file-types/image/comparison/raster-vs-vector.html">Adobe — Raster vs. vector graphics ↗</a></li><li><a target="_blank" rel="noopener" href="https://www.w3.org/WAI/tutorials/images/">W3C WAI — Images Tutorial ↗</a></li><li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/WCAG22/">W3C — WCAG 2.2 ↗</a></li></ul></div>
+        </div>
+      </section>
+      <footer class="site-footer"><span>ТКОІ / DIGITAL MEDIA LAB</span><span>ТЕМА 2.1 · ЧАСТИНА 01</span><a href="#intro">На початок ↑</a></footer>
+    </main>
+  </div>
+</body>
+</html>
