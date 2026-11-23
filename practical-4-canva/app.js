@@ -75,7 +75,6 @@ function restoreText(){
   const saved=safeStorageRead();
   if(saved && saved.fields && typeof saved.fields==='object'){
     keys.forEach(k=>{if(typeof saved.fields[k]==='string')$('[data-field="'+k+'"]').value=saved.fields[k].slice(0,15000);});
-    if(saved.checks && typeof saved.checks==='object') $$('[data-task]').forEach(box=>box.checked===true && undefined); // no mutation; initialized below
     if(saved.checks && typeof saved.checks==='object') $$('[data-task]').forEach(box=>{box.checked=saved.checks[box.dataset.task]===true;});
   }
   if(!fieldValue('studentDate')) $('[data-field="studentDate"]').value=todayLocal();
